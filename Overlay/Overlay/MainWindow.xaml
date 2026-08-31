@@ -23,6 +23,8 @@
         <xctk:ColorPicker x:Name="Team1Colour"
             SelectedColor="White"
             SelectedColorChanged="TeamColour"/>
+        <ComboBox x:Name="Ban1Dropdown"
+            SelectionChanged="TeamBan"/>
         
 
         <StackPanel Orientation="Horizontal">
@@ -40,5 +42,7 @@
         <xctk:ColorPicker x:Name="Team2Colour"
             SelectedColor="White"
             SelectedColorChanged="TeamColour"/>
+        <ComboBox x:Name="Ban2Dropdown"
+            SelectionChanged="TeamBan"/>
     </StackPanel>
 </Window>

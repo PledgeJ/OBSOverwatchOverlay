@@ -19,12 +19,22 @@ namespace Overlay
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<string> ow2Heroes = [
+            "Dmon", "Dva", "Domina", "Doomfist","Hazard","Junker Queen","Mauga","Orisa","Ramattra","Reinhardt","Roadhog","Sigma","Winston","Wrecking Ball","Zarya",
+            "Ashe", "Anran", "Bastion", "Cassidy", "Echo", "Emre", "Freja", "Genji", "Hanzo", "Junkrat", "Mei", "Pharah", "Reaper", "Sierra", "Sojourn", "Soldier 76",
+            "Sombra", "Symmetra", "Torbjorn", "Tracer", "Vendetta", "Venture",  "Widowmaker", "Shion", "Ana", "Baptiste", "Brigitte", "Illari", "Kiriko", "Lifeweaver",
+            "Lucio", "Jetpack Cat", "Juno", "Mercy", "Mizuki", "Moira", "Wuyang", "Zenyatta"
+        ];
+
         private int team1Score = 0;
         private int team2Score = 0;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Ban1Dropdown.ItemsSource = ow2Heroes;
+            Ban2Dropdown.ItemsSource = ow2Heroes;
         }
 
         // Updates the name h1 tags for each team
@@ -170,6 +180,22 @@ namespace Overlay
 
                 App._webSocket.Update(target, hex);
             }
+        }
+
+        private void TeamBan(object sender, SelectionChangedEventArgs e)
+        {
+            var dropDown = (ComboBox)sender;
+            var selected = dropDown.SelectedItem as string;
+
+            string img = selected != null ? $"./Assets/heroes/{selected}.webp" : "";
+
+            string target;
+            if (dropDown == Ban1Dropdown) target = "img-ban-team1";
+            else if (dropDown == Ban2Dropdown) target = "img-ban-team2";
+            else return;
+
+            if (selected != null)
+                App._webSocket.Update(target, img);
         }
     }
 }
