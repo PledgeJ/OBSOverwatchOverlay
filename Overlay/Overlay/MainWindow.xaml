@@ -15,7 +15,16 @@
             <Button x:Name="FTAdd" Content="+" Click="TeamScore_add"/>
             <Button x:Name="FTZero" Content="1" Click="TeamScore_zero"/>
         </StackPanel>
-        
+        <StackPanel>
+            <TextBlock Text="Vertical pos:"/>
+            <Slider Minimum="0"
+                    Maximum="1000"
+                    Value="0"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"
+                    ValueChanged="OverlayMargin"/>
+        </StackPanel>
+
 
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Team 1: " Margin="0,0,0,4"/>

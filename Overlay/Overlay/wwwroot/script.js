@@ -15,6 +15,12 @@ ws.onmessage = (event) => {
     const res = JSON.parse(event.data);
     const elem = document.getElementById(res.target);
 
+    if (res.target == "overlayMargin")
+    {
+        document.body.style.marginTop = `${res.value}px`;
+        return;
+    }
+
     if (!elem) return;
 
     if (res.target.startsWith("img-"))

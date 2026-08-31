@@ -2,7 +2,7 @@ body {
     font-family: sans-serif;
     font-weight: "semi-bold";
 
-    transition: all 0.3s ease-in-out;
+    /* transition: all 0.3s ease-in-out; */
 }
 
 .container {
@@ -28,7 +28,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px;
 }
 
 .name {

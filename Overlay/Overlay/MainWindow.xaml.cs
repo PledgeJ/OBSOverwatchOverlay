@@ -22,7 +22,7 @@ namespace Overlay
         private List<string> ow2Heroes = [
             "Ana", "Anran", "Ashe", "Baptiste", "Bastion", "Brigitte", "Cassidy", "Dmon", "Domina", "Doomfist", "Dva", "Echo", "Emre", "Freja", "Genji",
             "Hanzo", "Hazard", "Illari", "Jetpack Cat", "Junker Queen", "Juno", "Kiriko", "Lifeweaver", "Lucio", "Mauga", "Mei", "Mercy", "Mizuki", "Moira",
-            "Orisa", "Pharah", "Ramattra", "Reaper", "Reinhardt", "Roadhog", "Shion", "Sierra", "Sigma", "Sojourn", "Soldier 76", "Sombra", "Symmetra", 
+            "Orisa", "Pharah", "Ramattra", "Reaper", "Reinhardt", "Roadhog", "Shion", "Sierra", "Sigma", "Sojourn", "Soldier 76", "Sombra", "Symmetra",
             "Torbjorn", "Tracer", "Vendetta", "Venture", "Widowmaker", "Winston", "Wrecking Ball", "Wuyang", "Zarya", "Zenyatta"
         ];
 
@@ -213,6 +213,11 @@ namespace Overlay
 
             if (selected != null)
                 App._webSocket.Update(target, img);
+        }
+
+        private void OverlayMargin(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            App._webSocket.Update("overlayMargin", e.NewValue.ToString());
         }
     }
 }
