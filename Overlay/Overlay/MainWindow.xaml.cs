@@ -122,7 +122,7 @@ namespace Overlay
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Title = "Select an image",
-                Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All files (*.*)|*.*",
+                Filter = "Image files (*.png;*.jpg;*.jpeg;*.webp)|*.png;*.jpg;*.jpeg;*.webp|All files (*.*)|*.*",
                 Multiselect = false
             };
 

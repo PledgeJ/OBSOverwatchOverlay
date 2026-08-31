@@ -1,5 +1,12 @@
 const ws = new WebSocket("ws://localhost:4590");
 
+// Startup colouring
+
+document.getElementById("col-team1").style.backgroundColor = "#1e95c4"
+document.getElementById("col-team2").style.backgroundColor = "#c56ac5"
+
+// Receiving and handling changes to the overlay
+
 console.log("WebSocket initialised")
 
 ws.onmessage = (event) => {

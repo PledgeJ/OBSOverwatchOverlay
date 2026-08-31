@@ -21,7 +21,7 @@
         <Button x:Name="Team1SelectImage" Content="Select Image" Click="SelectImage"/>
         <TextBlock x:Name="Team1ImagePath" Text="Path:"/>
         <xctk:ColorPicker x:Name="Team1Colour"
-            SelectedColor="White"
+            SelectedColor="#FF1595DE"
             SelectedColorChanged="TeamColour"/>
         <ComboBox x:Name="Ban1Dropdown"
             SelectionChanged="TeamBan"/>
@@ -40,7 +40,7 @@
         <Button x:Name="Team2SelectImage" Content="Select Image" Click="SelectImage"/>
         <TextBlock x:Name="Team2ImagePath" Text="Path:"/>
         <xctk:ColorPicker x:Name="Team2Colour"
-            SelectedColor="White"
+            SelectedColor="#c56ac5"
             SelectedColorChanged="TeamColour"/>
         <ComboBox x:Name="Ban2Dropdown"
             SelectionChanged="TeamBan"/>

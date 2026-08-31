@@ -46,6 +46,7 @@ namespace Overlay.Services
                 string contentType = path.ToLower() switch
                 {
                     var p when p.EndsWith(".png") => "image/png",
+                    var p when p.EndsWith(".webp") => "image/webp",
                     var p when p.EndsWith(".jpg") || p.EndsWith(".jpeg") => "image/jpeg",
                     var p when p.EndsWith(".gif") => "image/gif",
                     _ => "application/octet-stream"

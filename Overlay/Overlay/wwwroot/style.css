@@ -1,17 +1,73 @@
 .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 img {
-    height: 70px;
+    height: 50px;
     width: auto;
 }
 
 .team-container {
-    padding: 10px;
+    margin-top: 4px;
+    margin-left: 43px;
+    margin-right: 43px;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 508px;
+    max-width: 508px;
+    height: 63px;
     background-color: red;
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+}
+
+.name {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.score {
+    background-color: white;
+    height: 100%;
+    width: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-section {
+    height: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.ban-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.ban-container img {
+    border-radius: 5px;
+    width: auto;
+    height: 37px;
+    z-index: 4;
+}
+
+.ban-container h1{
+    color: black;
+    font-size: 15px;
+    font-weight: 900;
+
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
