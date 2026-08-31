@@ -20,14 +20,15 @@ namespace Overlay
     public partial class MainWindow : Window
     {
         private List<string> ow2Heroes = [
-            "Dmon", "Dva", "Domina", "Doomfist","Hazard","Junker Queen","Mauga","Orisa","Ramattra","Reinhardt","Roadhog","Sigma","Winston","Wrecking Ball","Zarya",
-            "Ashe", "Anran", "Bastion", "Cassidy", "Echo", "Emre", "Freja", "Genji", "Hanzo", "Junkrat", "Mei", "Pharah", "Reaper", "Sierra", "Sojourn", "Soldier 76",
-            "Sombra", "Symmetra", "Torbjorn", "Tracer", "Vendetta", "Venture",  "Widowmaker", "Shion", "Ana", "Baptiste", "Brigitte", "Illari", "Kiriko", "Lifeweaver",
-            "Lucio", "Jetpack Cat", "Juno", "Mercy", "Mizuki", "Moira", "Wuyang", "Zenyatta"
+            "Ana", "Anran", "Ashe", "Baptiste", "Bastion", "Brigitte", "Cassidy", "Dmon", "Domina", "Doomfist", "Dva", "Echo", "Emre", "Freja", "Genji",
+            "Hanzo", "Hazard", "Illari", "Jetpack Cat", "Junker Queen", "Juno", "Kiriko", "Lifeweaver", "Lucio", "Mauga", "Mei", "Mercy", "Mizuki", "Moira",
+            "Orisa", "Pharah", "Ramattra", "Reaper", "Reinhardt", "Roadhog", "Shion", "Sierra", "Sigma", "Sojourn", "Soldier 76", "Sombra", "Symmetra", 
+            "Torbjorn", "Tracer", "Vendetta", "Venture", "Widowmaker", "Winston", "Wrecking Ball", "Wuyang", "Zarya", "Zenyatta"
         ];
 
         private int team1Score = 0;
         private int team2Score = 0;
+        private int ftScore = 1;
 
         public MainWindow()
         {
@@ -70,6 +71,11 @@ namespace Overlay
                 team2Score++;
                 App._webSocket.Update("score-team2", team2Score.ToString());
             }
+            else if (button == FTAdd)
+            {
+                ftScore++;
+                App._webSocket.Update("ft-score", $"FT{ftScore}");
+            }
             UpdateScoreDisplay();
         }
 
@@ -78,15 +84,20 @@ namespace Overlay
         {
             var button = (Button)sender;
 
-            if (button == Team1ScoreSub && team1Score >= 0)
+            if (button == Team1ScoreSub && team1Score > 0)
             {
                 team1Score--;
                 App._webSocket.Update("score-team1", team1Score.ToString());
             }
-            else if (button == Team2ScoreSub && team2Score >= 0)
+            else if (button == Team2ScoreSub && team2Score > 0)
             {
                 team2Score--;
                 App._webSocket.Update("score-team2", team2Score.ToString());
+            }
+            else if (button == FTSub && ftScore > 1)
+            {
+                ftScore--;
+                App._webSocket.Update("ft-score", $"FT{ftScore}");
             }
             UpdateScoreDisplay();
         }
@@ -106,6 +117,11 @@ namespace Overlay
                 team2Score = 0;
                 App._webSocket.Update("score-team2", "0");
             }
+            else if (button == FTZero && ftScore != 1)
+            {
+                ftScore = 1;
+                App._webSocket.Update("ft-score", "FT1");
+            }
             UpdateScoreDisplay();
         }
 
@@ -113,6 +129,7 @@ namespace Overlay
         {
             Team1Score.Text = team1Score.ToString();
             Team2Score.Text = team2Score.ToString();
+            FTScore.Text = ftScore.ToString();
         }
 
         private void SelectImage(object sender, RoutedEventArgs e)

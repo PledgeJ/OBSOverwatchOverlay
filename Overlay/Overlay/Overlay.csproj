@@ -16,8 +16,24 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Bold.ttf" />
+      <None Remove="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Light.ttf" />
+      <None Remove="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Medium.ttf" />
+      <None Remove="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Regular.ttf" />
+      <None Remove="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-SemiBold.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Extended.Wpf.Toolkit" Version="5.1.2" />
       <PackageReference Include="Fleck" Version="1.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Bold.ttf" />
+      <Resource Include="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Light.ttf" />
+      <Resource Include="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Medium.ttf" />
+      <Resource Include="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-Regular.ttf" />
+      <Resource Include="wwwroot\Assets\Fonts\SpaceGrotesk\SpaceGrotesk-SemiBold.ttf" />
     </ItemGroup>
 
 </Project>
