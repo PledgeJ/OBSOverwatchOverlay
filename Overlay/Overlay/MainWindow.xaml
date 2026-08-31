@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Overlay"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Game Overlay" Height="450" Width="800">
     <StackPanel Margin="10">
@@ -18,8 +19,11 @@
             <Button x:Name="Team1ScoreZero" Content="0" Click="TeamScore_zero"/>
         </StackPanel>
         <Button x:Name="Team1SelectImage" Content="Select Image" Click="SelectImage"/>
-        <TextBox x:Name="Team1ImagePath" Text="Path:"/>
-
+        <TextBlock x:Name="Team1ImagePath" Text="Path:"/>
+        <xctk:ColorPicker x:Name="Team1Colour"
+            SelectedColor="White"
+            SelectedColorChanged="TeamColour"/>
+        
 
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Team 2: " Margin="0,0,0,4"/>
@@ -32,6 +36,9 @@
             <Button x:Name="Team2ScoreZero" Content="0" Click="TeamScore_zero"/>
         </StackPanel>
         <Button x:Name="Team2SelectImage" Content="Select Image" Click="SelectImage"/>
-        <TextBox x:Name="Team2ImagePath" Text="Path:"/>
+        <TextBlock x:Name="Team2ImagePath" Text="Path:"/>
+        <xctk:ColorPicker x:Name="Team2Colour"
+            SelectedColor="White"
+            SelectedColorChanged="TeamColour"/>
     </StackPanel>
 </Window>

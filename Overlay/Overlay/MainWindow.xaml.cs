@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Xceed.Wpf.Toolkit;
 
 
 namespace Overlay
@@ -122,7 +123,7 @@ namespace Overlay
                 string filePath = dialog.FileName;
 
                 string target;
-                TextBox textBox;
+                TextBlock textBox;
 
                 if (button == Team1SelectImage)
                 {
@@ -142,6 +143,32 @@ namespace Overlay
                 string url = $"image?path={Uri.EscapeDataString(filePath)}";
                 App._webSocket.Update(target, url);
                 textBox.Text = filePath;
+            }
+        }
+
+        private void TeamColour(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (e.NewValue.HasValue)
+            {
+                Color color = e.NewValue.Value;
+                string hex = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+
+                string target;
+                var picker = (ColorPicker)sender;
+                if (picker == Team1Colour)
+                {
+                    target = "col-team1";
+                }
+                else if (picker == Team2Colour)
+                {
+                    target = "col-team2";
+                }
+                else
+                {
+                    return;
+                }
+
+                App._webSocket.Update(target, hex);
             }
         }
     }

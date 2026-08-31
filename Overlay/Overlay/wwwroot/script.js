@@ -12,6 +12,10 @@ ws.onmessage = (event) => {
     {
         if (elem) elem.src = res.value;
     }
+    else if (res.target.startsWith("col-"))
+    {
+        if (elem) elem.style.backgroundColor = res.value;
+    }
     else 
     {
         if(elem) elem.textContent = res.value;

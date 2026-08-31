@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Extended.Wpf.Toolkit" Version="5.1.2" />
       <PackageReference Include="Fleck" Version="1.2.0" />
     </ItemGroup>
 
