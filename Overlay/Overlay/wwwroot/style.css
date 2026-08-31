@@ -15,6 +15,10 @@ img {
     width: auto;
 }
 
+#img-team1, #img-team2 {
+    display: none;
+}
+
 .team-container {
     margin-top: 4px;
     margin-left: 43px;
@@ -32,19 +36,18 @@ img {
 }
 
 .name {
+    color: white;
     max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
 }
 
 .score {
-
-    background-color: white;
+    color: white;
     height: 99%;
     width: 60px;
 
-    display: none;
-
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -57,7 +60,7 @@ img {
 }
 
 .ban-container {
-    display: flex;
+    display: none; /* flex */
     flex-direction: column;
     gap: 0;
     margin-top: 5px;

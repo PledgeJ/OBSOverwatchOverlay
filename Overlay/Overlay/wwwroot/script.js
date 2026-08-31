@@ -3,7 +3,10 @@ const ws = new WebSocket("ws://localhost:4590");
 // Startup colouring
 
 document.getElementById("col-team1").style.backgroundColor = "#1e95c4";
+document.getElementById("score-team1").style.backgroundColor = "color-mix(in srgb, #1e95c4, black 25%)";
+
 document.getElementById("col-team2").style.backgroundColor = "#c56ac5";
+document.getElementById("score-team2").style.backgroundColor = "color-mix(in srgb, #c56ac5, black 25%)";
 
 // Receiving and handling changes to the overlay
 
@@ -21,11 +24,46 @@ ws.onmessage = (event) => {
         return;
     }
 
+    if (res.target.startsWith("col-name"))
+    {
+        if (res.target == "col-name1") 
+        {
+            document.getElementById("name-team1").style.color = res.value;
+            document.getElementById("score-team1").style.color = res.value;
+        }
+        else if (res.target == "col-name2") 
+        {
+            document.getElementById("name-team2").style.color = res.value;
+            document.getElementById("score-team2").style.color = res.value;
+        }
+        return;
+    }
+
     if (!elem) return;
 
-    if (res.target.startsWith("img-"))
+    if (res.target.startsWith("img-ban-"))
     {
-        elem.src = res.value;
+        if (res.value == "clear")
+        {
+            elem.parentElement.style.display = "none";
+        }
+        else 
+        {
+            elem.src = res.value;
+            elem.parentElement.style.display = "block";
+        }
+    }
+    else if (res.target.startsWith("img-"))
+    {
+        if (res.value == "clear")
+        {
+            elem.style.display = "none";
+        }
+        else 
+        {
+            elem.src = res.value;
+            elem.style.display = "block";
+        }
     }
     else if (res.target.startsWith("col-"))
     {
@@ -36,14 +74,10 @@ ws.onmessage = (event) => {
         if (res.value == "FT1")
         {
             elem.style.display = "none";
-            document.getElementById("score-team1").style.display = "none";
-            document.getElementById("score-team2").style.display = "none";
         } 
         else 
         {
             elem.style.display = "block";
-            document.getElementById("score-team1").style.display = "flex";
-            document.getElementById("score-team2").style.display = "flex";
             elem.textContent = res.value;
         }
     }

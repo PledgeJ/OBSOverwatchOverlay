@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
+using System.Windows.Controls.Primitives;
 
 
 namespace Overlay
@@ -20,6 +21,7 @@ namespace Overlay
     public partial class MainWindow : Window
     {
         private List<string> ow2Heroes = [
+            "No ban",
             "Ana", "Anran", "Ashe", "Baptiste", "Bastion", "Brigitte", "Cassidy", "Dmon", "Domina", "Doomfist", "Dva", "Echo", "Emre", "Freja", "Genji",
             "Hanzo", "Hazard", "Illari", "Jetpack Cat", "Junker Queen", "Juno", "Kiriko", "Lifeweaver", "Lucio", "Mauga", "Mei", "Mercy", "Mizuki", "Moira",
             "Orisa", "Pharah", "Ramattra", "Reaper", "Reinhardt", "Roadhog", "Shion", "Sierra", "Sigma", "Sojourn", "Soldier 76", "Sombra", "Symmetra",
@@ -39,20 +41,17 @@ namespace Overlay
         }
 
         // Updates the name h1 tags for each team
-        private void TeamName_KeyDown(object sender, KeyEventArgs e)
+        private void TeamName(object sender, TextChangedEventArgs e)
         {
-            if (e.Key == Key.Enter)
-            {
-                var textBox = (TextBox)sender;
+            var textBox = (TextBox)sender;
 
-                if (textBox == Team1NameInput)
-                {
-                    App._webSocket.Update("name-team1", Team1NameInput.Text);
-                }
-                else if (textBox == Team2NameInput)
-                {
-                    App._webSocket.Update("name-team2", Team2NameInput.Text);
-                }
+            if (textBox == Team1NameInput)
+            {
+                App._webSocket.Update("name-team1", Team1NameInput.Text);
+            }
+            else if (textBox == Team2NameInput)
+            {
+                App._webSocket.Update("name-team2", Team2NameInput.Text);
             }
         }
 
@@ -182,18 +181,9 @@ namespace Overlay
 
                 string target;
                 var picker = (ColorPicker)sender;
-                if (picker == Team1Colour)
-                {
-                    target = "col-team1";
-                }
-                else if (picker == Team2Colour)
-                {
-                    target = "col-team2";
-                }
-                else
-                {
-                    return;
-                }
+                if (picker == Team1Colour) target = "col-team1";
+                else if (picker == Team2Colour) target = "col-team2";
+                else return;
 
                 App._webSocket.Update(target, hex);
             }
@@ -204,12 +194,18 @@ namespace Overlay
             var dropDown = (ComboBox)sender;
             var selected = dropDown.SelectedItem as string;
 
-            string img = selected != null ? $"./Assets/heroes/{selected}.webp" : "";
-
             string target;
             if (dropDown == Ban1Dropdown) target = "img-ban-team1";
             else if (dropDown == Ban2Dropdown) target = "img-ban-team2";
             else return;
+
+            if (selected == "No ban")
+            {
+                App._webSocket.Update(target, "clear");
+                return;
+            }
+
+            string img = selected != null ? $"./Assets/heroes/{selected}.webp" : "";
 
             if (selected != null)
                 App._webSocket.Update(target, img);
@@ -218,6 +214,58 @@ namespace Overlay
         private void OverlayMargin(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             App._webSocket.Update("overlayMargin", e.NewValue.ToString());
+        }
+
+        private void ResetPicture(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+
+            string target;
+            TextBlock textBox;
+            if (button == Team1Reset)
+            {
+                target = "img-team1";
+                textBox = Team1ImagePath;
+            }
+            else if (button == Team2Reset)
+            {
+                target = "img-team2";
+                textBox = Team2ImagePath;
+            }
+            else
+            {
+                return;
+            }
+            App._webSocket.Update(target, "clear");
+            textBox.Text = "";
+        }
+
+        private void TeamBanToggle_unchecked(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleButton)sender;
+
+            toggle.Content = "White text";
+
+            string target;
+            if (toggle == Team1Toggle) target = "col-name1";
+            else if (toggle == Team2Toggle) target = "col-name2";
+            else return;
+
+            App._webSocket.Update(target, "white");
+        }
+
+        private void TeamBanToggle_checked(object sender, RoutedEventArgs e)
+        {
+            var toggle = (ToggleButton)sender;
+
+            toggle.Content = "Black text";
+
+            string target;
+            if (toggle == Team1Toggle) target = "col-name1";
+            else if (toggle == Team2Toggle) target = "col-name2";
+            else return;
+
+            App._webSocket.Update(target, "black");
         }
     }
 }

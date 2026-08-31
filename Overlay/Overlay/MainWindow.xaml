@@ -28,7 +28,8 @@
 
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Team 1: " Margin="0,0,0,4"/>
-            <TextBox x:Name="Team1NameInput" Margin="0,0,0,4" KeyDown="TeamName_KeyDown" Width="300"/>
+            <TextBox x:Name="Team1NameInput" Margin="0,0,0,4" Text="Team 1" TextChanged="TeamName" Width="300"/>
+            <ToggleButton x:Name="Team1Toggle" Content="White text" Checked="TeamBanToggle_checked" Unchecked="TeamBanToggle_unchecked"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Score:"/>
@@ -38,17 +39,19 @@
             <Button x:Name="Team1ScoreZero" Content="0" Click="TeamScore_zero"/>
         </StackPanel>
         <Button x:Name="Team1SelectImage" Content="Select Image" Click="SelectImage"/>
+        <Button x:Name="Team1Reset" Content="Reset" Click="ResetPicture"/>
         <TextBlock x:Name="Team1ImagePath" Text="Path:"/>
         <xctk:ColorPicker x:Name="Team1Colour"
             SelectedColor="#FF1595DE"
             SelectedColorChanged="TeamColour"/>
         <ComboBox x:Name="Ban1Dropdown"
+            SelectedIndex="0"
             SelectionChanged="TeamBan"/>
-        
 
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Team 2: " Margin="0,0,0,4"/>
-            <TextBox x:Name="Team2NameInput" Margin="0,0,0,4" KeyDown="TeamName_KeyDown" Width="300"/>
+            <TextBox x:Name="Team2NameInput" Margin="0,0,0,4" Text="Team 2" TextChanged="TeamName" Width="300"/>
+            <ToggleButton x:Name="Team2Toggle" Content="White text" Checked="TeamBanToggle_checked" Unchecked="TeamBanToggle_unchecked"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Score:"/>
@@ -58,11 +61,16 @@
             <Button x:Name="Team2ScoreZero" Content="0" Click="TeamScore_zero"/>
         </StackPanel>
         <Button x:Name="Team2SelectImage" Content="Select Image" Click="SelectImage"/>
+        <Button x:Name="Team2Reset" Content="Reset" Click="ResetPicture"/>
         <TextBlock x:Name="Team2ImagePath" Text="Path:"/>
         <xctk:ColorPicker x:Name="Team2Colour"
             SelectedColor="#c56ac5"
             SelectedColorChanged="TeamColour"/>
         <ComboBox x:Name="Ban2Dropdown"
+            SelectedIndex="0"
             SelectionChanged="TeamBan"/>
+
+
+        <TextBlock Text="Overlay serving on: http://localhost:4589/overlay.html. Add as a browser source on OBS to start using"/>
     </StackPanel>
 </Window>
