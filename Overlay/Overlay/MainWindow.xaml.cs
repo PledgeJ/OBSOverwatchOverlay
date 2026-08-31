@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Controls.Primitives;
+using System.IO;
 
 
 namespace Overlay
@@ -128,7 +129,7 @@ namespace Overlay
         {
             Team1Score.Text = team1Score.ToString();
             Team2Score.Text = team2Score.ToString();
-            FTScore.Text = ftScore.ToString();
+            FTScore.Text = "FT" + ftScore.ToString();
         }
 
         private void SelectImage(object sender, RoutedEventArgs e)
@@ -168,7 +169,7 @@ namespace Overlay
 
                 string url = $"image?path={Uri.EscapeDataString(filePath)}";
                 App._webSocket.Update(target, url);
-                textBox.Text = filePath;
+                textBox.Text = "Path: " + System.IO.Path.GetFileName(filePath);
             }
         }
 
@@ -237,7 +238,7 @@ namespace Overlay
                 return;
             }
             App._webSocket.Update(target, "clear");
-            textBox.Text = "";
+            textBox.Text = "Path:";
         }
 
         private void TeamBanToggle_unchecked(object sender, RoutedEventArgs e)

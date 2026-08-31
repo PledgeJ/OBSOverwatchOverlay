@@ -6,71 +6,101 @@
         xmlns:local="clr-namespace:Overlay"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Game Overlay" Height="450" Width="800">
+        Title="Jacob's OBS Overlay" Height="450" Width="800"
+        Icon="/icon.ico">
     <StackPanel Margin="10">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="FT:"/>
-            <Button x:Name="FTSub" Content="-" Click="TeamScore_sub"/>
-            <TextBlock Text="1" x:Name="FTScore"/>
-            <Button x:Name="FTAdd" Content="+" Click="TeamScore_add"/>
-            <Button x:Name="FTZero" Content="1" Click="TeamScore_zero"/>
-        </StackPanel>
-        <StackPanel>
-            <TextBlock Text="Vertical pos:"/>
-            <Slider Minimum="0"
-                    Maximum="1000"
-                    Value="0"
-                    TickFrequency="1"
-                    IsSnapToTickEnabled="True"
-                    ValueChanged="OverlayMargin"/>
+        <StackPanel Margin="30,0,30,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Button x:Name="FTSub" Click="TeamScore_sub" FontSize="20" Width="20" Height="20" Margin="10,0,10,0">
+                    <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                </Button>
+                <TextBlock Text="FT1" FontSize="30" x:Name="FTScore"/>
+                <Button x:Name="FTAdd" Click="TeamScore_add" FontSize="20" Width="20" Height="20" Margin="10,0,10,0">
+                    <TextBlock Text="+" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                </Button>
+                <Button x:Name="FTZero" Click="TeamScore_zero" FontSize="15" Width="20" Height="20" Margin="10,0,10,0">
+                    <TextBlock Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                </Button>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Vertical pos:"/>
+                <Slider Minimum="0"
+                        Maximum="1000"
+                        Value="0"
+                        TickFrequency="1"
+                        IsSnapToTickEnabled="True"
+                        ValueChanged="OverlayMargin"/>
+            </StackPanel>
         </StackPanel>
 
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+            <StackPanel Margin="0,0,30,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Team 1: " Margin="0,0,0,4"/>
+                    <TextBox x:Name="Team1NameInput" Margin="0,0,0,4" Text="Team 1" TextChanged="TeamName" Width="200"/>
+                    <ToggleButton x:Name="Team1Toggle" Content="White text" Checked="TeamBanToggle_checked" Unchecked="TeamBanToggle_unchecked" Margin="10,0,0,4"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,20">
+                    <Button x:Name="Team1ScoreSub" Click="TeamScore_sub" FontSize="20" Width="20" Height="20" Margin="10,0,10,0">
+                        <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Button>
+                    <TextBlock Text="0" FontSize="50" x:Name="Team1Score"/>
+                    <Button x:Name="Team1ScoreAdd" Click="TeamScore_add" FontSize="20" Width="20" Height="20" Margin="10,0,10,0">
+                        <TextBlock Text="+" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="Team1ScoreZero" Click="TeamScore_zero" FontSize="15" Width="20" Height="20" Margin="10,0,10,0">
+                        <TextBlock Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="Team1SelectImage" Content="Select Image" Click="SelectImage"/>
+                    <Button x:Name="Team1Reset" Content="Reset" Click="ResetPicture" Margin="10,0,10,0"/>
+                </StackPanel>
+                <TextBlock x:Name="Team1ImagePath" Text="Path:" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                <xctk:ColorPicker x:Name="Team1Colour"
+                    SelectedColor="#FF1595DE"
+                    SelectedColorChanged="TeamColour"
+                    Margin="0,10,200,0"/>
+                <ComboBox x:Name="Ban1Dropdown"
+                    SelectedIndex="0"
+                    SelectionChanged="TeamBan"
+                    Margin="0,10,200,0"/>
+            </StackPanel>
 
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Team 1: " Margin="0,0,0,4"/>
-            <TextBox x:Name="Team1NameInput" Margin="0,0,0,4" Text="Team 1" TextChanged="TeamName" Width="300"/>
-            <ToggleButton x:Name="Team1Toggle" Content="White text" Checked="TeamBanToggle_checked" Unchecked="TeamBanToggle_unchecked"/>
+            <StackPanel Margin="30,0,0,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Team 2: " Margin="0,0,0,4"/>
+                    <TextBox x:Name="Team2NameInput" Margin="0,0,0,4" Text="Team 2" TextChanged="TeamName" Width="200"/>
+                    <ToggleButton x:Name="Team2Toggle" Content="White text" Checked="TeamBanToggle_checked" Unchecked="TeamBanToggle_unchecked" Margin="10,0,0,4"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,20">
+                    <Button x:Name="Team2ScoreSub" Click="TeamScore_sub" FontSize="20" Width="20" Height="20" Margin="10,0,10,0">
+                        <TextBlock Text="-" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Button>
+                    <TextBlock Text="0" FontSize="50" x:Name="Team2Score"/>
+                    <Button x:Name="Team2ScoreAdd" Click="TeamScore_add" FontSize="20" Width="20" Height="20" Margin="10,0,10,0">
+                        <TextBlock Text="+" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="Team2ScoreZero" Click="TeamScore_zero" FontSize="15" Width="20" Height="20" Margin="10,0,10,0">
+                        <TextBlock Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="Team2SelectImage" Content="Select Image" Click="SelectImage"/>
+                    <Button x:Name="Team2Reset" Content="Reset" Click="ResetPicture" Margin="10,0,10,0"/>
+                </StackPanel>
+                <TextBlock x:Name="Team2ImagePath" Text="Path:" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                <xctk:ColorPicker x:Name="Team2Colour"
+                SelectedColor="#c56ac5"
+                SelectedColorChanged="TeamColour"
+                Margin="0,10,200,0"/>
+                <ComboBox x:Name="Ban2Dropdown"
+                SelectedIndex="0"
+                SelectionChanged="TeamBan"
+                Margin="0,10,200,0"/>
+            </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Score:"/>
-            <Button x:Name="Team1ScoreSub" Content="-" Click="TeamScore_sub"/>
-            <TextBlock Text="0" x:Name="Team1Score"/>
-            <Button x:Name="Team1ScoreAdd" Content="+" Click="TeamScore_add"/>
-            <Button x:Name="Team1ScoreZero" Content="0" Click="TeamScore_zero"/>
-        </StackPanel>
-        <Button x:Name="Team1SelectImage" Content="Select Image" Click="SelectImage"/>
-        <Button x:Name="Team1Reset" Content="Reset" Click="ResetPicture"/>
-        <TextBlock x:Name="Team1ImagePath" Text="Path:"/>
-        <xctk:ColorPicker x:Name="Team1Colour"
-            SelectedColor="#FF1595DE"
-            SelectedColorChanged="TeamColour"/>
-        <ComboBox x:Name="Ban1Dropdown"
-            SelectedIndex="0"
-            SelectionChanged="TeamBan"/>
 
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Team 2: " Margin="0,0,0,4"/>
-            <TextBox x:Name="Team2NameInput" Margin="0,0,0,4" Text="Team 2" TextChanged="TeamName" Width="300"/>
-            <ToggleButton x:Name="Team2Toggle" Content="White text" Checked="TeamBanToggle_checked" Unchecked="TeamBanToggle_unchecked"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Score:"/>
-            <Button x:Name="Team2ScoreSub" Content="-" Click="TeamScore_sub"/>
-            <TextBlock Text="0" x:Name="Team2Score"/>
-            <Button x:Name="Team2ScoreAdd" Content="+" Click="TeamScore_add"/>
-            <Button x:Name="Team2ScoreZero" Content="0" Click="TeamScore_zero"/>
-        </StackPanel>
-        <Button x:Name="Team2SelectImage" Content="Select Image" Click="SelectImage"/>
-        <Button x:Name="Team2Reset" Content="Reset" Click="ResetPicture"/>
-        <TextBlock x:Name="Team2ImagePath" Text="Path:"/>
-        <xctk:ColorPicker x:Name="Team2Colour"
-            SelectedColor="#c56ac5"
-            SelectedColorChanged="TeamColour"/>
-        <ComboBox x:Name="Ban2Dropdown"
-            SelectedIndex="0"
-            SelectionChanged="TeamBan"/>
-
-
-        <TextBlock Text="Overlay serving on: http://localhost:4589/overlay.html. Add as a browser source on OBS to start using"/>
+        <TextBlock Text="Overlay serving on: http://localhost:4589/overlay.html. Add as a browser source on OBS to start using" Margin="10,15,0,0"/>
     </StackPanel>
 </Window>

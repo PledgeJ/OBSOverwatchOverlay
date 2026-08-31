@@ -35,14 +35,35 @@ img {
     border-radius: 5px;
 }
 
+.team-container > .banner-section:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.team-container > .banner-section:last-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.banner-section img {
+  flex-shrink: 0;
+}
+
 .name {
+    flex: 1;
+    min-width: 0;
     color: white;
-    max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
 }
 
 .score {
+    flex-shrink: 0;
     color: white;
     height: 99%;
     width: 60px;
