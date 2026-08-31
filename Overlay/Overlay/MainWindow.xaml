@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Overlay"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="MAIN WINDOW" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Grid>
+    <StackPanel Margin="10">
+        
+        <TextBlock Text="Team 1 name: " Margin="0,0,0,4"/>
+        <TextBox x:Name="Team1NameInput" Margin="0,0,0,4" KeyDown="Team1Name_KeyDown"/>
+    </StackPanel>
 </Window>

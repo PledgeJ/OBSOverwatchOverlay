@@ -20,5 +20,14 @@ namespace Overlay
         {
             InitializeComponent();
         }
+
+        // Replace with TeamName_Keydown and switch the sender name
+        private void Team1Name_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                App._webSocket.Update("name-team1", Team1NameInput.Text);
+            }
+        }
     }
 }

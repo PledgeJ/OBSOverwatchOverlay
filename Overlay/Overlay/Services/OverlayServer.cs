@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Overlay.Services
 {
@@ -15,6 +16,8 @@ namespace Overlay.Services
         public static async void Start()
         {
             var builder = WebApplication.CreateBuilder();
+            builder.Services.AddSignalR();
+
             _webApp = builder.Build();
 
             string wwwrootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot");
@@ -30,7 +33,7 @@ namespace Overlay.Services
                 RequestPath = ""
             });
 
-            await _webApp.RunAsync("http://localhost:5000");
+            await _webApp.RunAsync("http://localhost:4589");
         }
 
         public static async void Stop()
