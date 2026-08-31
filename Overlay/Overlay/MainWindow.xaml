@@ -5,10 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Overlay"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Game Overlay" Height="450" Width="800">
     <StackPanel Margin="10">
-        
-        <TextBlock Text="Team 1 name: " Margin="0,0,0,4"/>
-        <TextBox x:Name="Team1NameInput" Margin="0,0,0,4" KeyDown="Team1Name_KeyDown"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Team 1: " Margin="0,0,0,4"/>
+            <TextBox x:Name="Team1NameInput" Margin="0,0,0,4" KeyDown="TeamName_KeyDown" Width="300"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="0" x:Name="Team1Score"/>
+            <Button x:Name="Team1ScoreAdd" Content="+" Click="TeamScore_add"/>
+            <Button x:Name="Team1ScoreSub" Content="-" Click="TeamScore_sub"/>
+            <Button x:Name="Team1ScoreZero" Content="0" Click="TeamScore_zero"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Team 2: " Margin="0,0,0,4"/>
+            <TextBox x:Name="Team2NameInput" Margin="0,0,0,4" KeyDown="TeamName_KeyDown" Width="300"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="0" x:Name="Team2Score"/>
+            <Button x:Name="Team2ScoreAdd" Content="+" Click="TeamScore_add"/>
+            <Button x:Name="Team2ScoreSub" Content="-" Click="TeamScore_sub"/>
+            <Button x:Name="Team2ScoreZero" Content="0" Click="TeamScore_zero"/>
+        </StackPanel>       
     </StackPanel>
 </Window>
