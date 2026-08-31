@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+
 
 namespace Overlay
 {
@@ -57,7 +59,7 @@ namespace Overlay
                 team2Score++;
                 App._webSocket.Update("score-team2", team2Score.ToString());
             }
-            updateScoreDisplay();
+            UpdateScoreDisplay();
         }
 
         // Subs 1 to the score of the team
@@ -75,7 +77,7 @@ namespace Overlay
                 team2Score--;
                 App._webSocket.Update("score-team2", team2Score.ToString());
             }
-            updateScoreDisplay();
+            UpdateScoreDisplay();
         }
 
         // Sets team score to 0
@@ -93,13 +95,54 @@ namespace Overlay
                 team2Score = 0;
                 App._webSocket.Update("score-team2", "0");
             }
-            updateScoreDisplay();
+            UpdateScoreDisplay();
         }
 
-        private void updateScoreDisplay()
+        private void UpdateScoreDisplay()
         {
             Team1Score.Text = team1Score.ToString();
             Team2Score.Text = team2Score.ToString();
+        }
+
+        private void SelectImage(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Title = "Select an image",
+                Filter = "Image files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|All files (*.*)|*.*",
+                Multiselect = false
+            };
+
+            bool? res = dialog.ShowDialog();
+
+            if (res == true)
+            {
+                string filePath = dialog.FileName;
+
+                string target;
+                TextBox textBox;
+
+                if (button == Team1SelectImage)
+                {
+                    target = "img-team1";
+                    textBox = Team1ImagePath;
+                }
+                else if (button == Team2SelectImage)
+                {
+                    target = "img-team2";
+                    textBox = Team2ImagePath;
+                }
+                else
+                {
+                    return;
+                }
+
+                string url = $"image?path={Uri.EscapeDataString(filePath)}";
+                App._webSocket.Update(target, url);
+                textBox.Text = filePath;
+            }
         }
     }
 }

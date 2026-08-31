@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,6 +32,27 @@ namespace Overlay.Services
             {
                 FileProvider = new PhysicalFileProvider(wwwrootPath),
                 RequestPath = ""
+            });
+
+            // Serve an image file from elsewhere on the system
+            _webApp.MapGet("/image", async (HttpContext context, string path) =>
+            {
+                if (!File.Exists(path))
+                {
+                    context.Response.StatusCode = 404;
+                    return;
+                }
+
+                string contentType = path.ToLower() switch
+                {
+                    var p when p.EndsWith(".png") => "image/png",
+                    var p when p.EndsWith(".jpg") || p.EndsWith(".jpeg") => "image/jpeg",
+                    var p when p.EndsWith(".gif") => "image/gif",
+                    _ => "application/octet-stream"
+                };
+
+                context.Response.ContentType = contentType;
+                await context.Response.SendFileAsync(path);
             });
 
             await _webApp.RunAsync("http://localhost:4589");
