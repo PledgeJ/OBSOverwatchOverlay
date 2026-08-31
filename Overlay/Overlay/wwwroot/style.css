@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+img {
+    height: 70px;
+    width: auto;
+}
+
+.team-container {
+    padding: 10px;
+    background-color: red;
+    display: flex;
+    gap: 30px;
+}
