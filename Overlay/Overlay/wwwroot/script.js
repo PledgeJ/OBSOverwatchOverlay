@@ -68,6 +68,9 @@ ws.onmessage = (event) => {
     else if (res.target.startsWith("col-"))
     {
         elem.style.backgroundColor = res.value;
+        
+        if (res.target == "col-team1") document.getElementById("score-team1").style.backgroundColor = `color-mix(in srgb, ${res.value}, black 25%)`;
+        else if (res.target == "col-team2") document.getElementById("score-team2").style.backgroundColor = `color-mix(in srgb, ${res.value}, black 25%)`;
     }
     else if (res.target.startsWith("ft-"))
     {

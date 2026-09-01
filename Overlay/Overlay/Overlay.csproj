@@ -17,20 +17,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="icon.ico">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Extended.Wpf.Toolkit" Version="5.1.2" />
-      <PackageReference Include="Fleck" Version="1.2.0" />
+      <None Remove="icon.ico" />
     </ItemGroup>
 
     <ItemGroup>
       <Resource Include="icon.ico">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Extended.Wpf.Toolkit" Version="5.1.2" />
+      <PackageReference Include="Fleck" Version="1.2.0" />
     </ItemGroup>
 
 </Project>
