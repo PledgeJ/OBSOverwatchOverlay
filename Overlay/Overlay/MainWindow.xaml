@@ -56,7 +56,7 @@
                     <Button x:Name="Team1SelectImage" Content="Select Image" Click="SelectImage"/>
                     <Button x:Name="Team1Reset" Content="Reset" Click="ResetPicture" Margin="10,0,10,0"/>
                 </StackPanel>
-                <TextBlock x:Name="Team1ImagePath" Text="Path:" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                <TextBlock x:Name="Team1ImagePath" Text="" TextWrapping="Wrap" Margin="0,0,0,10"/>
                 <xctk:ColorPicker x:Name="Team1Colour"
                     SelectedColor="#FF1595DE"
                     SelectedColorChanged="TeamColour"
@@ -89,7 +89,7 @@
                     <Button x:Name="Team2SelectImage" Content="Select Image" Click="SelectImage"/>
                     <Button x:Name="Team2Reset" Content="Reset" Click="ResetPicture" Margin="10,0,10,0"/>
                 </StackPanel>
-                <TextBlock x:Name="Team2ImagePath" Text="Path:" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                <TextBlock x:Name="Team2ImagePath" Text="" TextWrapping="Wrap" Margin="0,0,0,10"/>
                 <xctk:ColorPicker x:Name="Team2Colour"
                 SelectedColor="#c56ac5"
                 SelectedColorChanged="TeamColour"

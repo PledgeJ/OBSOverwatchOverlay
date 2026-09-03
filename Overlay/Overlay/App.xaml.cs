@@ -11,7 +11,7 @@ namespace Overlay
     /// </summary>
     public partial class App : Application
     {
-        public static WebSocketConnection _webSocket { get; private set; } = new WebSocketConnection();
+        public static WebSocketService _webSocket { get; private set; } = new WebSocketService();
 
         protected override void OnStartup(StartupEventArgs e)
         {

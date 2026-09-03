@@ -1,6 +1,10 @@
-﻿using System.Text;
+﻿using Fleck;
+using Microsoft.Win32;
+using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -8,10 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
 using Xceed.Wpf.Toolkit;
-using System.Windows.Controls.Primitives;
-using System.IO;
+using Xceed.Wpf.Toolkit.Primitives;
 
 
 namespace Overlay
@@ -32,13 +34,58 @@ namespace Overlay
         private int team1Score = 0;
         private int team2Score = 0;
         private int ftScore = 1;
+        private string team1ImgUrl = "";
+        private string team2ImgUrl = "";
+        private string team1Ban = "";
+        private string team2Ban = "";
+        private string team1Hex = "";
+        private string team2Hex = "";
+        private string verticalPos = "";
 
         public MainWindow()
         {
             InitializeComponent();
 
+            App._webSocket.OnSocketConnected += OnConnected;
+
             Ban1Dropdown.ItemsSource = ow2Heroes;
             Ban2Dropdown.ItemsSource = ow2Heroes;
+        }
+
+        private void OnConnected(object? sender, IWebSocketConnection socket)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                // Names
+                App._webSocket.SendTo(socket, "name-team1", Team1NameInput.Text);
+                App._webSocket.SendTo(socket, "name-team2", Team2NameInput.Text);
+
+                // Scores
+                App._webSocket.SendTo(socket, "score-team1", team1Score.ToString());
+                App._webSocket.SendTo(socket, "score-team2", team2Score.ToString());
+
+                // FT
+                App._webSocket.SendTo(socket, "ft-score", $"FT{ftScore}");
+
+                // Pictures
+                if (team1ImgUrl != "") App._webSocket.SendTo(socket, "img-team1", team1ImgUrl);
+                if (team2ImgUrl != "") App._webSocket.SendTo(socket, "img-team2", team2ImgUrl);
+
+                // Bans
+                if (team1Ban != "") App._webSocket.SendTo(socket, "img-ban-team1", $"./Assets/heroes/{team1Ban}.webp");
+                if (team2Ban != "") App._webSocket.SendTo(socket, "img-ban-team2", $"./Assets/heroes/{team2Ban}.webp");
+
+                // Colours
+                if (team1Hex != "") App._webSocket.SendTo(socket, "col-team1", team1Hex);
+                if (team2Hex != "") App._webSocket.SendTo(socket, "col-team2", team2Hex);
+
+                // Text colour  
+                App._webSocket.SendTo(socket, "col-name1", Team1Toggle.IsChecked == true ? "black" : "white");
+                App._webSocket.SendTo(socket, "col-name2", Team2Toggle.IsChecked == true ? "black" : "white");
+
+                // Position
+                App._webSocket.SendTo(socket, "overlayMargin", verticalPos);
+            });
         }
 
         // Updates the name h1 tags for each team
@@ -148,6 +195,7 @@ namespace Overlay
             if (res == true)
             {
                 string filePath = dialog.FileName;
+                string url = $"image?path={Uri.EscapeDataString(filePath)}";
 
                 string target;
                 TextBlock textBox;
@@ -156,20 +204,21 @@ namespace Overlay
                 {
                     target = "img-team1";
                     textBox = Team1ImagePath;
+                    team1ImgUrl = url;
                 }
                 else if (button == Team2SelectImage)
                 {
                     target = "img-team2";
                     textBox = Team2ImagePath;
+                    team2ImgUrl = url;
                 }
                 else
                 {
                     return;
                 }
 
-                string url = $"image?path={Uri.EscapeDataString(filePath)}";
                 App._webSocket.Update(target, url);
-                textBox.Text = "Path: " + System.IO.Path.GetFileName(filePath);
+                textBox.Text = System.IO.Path.GetFileName(filePath);
             }
         }
 
@@ -182,8 +231,16 @@ namespace Overlay
 
                 string target;
                 var picker = (ColorPicker)sender;
-                if (picker == Team1Colour) target = "col-team1";
-                else if (picker == Team2Colour) target = "col-team2";
+                if (picker == Team1Colour)
+                {
+                    target = "col-team1";
+                    team1Hex = hex;
+                }
+                else if (picker == Team2Colour)
+                {
+                    target = "col-team2";
+                    team2Hex = hex;
+                }
                 else return;
 
                 App._webSocket.Update(target, hex);
@@ -203,18 +260,25 @@ namespace Overlay
             if (selected == "No ban")
             {
                 App._webSocket.Update(target, "clear");
+
+                if (dropDown == Ban1Dropdown) team1Ban = "";
+                else team2Ban = "";
+
                 return;
             }
 
             string img = selected != null ? $"./Assets/heroes/{selected}.webp" : "";
 
             if (selected != null)
+                if (dropDown == Ban1Dropdown) team1Ban = selected;
+                else team2Ban = selected;
                 App._webSocket.Update(target, img);
         }
 
         private void OverlayMargin(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             App._webSocket.Update("overlayMargin", e.NewValue.ToString());
+            verticalPos = e.NewValue.ToString();
         }
 
         private void ResetPicture(object sender, RoutedEventArgs e)
@@ -227,18 +291,20 @@ namespace Overlay
             {
                 target = "img-team1";
                 textBox = Team1ImagePath;
+                team1ImgUrl = "";
             }
             else if (button == Team2Reset)
             {
                 target = "img-team2";
                 textBox = Team2ImagePath;
+                team2ImgUrl = "";
             }
             else
             {
                 return;
             }
             App._webSocket.Update(target, "clear");
-            textBox.Text = "Path:";
+            textBox.Text = "";
         }
 
         private void TeamBanToggle_unchecked(object sender, RoutedEventArgs e)
