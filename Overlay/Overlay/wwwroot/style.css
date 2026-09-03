@@ -1,8 +1,6 @@
 body {
     font-family: sans-serif;
     font-weight: "semi-bold";
-
-    transition: all 0.3s ease-in-out;
 }
 
 .container {
