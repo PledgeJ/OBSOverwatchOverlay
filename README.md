@@ -23,7 +23,7 @@ I thought "why not try and make this myself?", here's what I produced:
 <br>
 <img src="Screenshots\InGameTest.png" width="700">
 A screenshot of OBS preview with the overlay showing
-In this example, I used a batch file given to me by [Madsies](github.com/Madsies) which lowers the in game spectator UI to allow space for the overlay
+In this example, I used a batch file given to me by <a href="https://github.com/Madsies">Madsies</a> which lowers the in game spectator UI to allow space for the overlay
 <br>
 <img src="Screenshots\TeamPictureExample.png" width="700">
 An example of adding team pictures to the banners (using the hero portraits as an example)
