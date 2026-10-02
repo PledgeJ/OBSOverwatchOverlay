@@ -3,6 +3,38 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+import express from 'express'
+import http from 'http'
+import path from 'path'
+import { Server, WebSocket } from 'ws'
+
+let matchState = {
+  team1: {
+    name: 'Team1',
+    score: 0,
+    colour: '#e1e1e1',
+    picture: ''
+  },
+  team2: {
+    name: 'Team2',
+    score: 0,
+    colour: '#e1e1e1',
+    picture: ''
+  },
+  ft: 2,
+  title: 'UoN Draft League 2026 Grand Finals',
+  matches: []
+}
+
+// matches: [
+//   {
+//     team1Ban: 'Kiriko',
+//     team2Ban: 'Lucio',
+//     winner: 'team1',
+//     map: 'Lijang Tower'
+//   },
+// ]
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({

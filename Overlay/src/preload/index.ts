@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
