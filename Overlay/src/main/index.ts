@@ -1,37 +1,10 @@
+/* eslint-disable prettier/prettier */
 import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import path from 'path'
-import { startServers } from './server';
-
-// let matchState = {
-//   team1: {
-//     name: 'Team1',
-//     score: 0,
-//     colour: '#e1e1e1',
-//     picture: ''
-//   },
-//   team2: {
-//     name: 'Team2',
-//     score: 0,
-//     colour: '#e1e1e1',
-//     picture: ''
-//   },
-//   ft: 2,
-//   title: 'UoN Draft League 2026 Grand Finals',
-//   matches: []
-// }
-
-// matches: [
-//   {
-//     team1Ban: 'Kiriko',
-//     team2Ban: 'Lucio',
-//     winner: 'team1',
-//     map: 'Lijang Tower'
-//   },
-// ]
+import { stateManager } from './stateManager';
 
 function createWindow(): void {
   // Create the browser window.
@@ -79,8 +52,8 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  const distPath = path.join(__dirname, '../renderer');
-  startServers(distPath)
+  // MY BIT ####################################
+  stateManager.init()
 
   createWindow()
 
@@ -96,6 +69,7 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    stateManager.stop()
     app.quit()
   }
 })

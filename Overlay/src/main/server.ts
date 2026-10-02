@@ -4,11 +4,12 @@ import express from 'express';
 import { WebSocketServer, WebSocket } from 'ws';
 import path from 'path';
 import { is } from '@electron-toolkit/utils';
+import { Match } from '@common/match';
 
 const HTTP_PORT = 3000;
 const WS_PORT = 8080;
 
-export function startServers(distPath: string): { httpServer: http.Server, wss: WebSocketServer} {
+export function startServers(distPath: string): WebSocketServer {
 
   // Serve static pages for overlay
   const app = express();
@@ -37,19 +38,20 @@ export function startServers(distPath: string): { httpServer: http.Server, wss: 
 
   // WebSocket server for sending the state
   const wss = new WebSocketServer({ port: WS_PORT });
-  wss.on('connection', (ws) => {
-    console.log('[WS] Client connected');
-
-    ws.on('message', (data) => {
-      wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(data.toString());
-        }
-      });
-    });
-  });
 
   console.log(`[WS] WebSocket server running on ws://localhost:${WS_PORT}`);
 
-  return { httpServer, wss }
+  return wss
+}
+
+export function sendPacket(wss: WebSocketServer, state: Match, type: string): void {
+  if (!wss) return;
+
+  const payload = JSON.stringify({type: type, data: state})
+
+  wss.clients.forEach((client) => {
+    if (client.readyState == WebSocket.OPEN) {
+      client.send(payload);
+    }
+  })
 }

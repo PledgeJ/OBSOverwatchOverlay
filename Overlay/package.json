@@ -27,6 +27,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.4.0",
     "@mui/material": "^9.4.0",
+    "electron-store": "^11.0.2",
     "express": "^5.2.1",
     "react-router-dom": "^7.18.4",
     "ws": "^8.22.0"
