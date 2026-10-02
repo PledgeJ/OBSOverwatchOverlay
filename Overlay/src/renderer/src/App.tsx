@@ -14,8 +14,8 @@ function App(): React.JSX.Element {
       <HashRouter>
         <Routes>
           <Route path='/' element={<ControlPanel/>} />
-          <Route path='/overlay/ingame' element={<GameOverlay/>} />
-          <Route path='/overlay/intermission' element={<IntermissionOverlay/>} />
+          <Route path='/ingame' element={<GameOverlay/>} />
+          <Route path='/intermission' element={<IntermissionOverlay/>} />
         </Routes>
       </HashRouter>
     </>

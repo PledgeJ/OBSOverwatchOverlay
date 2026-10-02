@@ -1,30 +1,28 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import express from 'express'
-import http from 'http'
 import path from 'path'
-import { Server, WebSocket } from 'ws'
+import { startServers } from './server';
 
-let matchState = {
-  team1: {
-    name: 'Team1',
-    score: 0,
-    colour: '#e1e1e1',
-    picture: ''
-  },
-  team2: {
-    name: 'Team2',
-    score: 0,
-    colour: '#e1e1e1',
-    picture: ''
-  },
-  ft: 2,
-  title: 'UoN Draft League 2026 Grand Finals',
-  matches: []
-}
+// let matchState = {
+//   team1: {
+//     name: 'Team1',
+//     score: 0,
+//     colour: '#e1e1e1',
+//     picture: ''
+//   },
+//   team2: {
+//     name: 'Team2',
+//     score: 0,
+//     colour: '#e1e1e1',
+//     picture: ''
+//   },
+//   ft: 2,
+//   title: 'UoN Draft League 2026 Grand Finals',
+//   matches: []
+// }
 
 // matches: [
 //   {
@@ -81,8 +79,8 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  const distPath = path.join(__dirname, '../renderer');
+  startServers(distPath)
 
   createWindow()
 
@@ -101,6 +99,3 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
