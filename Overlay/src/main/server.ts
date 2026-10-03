@@ -4,7 +4,11 @@ import express from 'express';
 import { WebSocketServer, WebSocket } from 'ws';
 import path from 'path';
 import { is } from '@electron-toolkit/utils';
-import { Match } from '@common/match';
+
+import { Match } from '@common/match.type';
+import { WS_Type } from '../types/enums';
+import { Colours } from '@common/colours.type';
+import { Casters } from '@common/caster.type';
 
 const HTTP_PORT = 3000;
 const WS_PORT = 8080;
@@ -44,7 +48,7 @@ export function startServers(distPath: string): WebSocketServer {
   return wss
 }
 
-export function sendPacket(wss: WebSocketServer, state: Match, type: string): void {
+export function sendPacket(wss: WebSocketServer, state: Match | Colours | Casters, type: WS_Type): void {
   if (!wss) return;
 
   const payload = JSON.stringify({type: type, data: state})

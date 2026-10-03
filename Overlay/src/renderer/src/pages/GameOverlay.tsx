@@ -1,10 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react';
 
-import type { Match } from '@common/match';
+import type { Match } from '@common/match.type';
+import type { Casters } from '@common/caster.type';
+import type { Colours } from '@common/colours.type';
+import { WS_Type } from '../../../types/enums';
 
 export default function GameOverlay(): React.JSX.Element {
-  const [data, setData] = useState<Match | null>(null);
+  const [matchData, setMatchData] = useState<Match | null>(null);
+  const [casterData, setCasterData] = useState<Casters | null>(null);
+  const [colourData, setColourData] = useState<Colours | null>(null);
 
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:8080');
@@ -14,12 +19,23 @@ export default function GameOverlay(): React.JSX.Element {
       const payload = JSON.parse(event.data);
 
       switch (payload.type) {
-        case 'STATE_UPDATE':
-          setData(payload.data)
-          console.log('Updated match state')
+        case WS_Type.STATE_UPDATE:
+          setMatchData(payload.data);
+          console.log('Updated match state');
           break;
+
+        case WS_Type.CASTER_UPDATE:
+          setCasterData(payload.data);
+          console.log('Updated caster state');
+          break;
+
+        case WS_Type.COLOUR_UPDATE:
+          setColourData(payload.data);
+          console.log('Updated colour state');
+          break;
+
         default:
-          console.log('Packet does not contain valid type')
+          console.log('Packet does not contain valid type');
       }
       
     };
@@ -30,7 +46,9 @@ export default function GameOverlay(): React.JSX.Element {
   return (
     <>
       <h1>Game</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(matchData, null, 2)}</pre>
+      <pre>{JSON.stringify(casterData, null, 2)}</pre>
+      <pre>{JSON.stringify(colourData, null, 2)}</pre>
     </>
   )
 }

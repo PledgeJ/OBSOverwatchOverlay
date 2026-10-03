@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Match } from '@common/match';
+import { Match } from '@common/match.type';
 import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('electronAPI', {

@@ -29,7 +29,6 @@
 export interface Team {
     name: string;
     score: number;
-    colour: string;
     picture: string;
 }
 
