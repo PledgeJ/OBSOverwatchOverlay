@@ -2,9 +2,8 @@
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
-import { WindowSharp } from '@mui/icons-material';
-import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Button, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 export default function ControlPanel(): React.JSX.Element {
 
@@ -90,6 +89,56 @@ export default function ControlPanel(): React.JSX.Element {
       >
         RESET
       </Button>
+
+      <TextField 
+        id="outlined-basic"
+        label="Team1"
+        variant="outlined"
+        value={matchData.team1.name}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+          const newVal = event.target.value;
+          setMatch((prev) => {
+            if (!prev) return null;
+
+            const nextState = {
+              ...prev,
+              team1: {
+                ...prev.team1,
+                name: newVal,
+              },
+            };
+
+            window.stateAPI.setMatch(nextState);
+
+            return nextState;
+          });
+        }}
+      />
+
+      <TextField 
+        id="outlined-basic"
+        label="Team2"
+        variant="outlined"
+        value={matchData.team2.name}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+          const newVal = event.target.value;
+          setMatch((prev) => {
+            if (!prev) return null;
+
+            const nextState = {
+              ...prev,
+              team2: {
+                ...prev.team2,
+                name: newVal,
+              },
+            };
+
+            window.stateAPI.setMatch(nextState);
+
+            return nextState;
+          });
+        }}
+      />
 
       <pre>{JSON.stringify(matchData, null, 2)}</pre>
       <pre>{JSON.stringify(casterData, null, 2)}</pre>
