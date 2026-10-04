@@ -18,6 +18,7 @@ export function startServers(distPath: string): WebSocketServer {
   // Serve static pages for overlay
   const app = express();
 
+  // ######################## REMOVE WHEN BUILDING ##########################################
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     // In Dev Mode
     const viteUrl = process.env['ELECTRON_RENDERER_URL'];
@@ -26,6 +27,8 @@ export function startServers(distPath: string): WebSocketServer {
     });
 
   } else {
+  // ########################################################################################
+  
     // In build grab files from out/renderer
     app.use(express.static(distPath));
 

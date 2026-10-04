@@ -1,8 +1,12 @@
 /* eslint-disable prettier/prettier */
+import { Casters } from '@common/caster.type';
+import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
 import { contextBridge, ipcRenderer } from 'electron'
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('stateAPI', {
   getState: () => ipcRenderer.invoke('get-state'),
-  updateState: (newState: Record<string, Match>) => ipcRenderer.invoke('update-state', newState)
+  setMatch: (matchState: Match ) => ipcRenderer.invoke('set-match', matchState),
+  setColour: (colourState: Colours ) => ipcRenderer.invoke('set-colour', colourState),
+  setCaster: (casterState: Casters ) => ipcRenderer.invoke('set-caster', casterState)
 })

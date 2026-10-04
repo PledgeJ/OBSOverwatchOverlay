@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import type { Match } from '@common/match.type';
-import { WS_Type } from '../types/enums';
+import { State_Type, WS_Type } from '../types/enums';
 import type { Colours } from '@common/colours.type';
 import type { Casters } from '@common/caster.type';
 
@@ -8,6 +8,8 @@ import _Store from 'electron-store'
 import { WebSocketServer } from 'ws';
 import { startServers, sendPacket } from './server';
 import path from 'path';
+
+import { ipcMain } from 'electron';
 
 import { DEFAULT_CASTER_STATE, DEFAULT_COLOUR_STATE, DEFAULT_MATCH_STATE } from './defaults'
 
@@ -24,6 +26,7 @@ class StateManager {
 
   public init(): void {
     this.loadState();
+    this.registerIPC();
 
     const distPath = path.join(__dirname, '../renderer');
     this.wss = startServers(distPath)
@@ -34,6 +37,51 @@ class StateManager {
     });
   }
 
+  private registerIPC(): void {
+    ipcMain.handle('get-state', () => this.handleGetState());
+    ipcMain.handle('set-match', (_event, data: Match) => this.handleSet(data, State_Type.MATCH));
+    ipcMain.handle('set-colour', (_event, data: Colours) => this.handleSet(data, State_Type.COLOUR));
+    ipcMain.handle('set-caster', (_event, data: Casters) => this.handleSet(data, State_Type.CASTER));
+  }
+
+  private async handleGetState(): Promise<{ match: Match; colours: Colours; casters: Casters }> {
+    return { 
+      match: this.matchState, 
+      colours: this.colourState, 
+      casters: this.casterState 
+    };
+  }
+
+  private async handleSet(data: Match | Colours | Casters, type: State_Type.MATCH | State_Type.COLOUR | State_Type.CASTER): Promise<void> {
+    let storeType: string = '';
+    
+    try {
+      switch (type) {
+        case State_Type.MATCH:
+          this.matchState = data as Match;
+          storeType = 'match';
+          break;
+
+        case State_Type.COLOUR:
+          this.colourState = data as Colours;
+          storeType = 'colours'
+          break;
+
+        case State_Type.CASTER:
+          this.casterState = data as Casters;
+          storeType = 'casters'
+          break;
+      }
+
+      this.store.set(storeType, data);
+      this.syncState();
+      return;
+    } catch (e) {
+      console.error(`[Main] - Error setting, saving, or syncing: ${storeType} | `, e)
+      return;
+    }
+  }
+
   private loadState(): void {
     const stored_match = this.store.get('match', null);
     const stored_casters = this.store.get('casters', null);
@@ -42,12 +90,6 @@ class StateManager {
     if (stored_match) { this.matchState = stored_match as Match }
     if (stored_casters) { this.casterState = stored_casters as Casters }
     if (stored_colours) { this.colourState = stored_colours as Colours }
-  }
-
-  public saveState(): void {
-    this.store.set('match', this.matchState)
-    this.store.set('casters', this.casterState)
-    this.store.set('colours', this.colourState)
   }
 
   public getState(): { match: Match, colours: Colours, casters: Casters }  {

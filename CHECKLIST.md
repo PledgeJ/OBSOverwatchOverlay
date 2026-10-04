@@ -4,10 +4,11 @@
 
 ## Control panel checklist
 - [ ] Option to change PORT number for overlays / error handling if the port is already in use
-- [ ] Showing where the overlays are saved / how to use them / copy them
+- [ ] Showing where the overlays are saved / how to use them / copy them (Intermission layer order goes background image, cameras, overlay)
 - [ ] Saving the current setup
 - [ ] Reset score button
 - [ ] Rollback previous button (since you have to click which team won, not change the scores individually)
+- [ ] Switch sides button
 
 ## InGame overlay checklist
 - [ ] Team names
