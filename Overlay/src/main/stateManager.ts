@@ -39,9 +39,12 @@ class StateManager {
 
   private registerIPC(): void {
     ipcMain.handle('get-state', () => this.handleGetState());
+    
     ipcMain.handle('set-match', (_event, data: Match) => this.handleSet(data, State_Type.MATCH));
     ipcMain.handle('set-colour', (_event, data: Colours) => this.handleSet(data, State_Type.COLOUR));
     ipcMain.handle('set-caster', (_event, data: Casters) => this.handleSet(data, State_Type.CASTER));
+  
+    ipcMain.handle('reset-match', () => this.resetMatch());
   }
 
   private async handleGetState(): Promise<{ match: Match; colours: Colours; casters: Casters }> {
@@ -80,6 +83,14 @@ class StateManager {
       console.error(`[Main] - Error setting, saving, or syncing: ${storeType} | `, e)
       return;
     }
+  }
+
+  private resetMatch(): void {
+    this.matchState = DEFAULT_MATCH_STATE;
+    this.store.delete('match');
+    console.error('[Main] - Reset match')
+
+    this.syncState();
   }
 
   private loadState(): void {

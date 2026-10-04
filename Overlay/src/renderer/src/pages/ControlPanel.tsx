@@ -2,6 +2,7 @@
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
+import { WindowSharp } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 
@@ -13,20 +14,32 @@ export default function ControlPanel(): React.JSX.Element {
 
   function updateScore(): void {
     setMatch((prev) => {
-    if (!prev) return null;
+      if (!prev) return null;
 
-    const nextState = {
-      ...prev,
-      team1: {
-        ...prev.team1,
-        score: prev.team1.score + 1,
-      },
-    };
+      const nextState = {
+        ...prev,
+        team1: {
+          ...prev.team1,
+          score: prev.team1.score + 1,
+        },
+      };
 
-    window.stateAPI.setMatch(nextState);
+      window.stateAPI.setMatch(nextState);
 
-    return nextState;
-  });
+      return nextState;
+    });
+  }
+
+  async function fetchState(): Promise<void> {
+    try {
+      const { match, colours, casters } = await window.stateAPI.getState();
+
+      setMatch(match);
+      setColours(colours);
+      setCasters(casters);
+    } catch (e) {
+      console.error('Failed fetch: ' + e);
+    }
   }
 
   useEffect(() => {
@@ -67,6 +80,15 @@ export default function ControlPanel(): React.JSX.Element {
         onClick={ updateScore }
       >
         TEAM1
+      </Button>
+
+      <Button
+        onClick={ () => {
+          window.stateAPI.resetMatch();
+          fetchState();
+        }}
+      >
+        RESET
       </Button>
 
       <pre>{JSON.stringify(matchData, null, 2)}</pre>

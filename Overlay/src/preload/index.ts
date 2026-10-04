@@ -6,7 +6,10 @@ import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('stateAPI', {
   getState: () => ipcRenderer.invoke('get-state'),
+  
   setMatch: (matchState: Match ) => ipcRenderer.invoke('set-match', matchState),
   setColour: (colourState: Colours ) => ipcRenderer.invoke('set-colour', colourState),
-  setCaster: (casterState: Casters ) => ipcRenderer.invoke('set-caster', casterState)
+  setCaster: (casterState: Casters ) => ipcRenderer.invoke('set-caster', casterState),
+
+  resetMatch: () => ipcRenderer.invoke('reset-match')
 })
