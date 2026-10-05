@@ -44,15 +44,9 @@ export default function ControlPanel(): React.JSX.Element {
   useEffect(() => {
     let isMounted = true;
 
-    async function fetchState(): Promise<void> {
+    async function initFetch(): Promise<void> {
       try {
-        const { match, colours, casters } = await window.stateAPI.getState();
-
-        if (isMounted) {
-          setMatch(match);
-          setColours(colours);
-          setCasters(casters);
-        }
+        await fetchState();
       } catch (e) {
         if (isMounted) {
           console.error('Failed fetch: ' + e);
@@ -60,7 +54,7 @@ export default function ControlPanel(): React.JSX.Element {
       }
     }
 
-    fetchState();
+    initFetch();
 
     return () => {
       isMounted = false;
@@ -73,8 +67,6 @@ export default function ControlPanel(): React.JSX.Element {
 
   return (
     <>
-      <h1>Control panel</h1>
-
       <Button
         onClick={ updateScore }
       >
@@ -97,6 +89,9 @@ export default function ControlPanel(): React.JSX.Element {
         value={matchData.team1.name}
         onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
           const newVal = event.target.value;
+
+          // CAP STRING LENGTH TO A GOOD AMOUNT
+
           setMatch((prev) => {
             if (!prev) return null;
 
@@ -122,6 +117,9 @@ export default function ControlPanel(): React.JSX.Element {
         value={matchData.team2.name}
         onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
           const newVal = event.target.value;
+
+          // CAP STRING LENGTH TO A GOOD AMOUNT
+
           setMatch((prev) => {
             if (!prev) return null;
 
@@ -139,6 +137,42 @@ export default function ControlPanel(): React.JSX.Element {
           });
         }}
       />
+
+      <Button
+        onClick={ () => {
+          setMatch((prev) => {
+            if (!prev || prev.ft + 1 >= 5) return prev;
+
+            const nextState = {
+              ...prev,
+              ft: prev.ft+1,
+            };
+
+            window.stateAPI.setMatch(nextState);
+            return nextState;
+          });
+        }}
+      >
+        FT: +
+      </Button>
+
+      <Button
+        onClick={ () => {
+          setMatch((prev) => {
+            if (!prev || prev.ft - 1 <= 0) return prev;
+
+            const nextState = {
+              ...prev,
+              ft: prev.ft-1,
+            };
+
+            window.stateAPI.setMatch(nextState);
+            return nextState;
+          });
+        }}
+      >
+        FT: -
+      </Button>
 
       <pre>{JSON.stringify(matchData, null, 2)}</pre>
       <pre>{JSON.stringify(casterData, null, 2)}</pre>
