@@ -67,12 +67,14 @@ export default function ControlPanel(): React.JSX.Element {
 
   return (
     <>
+      {/* Team1 Score increment */}
       <Button
         onClick={ updateScore }
       >
         TEAM1
       </Button>
 
+      {/* Reset */}
       <Button
         onClick={ () => {
           window.stateAPI.resetMatch();
@@ -82,6 +84,7 @@ export default function ControlPanel(): React.JSX.Element {
         RESET
       </Button>
 
+      {/* Team1 input */}
       <TextField 
         id="outlined-basic"
         label="Team1"
@@ -104,12 +107,12 @@ export default function ControlPanel(): React.JSX.Element {
             };
 
             window.stateAPI.setMatch(nextState);
-
             return nextState;
           });
         }}
       />
 
+      {/* Team2 input */}
       <TextField 
         id="outlined-basic"
         label="Team2"
@@ -132,12 +135,12 @@ export default function ControlPanel(): React.JSX.Element {
             };
 
             window.stateAPI.setMatch(nextState);
-
             return nextState;
           });
         }}
       />
 
+      {/* FT */}
       <Button
         onClick={ () => {
           setMatch((prev) => {
@@ -173,6 +176,31 @@ export default function ControlPanel(): React.JSX.Element {
       >
         FT: -
       </Button>
+
+      {/* Title input */}
+      <TextField 
+        id="outlined-basic"
+        label="Title"
+        variant="outlined"
+        value={matchData.title}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+          const newVal = event.target.value;
+
+          // CAP STRING LENGTH TO A GOOD AMOUNT
+
+          setMatch((prev) => {
+            if (!prev) return null;
+
+            const nextState = {
+              ...prev,
+              title: newVal,
+            };
+
+            window.stateAPI.setMatch(nextState);
+            return nextState;
+          });
+        }}
+      />
 
       <pre>{JSON.stringify(matchData, null, 2)}</pre>
       <pre>{JSON.stringify(casterData, null, 2)}</pre>
