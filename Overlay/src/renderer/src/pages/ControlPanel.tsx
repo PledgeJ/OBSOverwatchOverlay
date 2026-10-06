@@ -81,7 +81,25 @@ export default function ControlPanel(): React.JSX.Element {
           fetchState();
         }}
       >
-        RESET
+        RESET MATCH
+      </Button>
+
+      <Button
+        onClick={ () => {
+          window.stateAPI.resetColours();
+          fetchState();
+        }}
+      >
+        RESET COLOURS
+      </Button>
+
+      <Button
+        onClick={ () => {
+          window.stateAPI.resetCasters();
+          fetchState();
+        }}
+      >
+        RESET CASTERS
       </Button>
 
       {/* Team1 input */}

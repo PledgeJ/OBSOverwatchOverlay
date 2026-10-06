@@ -5,5 +5,6 @@ export interface Caster {
 }
 
 export interface Casters {
+    number: number;
     casters: Caster[]
 }

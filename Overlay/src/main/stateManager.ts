@@ -45,6 +45,8 @@ class StateManager {
     ipcMain.handle('set-caster', (_event, data: Casters) => this.handleSet(data, State_Type.CASTER));
   
     ipcMain.handle('reset-match', () => this.resetMatch());
+    ipcMain.handle('reset-colours', () => this.resetColours());
+    ipcMain.handle('reset-casters', () => this.resetCasters());
   }
 
   private async handleGetState(): Promise<{ match: Match; colours: Colours; casters: Casters }> {
@@ -89,6 +91,22 @@ class StateManager {
     this.matchState = DEFAULT_MATCH_STATE;
     this.store.delete('match');
     console.error('[Main] - Reset match')
+
+    this.syncState();
+  }
+
+  private resetCasters(): void {
+    this.casterState = DEFAULT_CASTER_STATE
+    this.store.delete('casters');
+    console.error('[Main] - Reset casters')
+
+    this.syncState();
+  }
+
+  private resetColours(): void {
+    this.colourState = DEFAULT_COLOUR_STATE;
+    this.store.delete('colours');
+    console.error('[Main] - Reset colours')
 
     this.syncState();
   }

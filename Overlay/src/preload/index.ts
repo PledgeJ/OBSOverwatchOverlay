@@ -11,5 +11,7 @@ contextBridge.exposeInMainWorld('stateAPI', {
   setColour: (colourState: Colours ) => ipcRenderer.invoke('set-colour', colourState),
   setCaster: (casterState: Casters ) => ipcRenderer.invoke('set-caster', casterState),
 
-  resetMatch: () => ipcRenderer.invoke('reset-match')
+  resetMatch: () => ipcRenderer.invoke('reset-match'),
+  resetCasters: () => ipcRenderer.invoke('reset-casters'),
+  resetColours: () => ipcRenderer.invoke('reset-colours'),
 })

@@ -12,6 +12,8 @@ export interface IStateAPI {
   setCaster: (newCaster: Casters) => Promise<{success: boolean}>;
 
   resetMatch: () => Promise<{success: boolean}>;
+  resetCasters: () => Promise<{success: boolean}>;
+  resetColours: () => Promise<{success: boolean}>;
 }
 
 declare global {
