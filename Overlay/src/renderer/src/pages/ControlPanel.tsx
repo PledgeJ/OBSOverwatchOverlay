@@ -2,10 +2,18 @@
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
+
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+
 import React, { useEffect, useState } from 'react';
 
 export default function ControlPanel(): React.JSX.Element {
+
+  const [tab, setTab] = useState(1);
 
   const [matchData, setMatch] = useState<Match | null>(null);
   const [colourData, setColours] = useState<Colours | null>(null);
@@ -67,162 +75,233 @@ export default function ControlPanel(): React.JSX.Element {
 
   return (
     <>
-      {/* Team1 Score increment */}
-      <Button
-        onClick={ updateScore }
-      >
-        TEAM1
-      </Button>
+    <Box sx={{ width: '100%', height: '100%', typography: 'body1' }}>
+      <TabContext value={tab}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={(_event, tab) => setTab(tab)} aria-label="">
+            <Tab label="Initial info" value={1} />
+            <Tab label="Match" value={2} />
+            <Tab label="Colours" value={3} />
+          </TabList>
+        </Box>
 
-      {/* Reset */}
-      <Button
-        onClick={ () => {
-          window.stateAPI.resetMatch();
-          fetchState();
-        }}
-      >
-        RESET MATCH
-      </Button>
+        {/* ############################################################# */}
 
-      <Button
-        onClick={ () => {
-          window.stateAPI.resetColours();
-          fetchState();
-        }}
-      >
-        RESET COLOURS
-      </Button>
+        <TabPanel value={1} sx={{display:'flex'}}>
+          <Box>
+          <Button
+            onClick={ () => {
+              window.stateAPI.resetCasters();
+              fetchState();
+            }}
+          >
+            RESET CASTERS
+          </Button>
 
-      <Button
-        onClick={ () => {
-          window.stateAPI.resetCasters();
-          fetchState();
-        }}
-      >
-        RESET CASTERS
-      </Button>
+          {/* FT */}
+          <Button
+            onClick={ () => {
+              setMatch((prev) => {
+                if (!prev || prev.ft + 1 >= 5) return prev;
 
-      {/* Team1 input */}
-      <TextField 
-        id="outlined-basic"
-        label="Team1"
-        variant="outlined"
-        value={matchData.team1.name}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
-          const newVal = event.target.value;
+                const nextState = {
+                  ...prev,
+                  ft: prev.ft+1,
+                };
 
-          // CAP STRING LENGTH TO A GOOD AMOUNT
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          >
+            FT: +
+          </Button>
 
-          setMatch((prev) => {
-            if (!prev) return null;
+          <Button
+            onClick={ () => {
+              setMatch((prev) => {
+                if (!prev || prev.ft - 1 <= 0) return prev;
 
-            const nextState = {
-              ...prev,
-              team1: {
-                ...prev.team1,
-                name: newVal,
+                const nextState = {
+                  ...prev,
+                  ft: prev.ft-1,
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          >
+            FT: -
+          </Button>
+
+          {/* Title input */}
+          <TextField 
+            id="outlined-basic"
+            label="Title"
+            variant="outlined"
+            sx={{
+              "& .MuiInputBase-input": { color: "white" },
+              "& .MuiInputLabel-root": { color: "white" },
+              "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-            };
-
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-        }}
-      />
-
-      {/* Team2 input */}
-      <TextField 
-        id="outlined-basic"
-        label="Team2"
-        variant="outlined"
-        value={matchData.team2.name}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
-          const newVal = event.target.value;
-
-          // CAP STRING LENGTH TO A GOOD AMOUNT
-
-          setMatch((prev) => {
-            if (!prev) return null;
-
-            const nextState = {
-              ...prev,
-              team2: {
-                ...prev.team2,
-                name: newVal,
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
               },
-            };
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+            }}
+            value={matchData.title}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+              const newVal = event.target.value;
 
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-        }}
-      />
+              // CAP STRING LENGTH TO A GOOD AMOUNT
 
-      {/* FT */}
-      <Button
-        onClick={ () => {
-          setMatch((prev) => {
-            if (!prev || prev.ft + 1 >= 5) return prev;
+              setMatch((prev) => {
+                if (!prev) return null;
 
-            const nextState = {
-              ...prev,
-              ft: prev.ft+1,
-            };
+                const nextState = {
+                  ...prev,
+                  title: newVal,
+                };
 
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-        }}
-      >
-        FT: +
-      </Button>
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          />
+          </Box>
 
-      <Button
-        onClick={ () => {
-          setMatch((prev) => {
-            if (!prev || prev.ft - 1 <= 0) return prev;
+          <pre>{JSON.stringify(matchData, null, 2)}</pre>
+          <pre>{JSON.stringify(casterData, null, 2)}</pre>
+        </TabPanel>
 
-            const nextState = {
-              ...prev,
-              ft: prev.ft-1,
-            };
+        {/* ############################################################# */}
 
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-        }}
-      >
-        FT: -
-      </Button>
+        <TabPanel value={2}>
+          {/* Team1 Score increment */}
+          <Button
+            onClick={ updateScore }
+          >
+            TEAM1
+          </Button>
 
-      {/* Title input */}
-      <TextField 
-        id="outlined-basic"
-        label="Title"
-        variant="outlined"
-        value={matchData.title}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
-          const newVal = event.target.value;
+          {/* Reset */}
+          <Button
+            onClick={ () => {
+              window.stateAPI.resetMatch();
+              fetchState();
+            }}
+          >
+            RESET MATCH
+          </Button>
 
-          // CAP STRING LENGTH TO A GOOD AMOUNT
+          {/* Team1 input */}
+          <TextField 
+            id="outlined-basic"
+            label="Team1"
+            variant="outlined"
+            sx={{
+              "& .MuiInputBase-input": { color: "white" },
+              "& .MuiInputLabel-root": { color: "white" },
+              "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+            }}
+            value={matchData.team1.name}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+              const newVal = event.target.value;
 
-          setMatch((prev) => {
-            if (!prev) return null;
+              // CAP STRING LENGTH TO A GOOD AMOUNT
 
-            const nextState = {
-              ...prev,
-              title: newVal,
-            };
+              setMatch((prev) => {
+                if (!prev) return null;
 
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-        }}
-      />
+                const nextState = {
+                  ...prev,
+                  team1: {
+                    ...prev.team1,
+                    name: newVal,
+                  },
+                };
 
-      <pre>{JSON.stringify(matchData, null, 2)}</pre>
-      <pre>{JSON.stringify(casterData, null, 2)}</pre>
-      <pre>{JSON.stringify(colourData, null, 2)}</pre>
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          />
+
+          {/* Team2 input */}
+          <TextField 
+            id="outlined-basic"
+            label="Team2"
+            variant="outlined"
+            sx={{
+              "& .MuiInputBase-input": { color: "white" },
+              "& .MuiInputLabel-root": { color: "white" },
+              "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "white",
+              },
+            }}
+            value={matchData.team2.name}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+              const newVal = event.target.value;
+
+              // CAP STRING LENGTH TO A GOOD AMOUNT
+
+              setMatch((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team2: {
+                    ...prev.team2,
+                    name: newVal,
+                  },
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          />
+
+          <pre>{JSON.stringify(matchData, null, 2)}</pre>
+        </TabPanel>
+
+        {/* ############################################################# */}
+
+        <TabPanel value={3}>
+          <Button
+            onClick={ () => {
+              window.stateAPI.resetColours();
+              fetchState();
+            }}
+          >
+            RESET COLOURS
+          </Button>
+
+          <pre>{JSON.stringify(colourData, null, 2)}</pre>
+        </TabPanel>
+      </TabContext>
+    </Box>
     </>
   )
 }

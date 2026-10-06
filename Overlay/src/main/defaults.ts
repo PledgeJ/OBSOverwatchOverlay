@@ -22,7 +22,9 @@ export const DEFAULT_MATCH_STATE: Match = {
 
 export const DEFAULT_COLOUR_STATE: Colours = {
   team1: '#e0e0e0',
+  team1Text: '#000000',
   team2: '#gegege',
+  team2Text: '#000000',
   caster: '#e0e0e0',
 }
 
