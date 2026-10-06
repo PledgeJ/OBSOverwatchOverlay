@@ -32,17 +32,25 @@ export interface Team {
     picture: string;
 }
 
-export interface PrevMatch {
+export interface PrevMap {
     team1ban: string;
     team2ban: string;
-    winner: 1 | 2;
+    winner: number;
     map: string;
+}
+
+export interface CurrentMap {
+    map: string;
+    team1ban: string;
+    team2ban: string;
 }
 
 export interface Match {
     team1: Team;
     team2: Team;
+    currMap: CurrentMap;
+    isFlipped: boolean;
     ft: number;
     title: string;
-    matches: []
+    prevMaps: PrevMap[]
 }

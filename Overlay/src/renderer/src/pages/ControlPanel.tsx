@@ -2,7 +2,7 @@
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
-import { Box, Button } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -19,24 +19,6 @@ export default function ControlPanel(): React.JSX.Element {
   const [matchData, setMatch] = useState<Match | null>(null);
   const [colourData, setColours] = useState<Colours | null>(null);
   const [casterData, setCasters] = useState<Casters | null>(null);
-
-  function updateScore(): void {
-    setMatch((prev) => {
-      if (!prev) return null;
-
-      const nextState = {
-        ...prev,
-        team1: {
-          ...prev.team1,
-          score: prev.team1.score + 1,
-        },
-      };
-
-      window.stateAPI.setMatch(nextState);
-
-      return nextState;
-    });
-  }
 
   async function fetchState(): Promise<void> {
     try {
@@ -100,7 +82,54 @@ export default function ControlPanel(): React.JSX.Element {
 
 
         <TabPanel value={1} sx={{display:'flex'}}>
+
           <Box>
+          {/* Team1 input */}
+          <UserInput
+            label="Team1"
+            value={matchData.team1.name}
+            onChange={(value)=>{
+              setMatch((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team1: {
+                    ...prev.team1,
+                    name: value,
+                  },
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          />
+
+          {/* Team2 input */}
+          <UserInput
+            label="Team2"
+            value={matchData.team2.name}
+            onChange={(value)=>{
+              setMatch((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team2: {
+                    ...prev.team2,
+                    name: value,
+                  },
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          />
+
+
+
           <Button
             onClick={ () => {
               window.stateAPI.resetCasters();
@@ -273,16 +302,9 @@ export default function ControlPanel(): React.JSX.Element {
 
 
 
-
         <TabPanel value={2} sx={{display:'flex'}}>
           
           <Box>
-          {/* Team1 Score increment */}
-          <Button
-            onClick={ updateScore }
-          >
-            TEAM1
-          </Button>
 
           {/* Reset */}
           <Button
@@ -291,52 +313,163 @@ export default function ControlPanel(): React.JSX.Element {
               fetchState();
             }}
           >
-            RESET MATCH
+            RESET SCORE
           </Button>
 
-          {/* Team1 input */}
-          <UserInput
-            label="Team1"
-            value={matchData.team1.name}
-            onChange={(value)=>{
-              setMatch((prev) => {
-                if (!prev) return null;
+          {/* Map */}
+          <FormControl fullWidth>
+            <InputLabel id='mapSelectLabel'>Map</InputLabel>
+            <Select
+              labelId='mapSelectLabel'
+              value={matchData.currMap.map}
+              label='mapSelect'
+              onChange={(e) => {
+                setMatch((prev) => {
+                  if (!prev) return prev;
 
-                const nextState = {
-                  ...prev,
-                  team1: {
-                    ...prev.team1,
-                    name: value,
-                  },
-                };
+                  const nextState = {
+                    ...prev,
+                    currMap: {...prev.currMap, map: e.target.value},
+                  };
 
-                window.stateAPI.setMatch(nextState);
-                return nextState;
-              });
-            }}
-          />
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }}
+            >
+              <MenuItem value={'illios'}>Illios</MenuItem>
+              <MenuItem value={'suravasa'}>Suravasa</MenuItem>
+            </Select>
+          </FormControl>
 
-          {/* Team2 input */}
-          <UserInput
-            label="Team2"
-            value={matchData.team2.name}
-            onChange={(value)=>{
-              setMatch((prev) => {
-                if (!prev) return null;
+          {/* Team1Ban */}
+          <FormControl fullWidth>
+            <InputLabel id='Team1BanLabel'>Team 1 ban</InputLabel>
+            <Select
+              labelId='Team1BanLabel'
+              value={matchData.currMap.team1ban}
+              label='team1Ban'
+              onChange={(e) => {
+                setMatch((prev) => {
+                  if (!prev) return prev;
 
-                const nextState = {
-                  ...prev,
-                  team2: {
-                    ...prev.team2,
-                    name: value,
-                  },
-                };
+                  const nextState = {
+                    ...prev,
+                    currMap: {...prev.currMap, team1ban: e.target.value},
+                  };
 
-                window.stateAPI.setMatch(nextState);
-                return nextState;
-              });
-            }}
-          />
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }}
+            >
+              <MenuItem value={'kiriko'}>Kiriko</MenuItem>
+              <MenuItem value={'lucio'}>Lucio</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* Team2Ban */}
+          <FormControl fullWidth>
+            <InputLabel id='Team2BanLabel'>Team 2 Ban</InputLabel>
+            <Select
+              labelId='Team2BanLabel'
+              value={matchData.currMap.team2ban}
+              label='team1Ban'
+              onChange={(e) => {
+                setMatch((prev) => {
+                  if (!prev) return prev;
+
+                  const nextState = {
+                    ...prev,
+                    currMap: {...prev.currMap, team2ban: e.target.value},
+                  };
+
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }}
+            >
+              <MenuItem value={'kiriko'}>Kiriko</MenuItem>
+              <MenuItem value={'lucio'}>Lucio</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Box sx={{ display: 'flex' }}>
+            <Button
+              onClick={ () => {
+                if (matchData.currMap.map === '') return;
+
+                setMatch((prev) => {
+                  if (!prev) return prev;
+
+                  const nextState = {
+                    ...prev,
+                    team1: {...prev.team1, score: prev.team1.score + 1},
+                    currMap: {map: '', team1ban: '', team2ban: ''},
+                    prevMaps: [
+                      ...prev.prevMaps, 
+                      { team1ban: prev.currMap.team1ban, team2ban: prev.currMap.team2ban, winner: 1, map: prev.currMap.map }
+                    ]
+                  };
+
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }}
+            >
+              {matchData.team1.name} WON
+            </Button>
+
+            <Button
+              onClick={ () => {
+                if (matchData.currMap.map === '') return;
+
+                setMatch((prev) => {
+                  if (!prev) return prev;
+
+                  const nextState = {
+                    ...prev,
+                    team2: {...prev.team2, score: prev.team2.score + 1},
+                    currMap: {map: '', team1ban: '', team2ban: ''},
+                    prevMaps: [
+                      ...prev.prevMaps, 
+                      { team1ban: prev.currMap.team1ban, team2ban: prev.currMap.team2ban, winner: 2, map: prev.currMap.map }
+                    ]
+                  };
+
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }}
+            >
+              {matchData.team2.name} WON
+            </Button>
+
+            <Button
+              onClick={ () => {
+                setMatch((prev) => {
+                  if (!prev) return prev;
+
+                  const last = prev.prevMaps.at(-1);
+                  if (!last) return prev;
+
+                  const nextState = {
+                    ...prev,
+                    team1: {...prev.team1, score: last.winner === 1 ? prev.team1.score - 1 : prev.team1.score},
+                    team2: {...prev.team2, score: last.winner === 2 ? prev.team2.score - 1 : prev.team2.score},
+                    currMap: {map: last.map, team1ban: last.team1ban, team2ban: last.team2ban},
+                    prevMaps: [...prev.prevMaps.toSpliced(-1, 1)]
+                  };
+
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }}
+            >
+              UNDO
+            </Button>
+          </Box>
+          
           </Box>
 
           <pre>{JSON.stringify(matchData, null, 2)}</pre>

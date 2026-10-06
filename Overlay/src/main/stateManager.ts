@@ -90,9 +90,14 @@ class StateManager {
   private resetMatch(): void {
     this.matchState.team1.score = 0;
     this.matchState.team2.score = 0;
-    this.matchState.matches = [];
+    this.matchState.prevMaps = [];
+    this.matchState.currMap = {map: '', team1ban: '', team2ban: ''};
 
     this.store.set('match', this.matchState)
+
+    // Testing
+    // this.store.delete('match')
+
     console.error('[Main] - Reset match')
 
     this.syncState();
