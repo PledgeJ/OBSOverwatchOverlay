@@ -88,8 +88,11 @@ class StateManager {
   }
 
   private resetMatch(): void {
-    this.matchState = DEFAULT_MATCH_STATE;
-    this.store.delete('match');
+    this.matchState.team1.score = 0;
+    this.matchState.team2.score = 0;
+    this.matchState.matches = [];
+
+    this.store.set('match', this.matchState)
     console.error('[Main] - Reset match')
 
     this.syncState();

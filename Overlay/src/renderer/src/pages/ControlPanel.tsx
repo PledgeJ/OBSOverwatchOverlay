@@ -2,7 +2,7 @@
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -10,6 +10,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
 import React, { useEffect, useState } from 'react';
+import { UserInput } from '@renderer/components/UserInput';
 
 export default function ControlPanel(): React.JSX.Element {
 
@@ -85,7 +86,18 @@ export default function ControlPanel(): React.JSX.Element {
           </TabList>
         </Box>
 
+
+
+
+
+
         {/* ############################################################# */}
+
+
+
+
+
+
 
         <TabPanel value={1} sx={{display:'flex'}}>
           <Box>
@@ -136,36 +148,16 @@ export default function ControlPanel(): React.JSX.Element {
           </Button>
 
           {/* Title input */}
-          <TextField 
-            id="outlined-basic"
+          <UserInput
             label="Title"
-            variant="outlined"
-            sx={{
-              "& .MuiInputBase-input": { color: "white" },
-              "& .MuiInputLabel-root": { color: "white" },
-              "& .MuiInputLabel-root.Mui-focused": { color: "white" },
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-            }}
             value={matchData.title}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
-              const newVal = event.target.value;
-
-              // CAP STRING LENGTH TO A GOOD AMOUNT
-
+            onChange={(value)=>{
               setMatch((prev) => {
                 if (!prev) return null;
 
                 const nextState = {
                   ...prev,
-                  title: newVal,
+                  title: value,
                 };
 
                 window.stateAPI.setMatch(nextState);
@@ -173,15 +165,118 @@ export default function ControlPanel(): React.JSX.Element {
               });
             }}
           />
+
+          <Button
+            onClick={ () => {
+              setCasters((prev) => {
+                if (!prev || prev.number + 1 > 8) return prev;
+
+                const nextState = {
+                  number: prev.number + 1,
+                  casters: [...prev.casters, {name: `Name`, handle: `Handle`}]
+                };
+
+                window.stateAPI.setCaster(nextState);
+                return nextState;
+              });
+            }}
+          >
+            Add CASTER
+          </Button>
+
+          {casterData.casters.map((caster, index) => (
+            <Box key={index}>
+              <UserInput 
+                label='Name'
+                value={caster.name}
+                onChange={(value) => {
+                  setCasters((prev) => {
+                    if (!prev) return null;
+
+                    const updatedCasters = prev.casters.map((c, i) => {
+                      if (i == index) {
+                        return { ...c, name: value }
+                      }
+                      return c
+                    })
+
+                    const nextState = {
+                      ...prev,
+                      casters: updatedCasters,
+                    }
+
+                    window.stateAPI.setCaster(nextState);
+                    return nextState;
+                  });
+                }}
+              />
+              <UserInput 
+                label='Handle'
+                value={caster.handle}
+                onChange={(value) => {
+                  setCasters((prev) => {
+                    if (!prev) return null;
+
+                    const updatedCasters = prev.casters.map((c, i) => {
+                      if (i == index) {
+                        return { ...c, handle: value }
+                      }
+                      return c
+                    })
+
+                    const nextState = {
+                      ...prev,
+                      casters: updatedCasters,
+                    }
+
+                    window.stateAPI.setCaster(nextState);
+                    return nextState;
+                  });
+                }}
+              />
+
+              {index !== 0 &&
+                <Button
+                  onClick={ () => {
+                    setCasters((prev) => {
+                      if (!prev || prev.number - 1 < 1) return prev;
+
+                      const nextState = {
+                        number: prev.number - 1,
+                        casters: prev.casters.toSpliced(index, 1)
+                      };
+
+                      window.stateAPI.setCaster(nextState);
+                      return nextState;
+                    });
+                  }}
+                >
+                  DELETE
+                </Button>
+              }
+            </Box>
+          ))}
           </Box>
 
           <pre>{JSON.stringify(matchData, null, 2)}</pre>
           <pre>{JSON.stringify(casterData, null, 2)}</pre>
         </TabPanel>
 
+
+
+
+
         {/* ############################################################# */}
 
-        <TabPanel value={2}>
+
+
+
+
+
+
+        <TabPanel value={2} sx={{display:'flex'}}>
+          
+          <Box>
           {/* Team1 Score increment */}
           <Button
             onClick={ updateScore }
@@ -200,30 +295,10 @@ export default function ControlPanel(): React.JSX.Element {
           </Button>
 
           {/* Team1 input */}
-          <TextField 
-            id="outlined-basic"
+          <UserInput
             label="Team1"
-            variant="outlined"
-            sx={{
-              "& .MuiInputBase-input": { color: "white" },
-              "& .MuiInputLabel-root": { color: "white" },
-              "& .MuiInputLabel-root.Mui-focused": { color: "white" },
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-            }}
             value={matchData.team1.name}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
-              const newVal = event.target.value;
-
-              // CAP STRING LENGTH TO A GOOD AMOUNT
-
+            onChange={(value)=>{
               setMatch((prev) => {
                 if (!prev) return null;
 
@@ -231,7 +306,7 @@ export default function ControlPanel(): React.JSX.Element {
                   ...prev,
                   team1: {
                     ...prev.team1,
-                    name: newVal,
+                    name: value,
                   },
                 };
 
@@ -242,30 +317,10 @@ export default function ControlPanel(): React.JSX.Element {
           />
 
           {/* Team2 input */}
-          <TextField 
-            id="outlined-basic"
+          <UserInput
             label="Team2"
-            variant="outlined"
-            sx={{
-              "& .MuiInputBase-input": { color: "white" },
-              "& .MuiInputLabel-root": { color: "white" },
-              "& .MuiInputLabel-root.Mui-focused": { color: "white" },
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "white",
-              },
-            }}
             value={matchData.team2.name}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
-              const newVal = event.target.value;
-
-              // CAP STRING LENGTH TO A GOOD AMOUNT
-
+            onChange={(value)=>{
               setMatch((prev) => {
                 if (!prev) return null;
 
@@ -273,7 +328,7 @@ export default function ControlPanel(): React.JSX.Element {
                   ...prev,
                   team2: {
                     ...prev.team2,
-                    name: newVal,
+                    name: value,
                   },
                 };
 
@@ -282,21 +337,119 @@ export default function ControlPanel(): React.JSX.Element {
               });
             }}
           />
+          </Box>
 
           <pre>{JSON.stringify(matchData, null, 2)}</pre>
         </TabPanel>
 
+
+
+
+
+
         {/* ############################################################# */}
 
-        <TabPanel value={3}>
-          <Button
-            onClick={ () => {
-              window.stateAPI.resetColours();
-              fetchState();
-            }}
-          >
-            RESET COLOURS
-          </Button>
+
+
+        
+
+
+        <TabPanel value={3} sx={{display: 'flex'}}>
+          <Box>
+            <Button
+              onClick={ () => {
+                window.stateAPI.resetColours();
+                fetchState();
+              }}
+            >
+              RESET COLOURS
+            </Button>
+
+            {/* Team 1 colour */}
+            <input 
+              type='color'
+              value={colourData.team1}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team1: newVal,
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+
+            {/* Team 2 colour */}
+            <input 
+              type='color'
+              value={colourData.team2}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team2: newVal,
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+
+            {/* Team 1 text */}
+            <input 
+              type='color'
+              value={colourData.team1Text}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team1Text: newVal,
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+
+            {/* Team 2 text */}
+            <input 
+              type='color'
+              value={colourData.team2Text}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team2Text: newVal,
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+
+          </Box>
 
           <pre>{JSON.stringify(colourData, null, 2)}</pre>
         </TabPanel>

@@ -21,17 +21,16 @@ export const DEFAULT_MATCH_STATE: Match = {
 }
 
 export const DEFAULT_COLOUR_STATE: Colours = {
-  team1: '#e0e0e0',
-  team1Text: '#000000',
-  team2: '#gegege',
-  team2Text: '#000000',
+  team1: '#1e95c4',
+  team1Text: '#e0e0e0',
+  team2: '#c56ac5',
+  team2Text: '#e0e0e0',
   caster: '#e0e0e0',
 }
 
 export const DEFAULT_CASTER_STATE: Casters = {
   number: 2,
   casters: [
-    { name: 'Person1', handle: 'Handle1' },
-    { name: 'Person2', handle: 'Handle2' }
+    { name: 'Name', handle: 'Handle' },
   ]
 }
