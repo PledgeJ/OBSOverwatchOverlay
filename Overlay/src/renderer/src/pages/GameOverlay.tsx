@@ -5,6 +5,7 @@ import type { Match } from '@common/match.type';
 import type { Casters } from '@common/caster.type';
 import type { Colours } from '@common/colours.type';
 import { WS_Type } from '../../../types/enums';
+import { Box } from '@mui/material';
 
 export default function GameOverlay(): React.JSX.Element {
   const [matchData, setMatchData] = useState<Match | null>(null);
@@ -46,6 +47,22 @@ export default function GameOverlay(): React.JSX.Element {
   return (
     <>
       <h1>Game</h1>
+
+      <Box
+        component='img'
+        src={`/heroes/${matchData?.currMap.team1ban}.webp`}
+      />
+
+      <Box
+        component='img'
+        src={`/heroes/${matchData?.currMap.team2ban}.webp`}
+      />
+
+      <Box
+        component='img'
+        src={`/maps/${matchData?.currMap.map}.webp`}
+      />
+
       <pre>{JSON.stringify(matchData, null, 2)}</pre>
       <pre>{JSON.stringify(casterData, null, 2)}</pre>
       <pre>{JSON.stringify(colourData, null, 2)}</pre>

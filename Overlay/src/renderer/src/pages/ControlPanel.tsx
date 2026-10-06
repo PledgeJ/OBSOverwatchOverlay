@@ -2,6 +2,8 @@
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
+import { MAPS, HEROES } from '@renderer/components/list'
+
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import Tab from '@mui/material/Tab';
@@ -337,8 +339,9 @@ export default function ControlPanel(): React.JSX.Element {
                 });
               }}
             >
-              <MenuItem value={'illios'}>Illios</MenuItem>
-              <MenuItem value={'suravasa'}>Suravasa</MenuItem>
+              {MAPS.map((i) => (
+                <MenuItem key={i} value={i}>{i}</MenuItem>
+              ))}
             </Select>
           </FormControl>
 
@@ -363,8 +366,9 @@ export default function ControlPanel(): React.JSX.Element {
                 });
               }}
             >
-              <MenuItem value={'kiriko'}>Kiriko</MenuItem>
-              <MenuItem value={'lucio'}>Lucio</MenuItem>
+              {HEROES.map((i) => (
+                <MenuItem key={i} value={i}>{i}</MenuItem>
+              ))}
             </Select>
           </FormControl>
 
@@ -389,8 +393,9 @@ export default function ControlPanel(): React.JSX.Element {
                 });
               }}
             >
-              <MenuItem value={'kiriko'}>Kiriko</MenuItem>
-              <MenuItem value={'lucio'}>Lucio</MenuItem>
+              {HEROES.map((i) => (
+                <MenuItem key={i} value={i}>{i}</MenuItem>
+              ))}
             </Select>
           </FormControl>
 

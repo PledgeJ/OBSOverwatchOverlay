@@ -5,7 +5,7 @@
     "src/main/**/*", 
     "src/preload/**/*",
     "src/types/**/*"
-  ],
+,     "src/renderer/src/components/list.ts"  ],
   "compilerOptions": {
     "composite": true,
     "types": ["electron-vite/node"],
