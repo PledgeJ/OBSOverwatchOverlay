@@ -14,6 +14,9 @@
 - Doesn't let you exit the app before you close overwatch
 - When overwatch is then closed, the config is returned back to normal
 
+KEEP IN MIND THAT THE USER IS ABLE TO SAVE A MAP THAT HAD NO BANS
+- Error message if trying to submit and no map has been selected
+
 ## InGame overlay checklist
 - [ ] Team names
 - [ ] Team colours
