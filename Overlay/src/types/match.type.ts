@@ -49,8 +49,9 @@ export interface Match {
     team1: Team;
     team2: Team;
     currMap: CurrentMap;
-    isFlipped: boolean;
     ft: number;
     title: string;
-    prevMaps: PrevMap[]
+    prevMaps: PrevMap[];
+    isFlipped: boolean;
+    mapScreen: boolean;
 }

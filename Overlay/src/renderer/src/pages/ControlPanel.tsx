@@ -4,7 +4,7 @@ import { Colours } from '@common/colours.type';
 import { Match } from '@common/match.type';
 import { MAPS, HEROES } from '@renderer/components/list'
 
-import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, ToggleButton } from '@mui/material';
 
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -66,7 +66,8 @@ export default function ControlPanel(): React.JSX.Element {
           <TabList onChange={(_event, tab) => setTab(tab)} aria-label="">
             <Tab label="Initial info" value={1} />
             <Tab label="Match" value={2} />
-            <Tab label="Colours" value={3} />
+            <Tab label="Intermission" value={3} />
+            <Tab label="Colours" value={4} />
           </TabList>
         </Box>
 
@@ -295,12 +296,7 @@ export default function ControlPanel(): React.JSX.Element {
 
 
 
-
-
         {/* ############################################################# */}
-
-
-
 
 
 
@@ -474,6 +470,24 @@ export default function ControlPanel(): React.JSX.Element {
               UNDO
             </Button>
           </Box>
+
+          <Button
+            onClick={ () => {
+              setMatch((prev) => {
+                if (!prev) return prev;
+
+                const nextState = {
+                  ...prev,
+                  isFlipped: !prev.isFlipped,
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          >
+            SWAP SIDES
+          </Button>
           
           </Box>
 
@@ -482,17 +496,43 @@ export default function ControlPanel(): React.JSX.Element {
 
 
 
-
-
-
         {/* ############################################################# */}
 
 
 
-        
-
-
         <TabPanel value={3} sx={{display: 'flex'}}>
+          <Box>
+            <ToggleButton
+              value="check"
+              selected={matchData.mapScreen}
+              onChange={() => {
+                setMatch((prev) => {
+                if (!prev) return prev;
+
+                const nextState = {
+                  ...prev,
+                  mapScreen: !prev.mapScreen,
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+              }}
+            >
+              Show maps and bans
+            </ToggleButton>
+          </Box>
+
+          <pre>{JSON.stringify(matchData, null, 2)}</pre>
+        </TabPanel>
+
+
+          
+        {/* ############################################################# */}
+
+
+
+        <TabPanel value={4} sx={{display: 'flex'}}>
           <Box>
             <Button
               onClick={ () => {
@@ -592,6 +632,8 @@ export default function ControlPanel(): React.JSX.Element {
           <pre>{JSON.stringify(colourData, null, 2)}</pre>
         </TabPanel>
       </TabContext>
+
+      
     </Box>
     </>
   )
