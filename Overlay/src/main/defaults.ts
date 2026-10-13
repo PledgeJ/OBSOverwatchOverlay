@@ -3,6 +3,7 @@
 import type { Casters } from "@common/caster.type";
 import type { Colours } from "@common/colours.type";
 import type { Match } from "@common/match.type";
+import { ServerStatus } from "@common/servers.type";
 
 export const DEFAULT_MATCH_STATE: Match = {
   team1: {
@@ -17,9 +18,12 @@ export const DEFAULT_MATCH_STATE: Match = {
   },
   currMap: {map: '', team1ban: '', team2ban: ''},
   isFlipped: false,
+  mapScreen: false,
   ft: 2,
   title: 'Title',
-  prevMaps: []
+  prevMaps: [],
+  listenin: { team1: false, team2: false },
+  obsPass: '',
 }
 
 export const DEFAULT_COLOUR_STATE: Colours = {
@@ -35,4 +39,15 @@ export const DEFAULT_CASTER_STATE: Casters = {
   casters: [
     { name: 'Name', handle: 'Handle' },
   ]
+}
+
+export const DEFAULT_SERVER_STATUS: ServerStatus = {
+  http: { 
+    status: true, 
+    port: 0, 
+  },
+  ws: { 
+    status: true,
+    port: 0,
+  },
 }

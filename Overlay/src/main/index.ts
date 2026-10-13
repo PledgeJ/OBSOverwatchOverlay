@@ -6,12 +6,13 @@ import icon from '../../resources/icon.png?asset'
 
 import { stateManager } from './stateManager';
 
-function createWindow(): void {
+function createWindow(): BrowserWindow {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1000,
+    height: 700,
     show: false,
+    resizable: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -36,6 +37,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  return mainWindow
 }
 
 // This method will be called when Electron has finished
@@ -55,7 +58,25 @@ app.whenReady().then(() => {
   // MY BIT ####################################
   stateManager.init()
 
-  createWindow()
+  const w = createWindow()
+
+  updateServerStatus(w)
+
+  if (stateManager.http && stateManager.wss) {
+    stateManager.http.on('error', (err: NodeJS.ErrnoException) => {
+      stateManager.serverStatus.http.status = false;
+      stateManager.serverStatus.http.error = `HTTP: ${err.code ?? err.message}`;
+
+      updateServerStatus(w);
+    })
+
+    stateManager.wss.on('error', (err: NodeJS.ErrnoException) => {
+      stateManager.serverStatus.ws.status = false;
+      stateManager.serverStatus.ws.error = `WS: ${err.code ?? err.message}`;
+
+      updateServerStatus(w);
+    })
+  }
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -63,6 +84,11 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
+
+function updateServerStatus(w: BrowserWindow): void {
+  w.webContents.send('server', stateManager.serverStatus)
+  console.log('server sync')
+}
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

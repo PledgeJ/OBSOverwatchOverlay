@@ -54,4 +54,6 @@ export interface Match {
     prevMaps: PrevMap[];
     isFlipped: boolean;
     mapScreen: boolean;
+    listenin: { team1: boolean, team2: boolean };
+    obsPass: string;
 }

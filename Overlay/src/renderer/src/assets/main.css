@@ -2,6 +2,7 @@
 
 body {
   background-color: #1c222c;
+  overflow-y: hidden;
 }
 
 code {
@@ -34,4 +35,12 @@ input {
   padding: 0;
   width: 40px;
   height: 24px;
+}
+
+.score {
+  height: 99%;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

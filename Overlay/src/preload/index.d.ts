@@ -2,7 +2,7 @@
 import { Match } from '@common/match.type';
 import type { Colours } from '@common/colours.type';
 import type { Casters } from '@common/caster.type';
-
+import type { ServerStatus } from '@common/'
 /* eslint-disable prettier/prettier */
 export interface IStateAPI {
   getState: () => Promise<{match: Match, colours: Colours, casters: Casters}>;
@@ -14,6 +14,8 @@ export interface IStateAPI {
   resetMatch: () => Promise<{success: boolean}>;
   resetCasters: () => Promise<{success: boolean}>;
   resetColours: () => Promise<{success: boolean}>;
+
+  syncServerStatus: (cb: (s: ServerStatus) => void) => () => void;
 }
 
 declare global {

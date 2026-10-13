@@ -5,15 +5,16 @@ import { WebSocketServer, WebSocket } from 'ws';
 import path from 'path';
 import { is } from '@electron-toolkit/utils';
 
-import { Match } from '@common/match.type';
-import { WS_Type } from '../types/enums';
-import { Colours } from '@common/colours.type';
-import { Casters } from '@common/caster.type';
+import type { Match } from '@common/match.type';
+import type { WS_Type } from '../types/enums';
+import type { Colours } from '@common/colours.type';
+import type { Casters } from '@common/caster.type';
+import type { ServerStatus } from '@common/servers.type';
 
 const HTTP_PORT = 3000;
 const WS_PORT = 8080;
 
-export function startServers(distPath: string): WebSocketServer {
+export function startServers(distPath: string, serverStatus: ServerStatus): {http: http.Server, wss: WebSocketServer, serverStatus: ServerStatus} {
 
   // Serve static pages for overlay
   const app = express();
@@ -48,7 +49,10 @@ export function startServers(distPath: string): WebSocketServer {
 
   console.log(`[WS] WebSocket server running on ws://localhost:${WS_PORT}`);
 
-  return wss
+  serverStatus.http.port = HTTP_PORT;
+  serverStatus.ws.port = WS_PORT;
+
+  return { http: httpServer, wss, serverStatus }
 }
 
 export function sendPacket(wss: WebSocketServer, state: Match | Colours | Casters, type: WS_Type): void {

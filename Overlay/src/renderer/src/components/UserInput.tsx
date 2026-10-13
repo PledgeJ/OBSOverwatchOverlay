@@ -8,6 +8,8 @@ export interface InputProps {
   value: unknown;
   onChange: (value: string) => void;
   maxLength?: number;
+  disabled?: boolean;
+  width?: number
 }
 
 export const UserInput: React.FC<InputProps> = ({
@@ -15,7 +17,9 @@ export const UserInput: React.FC<InputProps> = ({
   label,
   value,
   onChange,
-  maxLength = 30
+  maxLength = 30,
+  disabled = false,
+  width = 223,
 }) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -30,21 +34,23 @@ export const UserInput: React.FC<InputProps> = ({
 
   return (
     <TextField 
+      disabled={disabled}
       id={id}
       label={label}
       variant="outlined"
       sx={{
-        "& .MuiInputBase-input": { color: "white" },
-        "& .MuiInputLabel-root": { color: "white" },
-        "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+        width: width,
+        "& .MuiInputBase-input": { color: "#e0e0e0" },
+        "& .MuiInputLabel-root": { color: "#e0e0e0" },
+        "& .MuiInputLabel-root.Mui-focused": { color: "#e0e0e0" },
         "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-          borderColor: "white",
+          borderColor: "#e0e0e0",
         },
         "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-          borderColor: "white",
+          borderColor: "#e0e0e0",
         },
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-          borderColor: "white",
+          borderColor: "#e0e0e0",
         },
       }}
       value={value}

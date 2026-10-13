@@ -8,10 +8,12 @@ import _Store from 'electron-store'
 import { WebSocketServer } from 'ws';
 import { startServers, sendPacket } from './server';
 import path from 'path';
+import http from 'http';
 
 import { ipcMain } from 'electron';
 
-import { DEFAULT_CASTER_STATE, DEFAULT_COLOUR_STATE, DEFAULT_MATCH_STATE } from './defaults'
+import { DEFAULT_CASTER_STATE, DEFAULT_COLOUR_STATE, DEFAULT_MATCH_STATE, DEFAULT_SERVER_STATUS } from './defaults'
+import { ServerStatus } from '@common/servers.type';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Store = typeof _Store === 'function' ? _Store : (_Store as any).default;
@@ -22,14 +24,17 @@ class StateManager {
   private casterState: Casters = DEFAULT_CASTER_STATE;
 
   private store: typeof Store = new Store();
-  private wss: WebSocketServer | null = null;
+  public wss: WebSocketServer | null = null;
+  public http: http.Server | null = null;
+
+  public serverStatus: ServerStatus = DEFAULT_SERVER_STATUS;
 
   public init(): void {
     this.loadState();
     this.registerIPC();
 
     const distPath = path.join(__dirname, '../renderer');
-    this.wss = startServers(distPath)
+    ({ http: this.http, wss: this.wss, serverStatus: this.serverStatus } = startServers(distPath, this.serverStatus))
 
     this.wss.on('connection', () => {
       console.log('[WS] Client connected');
@@ -47,6 +52,8 @@ class StateManager {
     ipcMain.handle('reset-match', () => this.resetMatch());
     ipcMain.handle('reset-colours', () => this.resetColours());
     ipcMain.handle('reset-casters', () => this.resetCasters());
+
+    ipcMain.handle('get-server-status', () => this.serverStatus)
   }
 
   private async handleGetState(): Promise<{ match: Match; colours: Colours; casters: Casters }> {
@@ -92,11 +99,12 @@ class StateManager {
     this.matchState.team2.score = 0;
     this.matchState.prevMaps = [];
     this.matchState.currMap = {map: '', team1ban: '', team2ban: ''};
+    this.matchState.listenin = { team1: false, team2: false };
 
     this.store.set('match', this.matchState)
 
     // Testing
-    // this.store.delete('match')
+    //this.store.delete('match')
 
     console.error('[Main] - Reset match')
 
