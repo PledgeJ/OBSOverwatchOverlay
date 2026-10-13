@@ -23,3 +23,7 @@ contextBridge.exposeInMainWorld('stateAPI', {
     return () => ipcRenderer.removeListener('server', listener)
   }
 })
+
+contextBridge.exposeInMainWorld('utils', {
+  openFile: () => ipcRenderer.invoke('dialog:openFile'),
+});

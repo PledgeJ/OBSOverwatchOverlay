@@ -3,6 +3,7 @@ import { Match } from '@common/match.type';
 import type { Colours } from '@common/colours.type';
 import type { Casters } from '@common/caster.type';
 import type { ServerStatus } from '@common/'
+
 /* eslint-disable prettier/prettier */
 export interface IStateAPI {
   getState: () => Promise<{match: Match, colours: Colours, casters: Casters}>;
@@ -18,8 +19,13 @@ export interface IStateAPI {
   syncServerStatus: (cb: (s: ServerStatus) => void) => () => void;
 }
 
+export interface IUtils {
+  openFile: () => Promise<string | null>;
+}
+
 declare global {
   interface Window {
     stateAPI: IStateAPI;
+    utils: IUtils;
   }
 }

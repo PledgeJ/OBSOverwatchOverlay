@@ -10,10 +10,11 @@ import { startServers, sendPacket } from './server';
 import path from 'path';
 import http from 'http';
 
-import { ipcMain } from 'electron';
+import { ipcMain, dialog } from 'electron';
 
 import { DEFAULT_CASTER_STATE, DEFAULT_COLOUR_STATE, DEFAULT_MATCH_STATE, DEFAULT_SERVER_STATUS } from './defaults'
 import { ServerStatus } from '@common/servers.type';
+import fs from 'fs';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Store = typeof _Store === 'function' ? _Store : (_Store as any).default;
@@ -53,7 +54,44 @@ class StateManager {
     ipcMain.handle('reset-colours', () => this.resetColours());
     ipcMain.handle('reset-casters', () => this.resetCasters());
 
-    ipcMain.handle('get-server-status', () => this.serverStatus)
+    ipcMain.handle('get-server-status', () => this.serverStatus);
+
+    ipcMain.handle('dialog:openFile', () => this.handleFile());
+  }
+
+  private async handleFile(): Promise<string | null> {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [
+        { name: 'Images', extensions: ['png', 'jpg', 'jpeg'] }
+      ],
+    });
+
+    const filePath = filePaths[0];
+
+    if (canceled || !filePath) return null;
+
+    try {
+      const fileBuffer = fs.readFileSync(filePath);
+      const extension = filePath.split('.').pop()?.toLowerCase();
+
+      if (!extension) return null;
+      
+      const mimeTypes = {
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        svg: 'image/svg+xml',
+        webp: 'image/webp'
+      };
+      const type = mimeTypes[extension] || 'image/png';
+      const url = `data:${type};base64,${fileBuffer.toString('base64')}`;
+
+      return url;
+    } catch (error) {
+      console.error('Error processing logo:', error);
+      throw error;
+    }
   }
 
   private async handleGetState(): Promise<{ match: Match; colours: Colours; casters: Casters }> {

@@ -112,21 +112,36 @@ export default function ControlPanel(): React.JSX.Element {
     
     <Box sx={{margin: 2, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
       
-      <Box sx={{width: 400, display: 'flex', alignItems: 'center', gap: 1}}>
-        <Box sx={{ 
-          zIndex: 1,
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          gap: 20, 
-          backgroundColor: left.colour.team, 
-          borderRadius: 1, 
-          paddingX: 2, 
-          ml: 2
-        }}>
-          <h1>{left.team.name}</h1>
-          <h1 className='score' style={{backgroundColor: `color-mix(in srgb, ${left.colour.team}, black 25%)`}} >{left.team.score}</h1>
+      <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+        {/* Team1 Name */}
+        <Box
+          sx={{
+            backgroundColor: left.colour.team,
+            height: 55,
+            display: 'flex',
+            alignItems: 'center',
+            padding: 2,
+            borderRadius: 1,
+            mr: 1
+          }}
+        >
+          <Typography variant='h5' sx={{width: 303, color: left.colour.text, transition: 'width 0.5s ease',}}>{left.team.name}</Typography>
         </Box>
+
+        {/* Team1 Score */}
+        <Box
+          sx={{
+            backgroundColor: `color-mix(in srgb, ${left.colour.team}, black 25%)`,
+            height: 55,
+            display: 'flex',
+            alignItems: 'center',
+            borderRadius: 1,
+            mr: 1
+          }}
+        >
+          <Typography variant='h5' sx={{width: 55, color: left.colour.text, textAlign: 'center', fontSize: 40}}>{left.team.score}</Typography>
+        </Box>
+
         <Box sx={{
           display: 'flex', 
           justifyContent: 'center',
@@ -134,18 +149,15 @@ export default function ControlPanel(): React.JSX.Element {
           padding: 1, 
           backgroundColor: left.colour.team, 
           borderRadius: 1,
-          transform: left.listenin ? 'translateX(0)' : 'translateX(-55px)',
+          zIndex: -1,
+          transform: left.listenin ? 'translateX(0)' : 'translateX(-50px)',
           transition: 'transform 0.3s ease',
         }}>
           <FaMicrophone size={25}/>
         </Box>
       </Box>
 
-      <Box>
-        <h1>FT{matchData.ft}</h1>
-      </Box>
-
-      <Box sx={{Width: 400, display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'right', mr: 2}}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
         <Box sx={{
           display: 'flex', 
           justifyContent: 'center',
@@ -153,23 +165,63 @@ export default function ControlPanel(): React.JSX.Element {
           padding: 1, 
           backgroundColor: right.colour.team, 
           borderRadius: 1,
-          transform: right.listenin ? 'translateX(0)' : 'translateX(65px)',
+          zIndex: -1,
+          transform: right.listenin ? 'translateX(0)' : 'translateX(50px)',
           transition: 'transform 0.3s ease',
         }}>
           <FaMicrophone size={25}/>
         </Box>
-        <Box sx={{ 
-          zIndex: 1,
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          gap: 20, 
-          backgroundColor: right.colour.team, 
-          borderRadius: 1, 
-          paddingX: 2, 
-        }}>
-          <h1 className='score' style={{backgroundColor: `color-mix(in srgb, ${right.colour.team}, black 25%)`}}>{right.team.score}</h1>
-          <h1>{right.team.name}</h1>
+        {/* Team2 Score */}
+        <Box
+          sx={{
+            backgroundColor: `color-mix(in srgb, ${right.colour.team}, black 25%)`,
+            height: 55,
+            display: 'flex',
+            alignItems: 'center',
+            borderRadius: 1,
+            ml: 1
+          }}
+        >
+          <Typography variant='h5' sx={{width: 55, color: right.colour.text, textAlign: 'center', fontSize: 40}}>{right.team.score}</Typography>
+        </Box>
+
+        {/* Team2 Ban */}
+        <Box
+          sx={{
+            height: 55, width: right.ban !== '' ? 55 : 0,
+            border: right.ban !== '' ? `${right.colour.team} 2px solid`: 'none',
+            borderRadius: 1,
+            backgroundColor: `color-mix(in srgb, ${right.colour.team}, black 25%)`,
+            padding: right.ban !== '' ? 0.2 : 0,
+            ml: right.ban !== '' ? 1 : 0,
+            transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
+          }}
+        >
+          <Box
+            component='img'
+            src={right.ban !== '' ? `/heroes/${right.ban}.webp`: undefined}
+            sx={{
+            width: '100%',
+            height: '100%',
+            opacity: right.ban !== '' ? 1 : 0,
+            transition: right.ban !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
+          }}
+          />
+        </Box>
+
+        {/* Team2 Name */}
+        <Box
+          sx={{
+            backgroundColor: right.colour.team,
+            height: 55,
+            display: 'flex',
+            alignItems: 'center',
+            padding: 2,
+            borderRadius: 1,
+            ml: 1
+          }}
+        >
+          <Typography variant='h5' sx={{width: 303, color: right.colour.text, textAlign: 'right', transition: 'width 0.5s ease',}}>{right.team.name}</Typography>
         </Box>
       </Box>
     </Box>
@@ -441,6 +493,136 @@ export default function ControlPanel(): React.JSX.Element {
               />
             </Box>
           </Box>
+
+          <Box
+            sx={{
+              height: 80, width: 80,
+              border: `${colourData.team1} 2px solid`,
+              borderRadius: 1,
+              backgroundColor: `color-mix(in srgb, ${colourData.team1}, black 25%)`,
+              padding: matchData.team1.picture !== '' ? 0.2 : 0,
+              mr: matchData.team1.picture !== '' ? 1 : 0,
+              transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
+            }}
+          >
+            <Box
+              component='img'
+              src={matchData.team1.picture !== '' ? matchData.team1.picture : undefined}
+              sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              opacity: matchData.team1.picture !== '' ? 1 : 0,
+              transition: matchData.team1.picture !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
+            }}
+            />
+          </Box>
+
+          <Button
+            onClick={async () => {
+
+              const filePath = await window.utils.openFile();
+
+              if (filePath) {
+                setMatch((prev) => {
+                  if (!prev) return prev;
+
+                  const nextState = {
+                    ...prev,
+                    team1: {...prev.team1, picture: filePath}
+                  };
+
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }
+            }}
+          >
+            Browse
+          </Button>
+
+          <Button
+            onClick={() => {
+              setMatch((prev) => {
+                if (!prev) return prev;
+
+                const nextState = {
+                  ...prev,
+                  team1: {...prev.team1, picture: ''}
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          >
+            Clear
+          </Button>
+
+          <Box
+            sx={{
+              height: 80, width: 80,
+              border: `${colourData.team2} 2px solid`,
+              borderRadius: 1,
+              backgroundColor: `color-mix(in srgb, ${colourData.team2}, black 25%)`,
+              padding: matchData.team2.picture !== '' ? 0.2 : 0,
+              mr: matchData.team2.picture !== '' ? 1 : 0,
+              transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
+            }}
+          >
+            <Box
+              component='img'
+              src={matchData.team2.picture !== '' ? matchData.team2.picture : undefined}
+              sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              opacity: matchData.team2.picture !== '' ? 1 : 0,
+              transition: matchData.team2.picture !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
+            }}
+            />
+          </Box>
+
+          <Button
+            onClick={async () => {
+
+              const filePath = await window.utils.openFile();
+
+              if (filePath) {
+                setMatch((prev) => {
+                  if (!prev) return prev;
+
+                  const nextState = {
+                    ...prev,
+                    team2: {...prev.team2, picture: filePath}
+                  };
+
+                  window.stateAPI.setMatch(nextState);
+                  return nextState;
+                });
+              }
+            }}
+          >
+            Browse
+          </Button>
+
+          <Button
+            onClick={() => {
+              setMatch((prev) => {
+                if (!prev) return prev;
+
+                const nextState = {
+                  ...prev,
+                  team2: {...prev.team2, picture: ''}
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }}
+          >
+            Clear
+          </Button>
           
           <br/>
           <br/>
