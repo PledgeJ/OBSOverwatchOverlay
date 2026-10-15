@@ -51,7 +51,8 @@ export function TopDisplay({
         >
           <Typography variant='h5' sx={{width: 55, color: left.colour.text, textAlign: 'center', fontSize: 40}}>{left.team.score}</Typography>
         </Box>
-
+        
+        {/* Team1 listen in */}
         <Box sx={{
           display: 'flex', 
           justifyContent: 'center',
@@ -67,6 +68,7 @@ export function TopDisplay({
         </Box>
       </Box>
 
+      {/* Team2 listen in */}
       <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
         <Box sx={{
           display: 'flex', 
@@ -81,6 +83,7 @@ export function TopDisplay({
         }}>
           <FaMicrophone size={25}/>
         </Box>
+
         {/* Team2 Score */}
         <Box
           sx={{
@@ -93,30 +96,6 @@ export function TopDisplay({
           }}
         >
           <Typography variant='h5' sx={{width: 55, color: right.colour.text, textAlign: 'center', fontSize: 40}}>{right.team.score}</Typography>
-        </Box>
-
-        {/* Team2 Ban */}
-        <Box
-          sx={{
-            height: 55, width: right.ban !== '' ? 55 : 0,
-            border: right.ban !== '' ? `${right.colour.team} 2px solid`: 'none',
-            borderRadius: 1,
-            backgroundColor: `color-mix(in srgb, ${right.colour.team}, black 25%)`,
-            padding: right.ban !== '' ? 0.2 : 0,
-            ml: right.ban !== '' ? 1 : 0,
-            transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
-          }}
-        >
-          <Box
-            component='img'
-            src={right.ban !== '' ? `/heroes/${right.ban}.webp`: undefined}
-            sx={{
-            width: '100%',
-            height: '100%',
-            opacity: right.ban !== '' ? 1 : 0,
-            transition: right.ban !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
-          }}
-          />
         </Box>
 
         {/* Team2 Name */}
