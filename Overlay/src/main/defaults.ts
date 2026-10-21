@@ -34,7 +34,7 @@ export const DEFAULT_COLOUR_STATE: Colours = {
   main: '#065434',
   accent: '#deb408',
   secondary: '#198a59',
-  caster: '#e0e0e0',
+  matchStats: '#0b3624',
 }
 
 export const DEFAULT_CASTER_STATE: Casters = {

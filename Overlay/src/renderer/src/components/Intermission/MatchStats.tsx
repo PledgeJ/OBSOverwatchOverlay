@@ -18,7 +18,7 @@ export function MatchStats({
       <Box
         sx={{
           display: 'flex', justifyContent: 'space-between', gap: 5, alignItems: 'center',
-          backgroundColor: '#0b3624', padding: 5, py: 7, borderRadius: 3,
+          backgroundColor: colourData.matchStats, padding: 5, py: 7, borderRadius: 3,
           mx: matchData.currMap.team1ban || matchData.currMap.team2ban ? 3 : 25,
           transition: 'margin 0.5s ease'
         }}

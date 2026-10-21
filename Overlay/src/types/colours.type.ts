@@ -8,5 +8,5 @@ export interface Colours {
     accent: string;
     secondary: string;
     team2Text: string;
-    caster: string;
+    matchStats: string;
 }

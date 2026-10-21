@@ -176,6 +176,27 @@ export function ColoursTab({
           }}
         />
 
+        {/* Match Stats */}
+        <input 
+          type='color'
+          value={colourData.matchStats}
+          onChange={(e) => {
+            const newVal = e.target.value;
+
+            setColours((prev) => {
+            if (!prev) return null;
+
+            const nextState = {
+              ...prev,
+              matchStats: newVal,
+            };
+
+            window.stateAPI.setColour(nextState);
+            return nextState;
+          });
+          }}
+        />
+
       </Box>
 
       <pre>{JSON.stringify(colourData, null, 2)}</pre>
