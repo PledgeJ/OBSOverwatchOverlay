@@ -279,7 +279,7 @@ export function InitialInfo({
         <Button
           onClick={ () => {
             setCasters((prev) => {
-              if (!prev || prev.number + 1 > 8) return prev;
+              if (!prev || prev.number + 1 > 7) return prev;
 
               const nextState = {
                 number: prev.number + 1,

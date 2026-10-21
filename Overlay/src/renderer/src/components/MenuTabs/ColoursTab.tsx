@@ -111,6 +111,71 @@ export function ColoursTab({
           }}
         />
 
+        <br/>
+
+        {/* BG Main */}
+        <input 
+          type='color'
+          value={colourData.main}
+          onChange={(e) => {
+            const newVal = e.target.value;
+
+            setColours((prev) => {
+            if (!prev) return null;
+
+            const nextState = {
+              ...prev,
+              main: newVal,
+            };
+
+            window.stateAPI.setColour(nextState);
+            return nextState;
+          });
+          }}
+        />
+
+        {/* BG Secondary */}
+        <input 
+          type='color'
+          value={colourData.secondary}
+          onChange={(e) => {
+            const newVal = e.target.value;
+
+            setColours((prev) => {
+            if (!prev) return null;
+
+            const nextState = {
+              ...prev,
+              secondary: newVal,
+            };
+
+            window.stateAPI.setColour(nextState);
+            return nextState;
+          });
+          }}
+        />
+
+        {/* BG Accent */}
+        <input 
+          type='color'
+          value={colourData.accent}
+          onChange={(e) => {
+            const newVal = e.target.value;
+
+            setColours((prev) => {
+            if (!prev) return null;
+
+            const nextState = {
+              ...prev,
+              accent: newVal,
+            };
+
+            window.stateAPI.setColour(nextState);
+            return nextState;
+          });
+          }}
+        />
+
       </Box>
 
       <pre>{JSON.stringify(colourData, null, 2)}</pre>

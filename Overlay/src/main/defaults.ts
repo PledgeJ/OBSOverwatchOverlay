@@ -31,9 +31,9 @@ export const DEFAULT_COLOUR_STATE: Colours = {
   team1Text: '#e0e0e0',
   team2: '#c56ac5',
   team2Text: '#e0e0e0',
-  main: '#e0e0e0',
-  accent: '#c56ac5',
-  secondary: '#1e95c4',
+  main: '#065434',
+  accent: '#deb408',
+  secondary: '#198a59',
   caster: '#e0e0e0',
 }
 

@@ -5,8 +5,8 @@ import type { Match } from '@common/match.type';
 import { WS_Type } from '../../../types/enums';
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
-import { IntermissionBackground } from '@renderer/components/IntermissionBackground';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { Cameras } from '@renderer/components/Cameras';
 
 export default function IntermissionOverlay(): React.JSX.Element {
   const [matchData, setMatchData] = useState<Match | null>(null);
@@ -51,21 +51,27 @@ export default function IntermissionOverlay(): React.JSX.Element {
 
   return (
     <>
-      <h1>Intermission</h1>
-
-      <Box
-        sx={{
-          position: 'absolute',
-          w: '100%', h: '100%',
-          zIndex: -1
+      {/* Background */}
+      <Box 
+        sx={{ 
+          width: '100vw', height: '100vh', 
+          background: `linear-gradient(
+            135deg,
+            ${colourData.main} 0% 55%,
+            ${colourData.accent} 55% 60%,
+            ${colourData.secondary} 60% 100%
+          )`
         }}
-      ><IntermissionBackground colourData={colourData}/></Box>
+      >
+        <Cameras casterData={casterData} />
+
+        
+      </Box>
 
       {/* 
         Notes:
           - If the map and ban screen is open, don't show the popup for new ban and map
       */}
-
     </>
   )
 }
