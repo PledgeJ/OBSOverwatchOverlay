@@ -31,7 +31,10 @@ class StateManager {
   public serverStatus: ServerStatus = DEFAULT_SERVER_STATUS;
 
   public init(): void {
+
+    // Comment out to reset to defaults
     this.loadState();
+
     this.registerIPC();
 
     const distPath = path.join(__dirname, '../renderer');
@@ -140,9 +143,6 @@ class StateManager {
     this.matchState.listenin = { team1: false, team2: false };
 
     this.store.set('match', this.matchState)
-
-    // Testing
-    //this.store.delete('match')
 
     console.error('[Main] - Reset match')
 

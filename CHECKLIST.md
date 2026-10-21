@@ -2,13 +2,15 @@
 - [ ] Music widget
 - [ ] Mateo gif
 
+- [ ] Go around and fix prettier errors in ALL files
+
 ## Control panel checklist
 - [ ] Option to change PORT number for overlays / error handling if the port is already in use
 - [ ] Showing where the overlays are saved / how to use them / copy them (Intermission layer order goes background image, cameras, overlay)
-- [ ] Saving the current setup
-- [ ] Reset score button
-- [ ] Rollback previous button (since you have to click which team won, not change the scores individually)
-- [ ] Switch sides button
+- [x] Saving the current setup
+- [x] Reset score button
+- [x] Rollback previous button (since you have to click which team won, not change the scores individually)
+- [x] Switch sides button
 - [ ] Ability to do the config editing in the app
 - Press start > edits config > boots overwatch
 - Doesn't let you exit the app before you close overwatch
@@ -18,15 +20,15 @@ KEEP IN MIND THAT THE USER IS ABLE TO SAVE A MAP THAT HAD NO BANS
 - Error message if trying to submit and no map has been selected
 
 ## InGame overlay checklist
-- [ ] Team names
-- [ ] Team colours
-- [ ] Team score
-- [ ] Team bans
-- [ ] Name colour
-- [ ] FT counter
+- [x] Team names
+- [x] Team colours
+- [x] Team score
+- [x] Team bans
+- [x] Name colour
+- [x] FT counter
 
 - [ ] Att / Def icons
-- [ ] Listenin Overlay
+- [x] Listenin Overlay
 - [ ] Ajax counter
 - [ ] BAD Explosion effect
 - [ ] Empty wide mode
