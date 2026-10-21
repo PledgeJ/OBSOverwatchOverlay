@@ -16,7 +16,7 @@ export const DEFAULT_MATCH_STATE: Match = {
     score: 0,
     picture: ''
   },
-  currMap: {map: '', team1ban: '', team2ban: ''},
+  currMap: {map: '', team1ban: '', team2ban: '', firstban: -1},
   isFlipped: false,
   mapScreen: false,
   ft: 2,

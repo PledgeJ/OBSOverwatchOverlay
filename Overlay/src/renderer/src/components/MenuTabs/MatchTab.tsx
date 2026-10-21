@@ -48,7 +48,7 @@ export function MatchTab({
 
             const nextState = {
               ...prev,
-              currMap: {map: '', team1ban: '', team2ban: ''},
+              currMap: {map: '', team1ban: '', team2ban: '', firstban: -1},
             };
 
             window.stateAPI.setMatch(nextState);
@@ -190,10 +190,15 @@ export function MatchTab({
               onChange={(e) => {
                 setMatch((prev) => {
                   if (!prev) return prev;
+                  
+                  let fb = prev.currMap.firstban
+                  if (fb == -1) {
+                    fb = 1
+                  }
 
                   const nextState = {
                     ...prev,
-                    currMap: {...prev.currMap, team1ban: e.target.value},
+                    currMap: {...prev.currMap, team1ban: e.target.value, firstban: fb},
                   };
 
                   window.stateAPI.setMatch(nextState);
@@ -259,9 +264,14 @@ export function MatchTab({
                 setMatch((prev) => {
                   if (!prev) return prev;
 
+                  let fb = prev.currMap.firstban
+                  if (fb == -1) {
+                    fb = 2
+                  }
+
                   const nextState = {
                     ...prev,
-                    currMap: {...prev.currMap, team2ban: e.target.value},
+                    currMap: {...prev.currMap, team2ban: e.target.value, firstban: fb},
                   };
 
                   window.stateAPI.setMatch(nextState);
@@ -298,10 +308,10 @@ export function MatchTab({
               const nextState = {
                 ...prev,
                 team1: {...prev.team1, score: prev.team1.score + 1},
-                currMap: {map: '', team1ban: '', team2ban: ''},
+                currMap: {map: '', team1ban: '', team2ban: '', firstban: -1},
                 prevMaps: [
                   ...prev.prevMaps, 
-                  { team1ban: prev.currMap.team1ban, team2ban: prev.currMap.team2ban, winner: 1, map: prev.currMap.map }
+                  { team1ban: prev.currMap.team1ban, team2ban: prev.currMap.team2ban, winner: 1, map: prev.currMap.map, firstban: prev.currMap.firstban }
                 ]
               };
 
@@ -331,10 +341,10 @@ export function MatchTab({
               const nextState = {
                 ...prev,
                 team2: {...prev.team2, score: prev.team2.score + 1},
-                currMap: {map: '', team1ban: '', team2ban: ''},
+                currMap: {map: '', team1ban: '', team2ban: '', firstban: -1},
                 prevMaps: [
                   ...prev.prevMaps, 
-                  { team1ban: prev.currMap.team1ban, team2ban: prev.currMap.team2ban, winner: 2, map: prev.currMap.map }
+                  { team1ban: prev.currMap.team1ban, team2ban: prev.currMap.team2ban, winner: 2, map: prev.currMap.map, firstban: prev.currMap.firstban }
                 ]
               };
 
@@ -363,7 +373,7 @@ export function MatchTab({
                 ...prev,
                 team1: {...prev.team1, score: last.winner === 1 ? prev.team1.score - 1 : prev.team1.score},
                 team2: {...prev.team2, score: last.winner === 2 ? prev.team2.score - 1 : prev.team2.score},
-                currMap: {map: last.map, team1ban: last.team1ban, team2ban: last.team2ban},
+                currMap: {map: last.map, team1ban: last.team1ban, team2ban: last.team2ban, firstban: last.firstban},
                 prevMaps: [...prev.prevMaps.toSpliced(-1, 1)]
               };
 

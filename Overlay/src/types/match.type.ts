@@ -37,12 +37,14 @@ export interface PrevMap {
     team2ban: string;
     winner: number;
     map: string;
+    firstban: number;
 }
 
 export interface CurrentMap {
     map: string;
     team1ban: string;
     team2ban: string;
+    firstban: number;
 }
 
 export interface Match {

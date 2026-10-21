@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import React from "react";
 import { FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
-import { UserInput } from "./UserInput";
+import { UserInput } from "../ControlPanel/UserInput";
 import { Match } from "@common/match.type";
 import { obsConn } from "@renderer/services/OBSConnection";
 import { ServerStatus } from "@common/servers.type";

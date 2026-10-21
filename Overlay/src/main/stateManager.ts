@@ -139,7 +139,7 @@ class StateManager {
     this.matchState.team1.score = 0;
     this.matchState.team2.score = 0;
     this.matchState.prevMaps = [];
-    this.matchState.currMap = {map: '', team1ban: '', team2ban: ''};
+    this.matchState.currMap = {map: '', team1ban: '', team2ban: '', firstban: -1};
     this.matchState.listenin = { team1: false, team2: false };
 
     this.store.set('match', this.matchState)

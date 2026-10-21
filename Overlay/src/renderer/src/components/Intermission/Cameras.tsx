@@ -11,17 +11,17 @@ export function Cameras({
   casterData,
 }: cameraProp): React.JSX.Element {
 
-  const mult = {1: 6, 2: 3, 3: 1, 4: 1, 5: 0, 6: 0};
+  const mult = {1: 6, 2: 3, 3: 0.1, 4: 0.1, 5: 0, 6: 0};
 
   return (
     <>
       <Box
         sx={{
-          height: '40vh',
           width: '98vw',
-          borderRadius: 1,
-          mb: 0.5, mx: '1vw', mt: 5,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 4, flexWrap: 'wrap'
+          height: '80%',
+          borderRadius: 1, mx: '1vw', mt: casterData.casters.length != 2 ? 9 : 25,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 4, flexWrap: 'wrap',
+          alignContent: 'flex-start'
         }}
       >
        {casterData.casters.map((caster, index) => (
