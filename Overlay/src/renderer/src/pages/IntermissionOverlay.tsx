@@ -5,7 +5,7 @@ import type { Match } from '@common/match.type';
 import { WS_Type } from '../../../types/enums';
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { Cameras } from '@renderer/components/Intermission/Cameras';
 import { MatchStats } from '@renderer/components/Intermission/MatchStats';
 
@@ -65,7 +65,7 @@ export default function IntermissionOverlay(): React.JSX.Element {
         }}
       >
         <Cameras casterData={casterData} />
-        <Box sx={{ position: 'absolute', bottom: 40 }}>
+        <Box sx={{ position: 'absolute', bottom: 40, width: '100%' }}>
           <MatchStats matchData={matchData} colourData={colourData} />
         </Box>
       </Box>

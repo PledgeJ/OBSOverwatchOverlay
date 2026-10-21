@@ -19,7 +19,7 @@ export function MatchStats({
         sx={{
           display: 'flex', justifyContent: 'space-between', gap: 5, alignItems: 'center',
           backgroundColor: colourData.matchStats, padding: 5, py: 7, borderRadius: 3,
-          mx: matchData.currMap.team1ban || matchData.currMap.team2ban ? 3 : 25,
+          mx: (matchData.currMap.team1ban || matchData.currMap.team2ban) && !matchData.mapScreen ? 3 : 25,
           transition: 'margin 0.5s ease'
         }}
       >
@@ -69,21 +69,21 @@ export function MatchStats({
           {/* Team1 Ban */}
           <Box
             sx={{
-              height: 82.5, width: matchData.currMap.team1ban !== '' ? 195 : 0,
-              border: matchData.currMap.team1ban !== '' ? `${colourData.team1} 2px solid`: 'none',
+              height: 82.5, width: matchData.currMap.team1ban !== '' && !matchData.mapScreen ? 195 : 0,
+              border: matchData.currMap.team1ban !== '' && !matchData.mapScreen ? `${colourData.team1} 2px solid`: 'none',
               borderRadius: 1,
               backgroundColor: `color-mix(in srgb, ${colourData.team1}, black 25%)`,
-              padding: matchData.currMap.team1ban !== '' ? 0.2 : 0,
-              mr: matchData.currMap.team1ban !== '' ? 1 : 0,
+              padding: matchData.currMap.team1ban !== '' && !matchData.mapScreen ? 0.2 : 0,
+              mr: matchData.currMap.team1ban !== '' && !matchData.mapScreen ? 1 : 0,
               transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between'
             }}
           >
 
-            <Typography sx={{ml: 1.5, fontSize: 22}}>{matchData.currMap.firstban == 1 ? '1st Ban:' : '2nd Ban'}</Typography>
+            <Typography sx={{ml: 1.5, fontSize: 22}}>{matchData.currMap.firstban == 1 ? '1st Ban:' : '2nd Ban:'}</Typography>
             <Box
               component='img'
-              src={matchData.currMap.team1ban !== '' ? `/heroes/${matchData.currMap.team1ban}.webp`: undefined}
+              src={matchData.currMap.team1ban !== '' && !matchData.mapScreen ? `/heroes/${matchData.currMap.team1ban}.webp`: undefined}
               sx={{
               width: 'auto',
               height: '100%',
@@ -130,20 +130,20 @@ export function MatchStats({
           {/* Team2 Ban */}
           <Box
             sx={{
-              height: 82.5, width: matchData.currMap.team2ban !== '' ? 195 : 0,
-              border: matchData.currMap.team2ban !== '' ? `${colourData.team2} 2px solid`: 'none',
+              height: 82.5, width: matchData.currMap.team2ban !== '' && !matchData.mapScreen ? 195 : 0,
+              border: matchData.currMap.team2ban !== '' && !matchData.mapScreen ? `${colourData.team2} 2px solid`: 'none',
               borderRadius: 1,
               backgroundColor: `color-mix(in srgb, ${colourData.team2}, black 25%)`,
-              padding: matchData.currMap.team2ban !== '' ? 0.2 : 0,
-              ml: matchData.currMap.team2ban !== '' ? 1 : 0,
+              padding: matchData.currMap.team2ban !== '' && !matchData.mapScreen ? 0.2 : 0,
+              ml: matchData.currMap.team2ban !== '' && !matchData.mapScreen ? 1 : 0,
               transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between'
             }}
           >
-            <Typography sx={{ml: 1.5, fontSize: 22}}>{matchData.currMap.firstban == 2 ? '1st Ban:' : '2nd Ban'}</Typography>
+            <Typography sx={{ml: 1.5, fontSize: 22}}>{matchData.currMap.firstban == 2 ? '1st Ban:' : '2nd Ban:'}</Typography>
             <Box
               component='img'
-              src={matchData.currMap.team2ban !== '' ? `/heroes/${matchData.currMap.team2ban}.webp`: undefined}
+              src={matchData.currMap.team2ban !== '' && !matchData.mapScreen ? `/heroes/${matchData.currMap.team2ban}.webp`: undefined}
               sx={{
               width: 'auto',
               height: '100%',
