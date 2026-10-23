@@ -304,6 +304,8 @@ export function InitialInfo({
         >
           RESET CASTERS
         </Button>
+
+        <Typography>(See connection dropdown for more information on caster cameras)</Typography>
       </Box>
       
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, height: 250, overflowY: 'scroll',

@@ -1,35 +1,28 @@
 /* eslint-disable prettier/prettier */
-import { Box, Button, Collapse, Typography } from "@mui/material";
+import { Box, Button, Collapse, Link, Typography } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import React from "react";
 import { FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
-import { UserInput } from "../ControlPanel/UserInput";
-import { Match } from "@common/match.type";
-import { obsConn } from "@renderer/services/OBSConnection";
+
 import { ServerStatus } from "@common/servers.type";
 
 interface CollapseProps {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  connNum: number
-  active: boolean
-  obsWS: boolean
-  matchData: Match;
-  setMatch: React.Dispatch<React.SetStateAction<Match | null>>;
   serverStatus: ServerStatus
 }
 
 export function ConnectionCollapse({
   open,
   setOpen,
-  connNum,
-  active,
-  obsWS,
-  matchData,
-  setMatch,
   serverStatus,
 }: CollapseProps): React.JSX.Element {
+
+  let connNum: number = 0
+  if (serverStatus.http.status) { connNum++; }
+  if (serverStatus.ws.status) { connNum++; }
+
   return (
     <>
       <Box>
@@ -69,87 +62,37 @@ export function ConnectionCollapse({
             borderRadius: 1 }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1,
-            color: active ? '#57de3e' : '#ff073a',
+            color: connNum ? '#57de3e' : '#ff073a',
             }}>
-            {active ? <FaCheckCircle /> : <FaExclamationTriangle />}
-            <Typography>Overlay HTTP server</Typography>
+            {serverStatus.http.status ?
+              <><FaCheckCircle /><Typography>HTTP server</Typography></> :
+              <><FaExclamationTriangle /><Typography>{serverStatus.http.error}</Typography></>
+            }
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1,
-            color: obsWS ? '#57de3e' : '#ff073a',
+            color: connNum ? '#57de3e' : '#ff073a',
             }}>
-            {obsWS ? <FaCheckCircle /> : <FaExclamationTriangle />}
-            <Typography>OBS Websocket connection</Typography>
+            {serverStatus.ws.status ?
+              <><FaCheckCircle /><Typography>WS server</Typography></> :
+              <><FaExclamationTriangle /><Typography>{serverStatus.ws.error}</Typography></>
+            }
           </Box>
 
           <br/>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <UserInput
-              label='OBS Password'
-              disabled={obsWS}
-              value={matchData.obsPass}
-              onChange={(value) => {
-                setMatch((prev) => {
-                  if (!prev) return null;
 
-                  const nextState = {
-                    ...prev,
-                    obsPass: value
-                  };
-
-                  window.stateAPI.setMatch(nextState);
-                  return nextState;
-                });
-              }}
-            />
-
-            <Button
-              sx={{ display: obsWS ? 'none' : 'block'}}
-              onClick={ () => {
-                if (!matchData || obsWS) { return; }
-                obsConn.connect(matchData.obsPass)
-              }}
-            >
-              Connect
-            </Button>
-
-            <Button
-              sx={{ display: obsWS ? 'block' : 'none'}}
-              onClick={ () => {
-                if (obsWS) { obsConn.disconnect() }
-              }}
-            >
-              Disconnect
-            </Button>
-
-          </Box>
-
-          <br />
-          <Typography>(In OBS)</Typography>
-          <Typography>• Tools &gt; WebSocket Server Settings</Typography>
-          <Typography>• Tick Enable WebSocket server if it isn’t already</Typography>
-          <Typography>• Make sure Server Port is 4455 (the default)</Typography>
-          <Typography>• Tick Enable Authentication</Typography>
-          <Typography>• Set a Server Password, or click Generate Password</Typography>
-          <Typography>• Click Show Connect Info</Typography>
+          <Typography>http://localhost:{serverStatus.http.port}/ingame</Typography>
+          <Typography>http://localhost:{serverStatus.http.port}/intermission</Typography>
+          <br/>                  
+          <Typography>• Add each link as a browser source in obs</Typography>
+          <Typography>• Set height and width to 1920 x 1080</Typography>
           <br/>
+          <Typography sx={{ fontWeight: 600 }}>Caster Cameras</Typography>
+          <Typography>• Go to{' '}<Link sx={{ ml: 0.5 }} href={'https://vdo.ninja/'} target="_blank" rel="noopener noreferrer">VDO.ninja</Link></Typography>
+          <Typography>• Create a room and get casters to join</Typography>
+          <Typography>• Press &apos;copy solo view link&apos;</Typography>
+          <Typography>• Paste each into the input for each caster</Typography>
 
-          <Box>
-            {active ? 
-            <>
-              <Typography>http://localhost:{serverStatus.http.port}/ingame</Typography>
-              <Typography>http://localhost:{serverStatus.http.port}/intermission</Typography>
-              <br/>                  
-              <Typography>• Add each link as a browser source in obs</Typography>
-              <Typography>• Set height and width to 1920 x 1080</Typography>
-            </>
-            : 
-            <>
-              <Typography>Error with overlay:</Typography>
-              {serverStatus.http.error && <Typography>{serverStatus.http.error}</Typography>}
-              {serverStatus.http.error && <Typography>{serverStatus.ws.error}</Typography>}
-            </>}
-          </Box>
         </Collapse>
       </Box>
     </>

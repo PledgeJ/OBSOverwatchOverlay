@@ -33,6 +33,8 @@ KEEP IN MIND THAT THE USER IS ABLE TO SAVE A MAP THAT HAD NO BANS
 - [ ] BAD Explosion effect
 - [ ] Empty wide mode
 
+- [ ] Cameras (show and hide)
+
 ## Intermission checklist
 - [ ] Map and bans / who won each
     - One full screen one, one smaller one

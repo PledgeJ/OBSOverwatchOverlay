@@ -4,8 +4,6 @@ import type { Colours } from '@common/colours.type';
 import type { Match } from '@common/match.type';
 import type { ServerStatus } from '@common/servers.type';
 
-import { obsConn } from '../services/OBSConnection';
-
 import { Box } from '@mui/material';
 
 import Tab from '@mui/material/Tab';
@@ -13,7 +11,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { InitialInfo } from '../components/MenuTabs/InitialInfoTab';
 import { MatchTab } from '@renderer/components/MenuTabs/MatchTab';
@@ -36,15 +34,12 @@ export default function ControlPanel(): React.JSX.Element {
 
   const [open, setOpen] = useState(false);
   const [serverStatus, setServerStatus] = useState<ServerStatus>(DEFAULT_SERVER_STATUS);
-  const [obsWS, setOBSWS] = useState(false);
 
   const [tab, setTab] = useState(1);
 
   const [matchData, setMatch] = useState<Match | null>(null);
   const [colourData, setColours] = useState<Colours | null>(null);
   const [casterData, setCasters] = useState<Casters | null>(null);
-
-  const load = useRef(true);
 
   async function fetchState(): Promise<void> {
     try {
@@ -83,12 +78,6 @@ export default function ControlPanel(): React.JSX.Element {
     return window.stateAPI.syncServerStatus(setServerStatus)
   }, [])
 
-  useEffect(() => obsConn.onStatus(setOBSWS), []);
-  useEffect(() => {
-    if (!matchData || !load) { return; }
-    obsConn.connect(matchData.obsPass)
-  }, [matchData]);
-
   if (!matchData || !colourData || !casterData) {
     return <h1>Loading...</h1>
   }
@@ -100,12 +89,6 @@ export default function ControlPanel(): React.JSX.Element {
   const right = matchData.isFlipped ? 
   { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.team1, text: colourData.team1Text}, listenin: matchData.listenin.team1 } :
   { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.team2, text: colourData.team2Text}, listenin: matchData.listenin.team2 }; 
-
-  const active = serverStatus.http.status && serverStatus.ws.status;
-
-  let connNum: number = 0
-  if (active) { connNum++; }
-  if (obsWS) { connNum++; }
 
   return (
     <>
@@ -143,11 +126,6 @@ export default function ControlPanel(): React.JSX.Element {
             <ConnectionCollapse 
               open={open}
               setOpen={setOpen}
-              connNum={connNum}
-              active={active}
-              obsWS={obsWS}
-              matchData={matchData}
-              setMatch={setMatch}
               serverStatus={serverStatus}
             />
 
