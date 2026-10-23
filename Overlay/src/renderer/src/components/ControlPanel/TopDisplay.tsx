@@ -68,8 +68,8 @@ export function TopDisplay({
         </Box>
       </Box>
 
-      {/* Team2 listen in */}
       <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+        {/* Team2 listen in */}
         <Box sx={{
           display: 'flex', 
           justifyContent: 'center',

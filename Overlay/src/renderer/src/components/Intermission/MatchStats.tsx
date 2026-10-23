@@ -14,11 +14,33 @@ export function MatchStats({
   colourData,
 }: StatProps): React.JSX.Element {
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex', flexDirection: 'column'
+      }}
+    >
+      <Box
+        sx={{
+          width: '100%', height: 60, zIndex: 1,
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+          transform: matchData.currMap.map !== '' && !matchData.mapScreen ? 'translateY(0)' : 'translateY(70px)', 
+          transition: 'transform 0.3s ease'
+        }}
+      >
+        <Typography 
+          sx={{ 
+            fontSize: 35, lineHeight: 1.85, backgroundColor: colourData.matchStats, width: 600, textAlign: 'center', pt: 1,
+            borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
+         }}
+        >
+          {matchData.currMap.map}
+        </Typography>
+      </Box>
+
       <Box
         sx={{
           display: 'flex', justifyContent: 'space-between', gap: 5, alignItems: 'center',
-          backgroundColor: colourData.matchStats, padding: 5, py: 7, borderRadius: 3,
+          backgroundColor: colourData.matchStats, padding: 5, py: 6, borderRadius: 3, zIndex: 2,
           mx: (matchData.currMap.team1ban || matchData.currMap.team2ban) && !matchData.mapScreen ? 3 : 25,
           transition: 'margin 0.5s ease'
         }}
@@ -42,12 +64,12 @@ export function MatchStats({
               component='img'
               src={matchData.team1.picture !== '' ? matchData.team1.picture : undefined}
               sx={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              opacity: matchData.team1.picture !== '' ? 1 : 0,
-              transition: matchData.team1.picture !== '' ? 'opacity 0.3s ease' : 'opacity 0 ease 0s',
-            }}
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                opacity: matchData.team1.picture !== '' ? 1 : 0,
+                transition: matchData.team1.picture !== '' ? 'opacity 0.3s ease' : 'opacity 0 ease 0s',
+              }}
             />
           </Box>
 
@@ -60,7 +82,8 @@ export function MatchStats({
               alignItems: 'center',
               padding: 2,
               borderRadius: 1,
-              mr: 1
+              mr: 1,
+              textAlign: 'left'
             }}
           >
             <Typography variant='h5' sx={{fontSize: 37, width: 454.5 + (matchData.team1.picture === '' ? 94.5 : 0), color: colourData.team1Text, transition: 'width 0.5s ease',}}>{matchData.team1.name}</Typography>
@@ -106,8 +129,7 @@ export function MatchStats({
             <Typography variant='h5' sx={{width: 82.5, color: colourData.team1Text, textAlign: 'center', fontSize: 50}}>{matchData.team1.score}</Typography>
           </Box>
         </Box>
-
-
+        
 
         {/* ####################################################################################################### */}
 
@@ -194,6 +216,6 @@ export function MatchStats({
           </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }

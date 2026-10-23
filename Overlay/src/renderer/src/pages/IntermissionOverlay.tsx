@@ -65,7 +65,7 @@ export default function IntermissionOverlay(): React.JSX.Element {
         }}
       >
         <Cameras casterData={casterData} />
-        <Box sx={{ position: 'absolute', bottom: 40, width: '100%' }}>
+        <Box sx={{ position: 'absolute', bottom: 25, width: '100%' }}>
           <MatchStats matchData={matchData} colourData={colourData} />
         </Box>
       </Box>
