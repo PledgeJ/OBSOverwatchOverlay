@@ -6,7 +6,59 @@ import type { Casters } from '@common/caster.type';
 import type { Colours } from '@common/colours.type';
 import { WS_Type } from '../../../types/enums';
 import { Box, Typography } from '@mui/material';
-import { FaMicrophone } from 'react-icons/fa';
+
+import { shortenMap } from "@renderer/models/MapList";
+import { TeamPicture } from '@renderer/components/GameOverlay/TeamPicture';
+import { ListenIn } from '@renderer/components/GameOverlay/ListenIn';
+
+function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
+  const slots: React.ReactNode[] = [];
+
+  for (let i = 0; i < matchData.ft * 2 - 1; i++) {
+    const item = matchData.prevMaps?.[i];
+    const winner = item?.winner ?? -1;
+
+    let col: string;
+    let textCol: string;
+    switch (winner) {
+      case (1):
+        col = colourData.team1;
+        textCol = colourData.team1Text;
+        break
+      
+      case(2):
+        col = colourData.team2;
+        textCol = colourData.team2Text;
+        break
+
+      default:
+        col = '#e0e0e0';
+        textCol = '#808080';
+    }
+
+    let map = '';
+    if (item) { map = item.map }
+    if (matchData.prevMaps.length === i) { map = matchData.currMap.map }
+
+    if (map != '') {
+      map = shortenMap(map);
+
+      slots.push(
+        <Box sx={{ backgroundColor: col, width: '100%', textAlign: 'center', borderRadius: 1, color: textCol, opacity: winner !== -1 || matchData.prevMaps.length === i ? 1 : 0.4 }}>
+          {map}
+        </Box>
+      );
+    } else {
+      slots.push(
+        <Box key={i} sx={{ backgroundColor: col, width: '100%', textAlign: 'center', borderRadius: 1, color: textCol, opacity: winner !== -1 ? 1 : 0.4 }}>
+          MAP{i + 1}
+        </Box>
+      );
+    }
+  }
+
+  return slots
+}
 
 export default function GameOverlay(): React.JSX.Element {
   const [matchData, setMatchData] = useState<Match | null>(null);
@@ -49,45 +101,7 @@ export default function GameOverlay(): React.JSX.Element {
     return <h1>Loading...</h1>
   }
 
-
-  const slots: React.ReactNode[] = [];
-  for (let i = 0; i < matchData.ft * 2 - 1; i++) {
-    const item = matchData.prevMaps?.[i];
-    const winner = item?.winner ?? -1;
-
-    let col: string;
-    let textCol: string;
-    if (winner === 1) {
-      col = colourData.team1;
-      textCol = colourData.team1Text;
-    }
-    else if (winner === 2) {
-      col = colourData.team2;
-      textCol = colourData.team2Text;
-    }
-    else {
-      col = '#e0e0e0';
-      textCol = '#808080';
-    }
-
-    if (matchData.ft !== 1 || matchData.currMap.map === '') {
-      slots.push(
-        <Box key={i} sx={{ backgroundColor: col, width: '100%', textAlign: 'center', borderRadius: 1, color: textCol, opacity: winner !== -1 ? 1 : 0.3 }}>
-          MAP{i + 1}
-        </Box>
-      );
-    } else {
-      let map: string;
-      if  (matchData.prevMaps.length > 1) { map = matchData.prevMaps[0].map }
-      else { map = matchData.currMap.map}
-      slots.push(
-        <Box sx={{ backgroundColor: col, width: '100%', textAlign: 'center', borderRadius: 1, color: textCol, opacity: winner !== -1 ? 1 : 0.4 }}>
-          {map}
-        </Box>
-      );
-      break;
-    }
-  }
+  const slots = setSlots(matchData, colourData);
 
   const left = matchData.isFlipped ? 
   { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.team2, text: colourData.team2Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture } : 
@@ -123,29 +137,7 @@ export default function GameOverlay(): React.JSX.Element {
           <Box sx={{display: 'flex', alignItems: 'center'}}>
 
             {/* Team1 Picture */}
-            <Box
-              sx={{
-                height: 55, width: left.picture !== '' ? 55 : 0,
-                border: left.picture !== '' ? `${left.colour.team} 2px solid`: 'none',
-                borderRadius: 1,
-                backgroundColor: `color-mix(in srgb, ${left.colour.team}, black 25%)`,
-                padding: left.picture !== '' ? 0.2 : 0,
-                mr: left.picture !== '' ? 1 : 0,
-                transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
-              }}
-            >
-              <Box
-                component='img'
-                src={left.picture !== '' ? left.picture : undefined}
-                sx={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                opacity: left.picture !== '' ? 1 : 0,
-                transition: left.picture !== '' ? 'opacity 0.3s ease' : 'opacity 0 ease 0s',
-              }}
-              />
-            </Box>
+            <TeamPicture path={left.picture} colour={left.colour.team} side={'left'}/>
 
             {/* Team1 Name */}
             <Box
@@ -163,28 +155,7 @@ export default function GameOverlay(): React.JSX.Element {
             </Box>
 
             {/* Team1 Ban */}
-            <Box
-              sx={{
-                height: 55, width: left.ban !== '' ? 55 : 0,
-                border: left.ban !== '' ? `${left.colour.team} 2px solid`: 'none',
-                borderRadius: 1,
-                backgroundColor: `color-mix(in srgb, ${left.colour.team}, black 25%)`,
-                padding: left.ban !== '' ? 0.2 : 0,
-                mr: left.ban !== '' ? 1 : 0,
-                transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
-              }}
-            >
-              <Box
-                component='img'
-                src={left.ban !== '' ? `/heroes/${left.ban}.webp`: undefined}
-                sx={{
-                width: '100%',
-                height: '100%',
-                opacity: left.ban !== '' ? 1 : 0,
-                transition: left.ban !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
-              }}
-              />
-            </Box>
+            <TeamPicture path={left.ban} colour={left.colour.team} type={'ban'} side={'left'}/>
 
             {/* Team1 Score */}
             <Box
@@ -200,27 +171,7 @@ export default function GameOverlay(): React.JSX.Element {
             </Box>
 
             {/* Team1 listen in */}
-            <Box sx={{ 
-              width: 160,
-              zIndex: -1,
-              flexShrink: 0,
-              overflow: 'hidden',
-              transform: 'translateX(-10px)'
-            }}>
-              <Box sx={{
-                height: 55, width: 140, 
-                display: 'flex', justifyContent: 'center', alignItems: 'center', 
-                gap: 2,
-                ml: '20px',
-                backgroundColor: left.colour.team,
-                borderRadius: 1,
-                transition: 'transform 0.5s ease',
-                transform: left.listenin ? 'translateX(0)' : 'translateX(-150px)',
-              }}>
-                <Typography>Listening</Typography>
-                <FaMicrophone size={25}/>
-              </Box>
-            </Box>
+            <ListenIn colour={left.colour.team} side={'left'} show={left.listenin}/>
 
 
           </Box>
@@ -251,27 +202,7 @@ export default function GameOverlay(): React.JSX.Element {
           <Box sx={{display: 'flex', alignItems: 'center'}}>
 
             {/* Team2 listen in */}
-            <Box sx={{ 
-              width: 160,
-              zIndex: -1,
-              flexShrink: 0,
-              overflow: 'hidden',
-              transform: 'translateX(10px)'
-            }}>
-              <Box sx={{
-                height: 55, width: 140, 
-                display: 'flex', justifyContent: 'center', alignItems: 'center', 
-                gap: 2,
-                mr: '20px',
-                backgroundColor: right.colour.team,
-                borderRadius: 1,
-                transition: 'transform 0.5s ease',
-                transform: right.listenin ? 'translateX(0)' : 'translateX(150px)',
-              }}>
-                <Typography>Listening</Typography>
-                <FaMicrophone size={25}/>
-              </Box>
-            </Box>
+            <ListenIn colour={right.colour.team} side={'right'} show={right.listenin}/>
 
             {/* Team2 Score */}
             <Box
@@ -287,28 +218,7 @@ export default function GameOverlay(): React.JSX.Element {
             </Box>
 
             {/* Team2 Ban */}
-            <Box
-              sx={{
-                height: 55, width: right.ban !== '' ? 55 : 0,
-                border: right.ban !== '' ? `${right.colour.team} 2px solid`: 'none',
-                borderRadius: 1,
-                backgroundColor: `color-mix(in srgb, ${right.colour.team}, black 25%)`,
-                padding: right.ban !== '' ? 0.2 : 0,
-                ml: right.ban !== '' ? 1 : 0,
-                transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
-              }}
-            >
-              <Box
-                component='img'
-                src={right.ban !== '' ? `/heroes/${right.ban}.webp`: undefined}
-                sx={{
-                width: '100%',
-                height: '100%',
-                opacity: right.ban !== '' ? 1 : 0,
-                transition: right.ban !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
-              }}
-              />
-            </Box>
+            <TeamPicture path={right.ban} colour={right.colour.team} type={'ban'} side={'right'}/>
 
             {/* Team2 Name */}
             <Box
@@ -326,32 +236,9 @@ export default function GameOverlay(): React.JSX.Element {
             </Box>
 
             {/* Team2picture */}
-            <Box
-              sx={{
-                height: 55, width: right.picture !== '' ? 55 : 0,
-                border: right.picture !== '' ? `${right.colour.team} 2px solid`: 'none',
-                borderRadius: 1,
-                backgroundColor: `color-mix(in srgb, ${right.colour.team}, black 25%)`,
-                padding: right.picture !== '' ? 0.2 : 0,
-                ml: right.picture !== '' ? 1 : 0,
-                transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
-              }}
-            >
-              <Box
-                component='img'
-                src={right.picture !== '' ? right.picture : undefined}
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  opacity: right.picture !== '' ? 1 : 0,
-                  transition: right.picture !== '' ? 'opacity 0.3s ease' : 'opacity 0 ease 0s',
-                }}
-              />
-            </Box>
+            <TeamPicture path={right.picture} colour={right.colour.team} side={'right'}/>
           </Box>
         </Box>
-
 
       </Box>
     </>

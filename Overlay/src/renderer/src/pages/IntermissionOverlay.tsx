@@ -64,7 +64,11 @@ export default function IntermissionOverlay(): React.JSX.Element {
           )`
         }}
       >
-        <Cameras casterData={casterData} colourData={colourData} />
+        <Cameras casterData={casterData} colour={colourData.matchStats} mapScreen={matchData.mapScreen} />
+
+        <Box>
+          
+        </Box>
         
         <Box sx={{ position: 'absolute', bottom: casterData.casters.length != 3 || matchData.mapScreen ? 25 : 100, width: '100%',
           transition: 'bottom 0.3s ease'
@@ -72,11 +76,6 @@ export default function IntermissionOverlay(): React.JSX.Element {
           <MatchStats matchData={matchData} colourData={colourData} />
         </Box>
       </Box>
-
-      {/* 
-        Notes:
-          - If the map and ban screen is open, don't show the popup for new ban and map
-      */}
     </>
   )
 }

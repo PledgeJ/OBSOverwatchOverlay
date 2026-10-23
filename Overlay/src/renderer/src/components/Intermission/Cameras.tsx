@@ -1,17 +1,18 @@
 /* eslint-disable prettier/prettier */
 import { Casters } from "@common/caster.type";
-import { Colours } from "@common/colours.type";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
 interface cameraProp {
   casterData: Casters;
-  colourData: Colours;
+  colour: string;
+  mapScreen: boolean;
 }
 
 export function Cameras({
   casterData,
-  colourData,
+  colour,
+  mapScreen,
 }: cameraProp): React.JSX.Element {
 
   const mult = {1: 6, 2: 3, 3: 0, 4: 0.1, 5: 0, 6: 0};
@@ -22,16 +23,16 @@ export function Cameras({
         sx={{
           width: '98vw',
           height: '80%',
-          borderRadius: 1, mx: '1vw', mt: casterData.casters.length == 2 || casterData.casters.length == 3 ? 25 : 5,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 4, flexWrap: 'wrap',
-          alignContent: 'flex-start'
+          borderRadius: 1, mx: '1vw', mt: mapScreen ? 2 : (casterData.casters.length == 2 || casterData.casters.length == 3) ? 25 : 4,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: !mapScreen ? 4 : 1, flexWrap: 'wrap',
+          alignContent: 'flex-start', transition: 'all 0.3s ease'
         }}
       >
        {casterData.casters.map((caster, index) => (
           <Box key={index}
-            sx={{ backgroundColor: colourData.matchStats, 
-              padding: 2.5, borderRadius: 3,  width: 600 + (mult[casterData.casters.length] * 100), 
-              aspectRatio: '16/9.3', position: 'relative'
+            sx={{ backgroundColor: colour, 
+              padding: !mapScreen ? 2.5 : 1.2, borderRadius: 3,  width: !mapScreen ? 600 + (mult[casterData.casters.length] * 100) : 305, 
+              aspectRatio: '16/9.3', position: 'relative', transition: 'all 0.3s ease'
             }}
           >
             <iframe
@@ -42,7 +43,8 @@ export function Cameras({
 
             <Box sx={{
               position: 'absolute', display: 'flex', gap: 2, bottom: 5, left: 10, p: 1, px: 3,
-              backgroundColor: colourData.matchStats, borderTopRightRadius: 10,
+              backgroundColor: colour, borderTopRightRadius: 10, opacity: !mapScreen ? 100 : 0,
+              transition: 'all 0.1s ease',
             }}>
               {caster.name != '' && <Typography sx={{ fontSize: 25 }}>{caster.name}</Typography>}
               {caster.handle != '' && <Typography sx={{ fontSize: 25 }}>{caster.handle != '' ? '@' : ''}{caster.handle}</Typography>}
