@@ -30,7 +30,7 @@ export function MatchStats({
         <Typography 
           sx={{ 
             fontSize: 35, lineHeight: 1.85, backgroundColor: colourData.matchStats, width: 600, textAlign: 'center', pt: 1,
-            borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
+            borderTopLeftRadius: 10, borderTopRightRadius: 10,
          }}
         >
           {matchData.currMap.map}

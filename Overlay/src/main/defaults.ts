@@ -38,9 +38,9 @@ export const DEFAULT_COLOUR_STATE: Colours = {
 }
 
 export const DEFAULT_CASTER_STATE: Casters = {
-  number: 2,
+  number: 1,
   casters: [
-    { name: 'Name', handle: 'Handle' },
+    { name: '', handle: '', camURL: '' },
   ]
 }
 

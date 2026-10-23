@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, Menu, MenuItemConstructorOptions } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -41,12 +41,34 @@ function createWindow(): BrowserWindow {
   return mainWindow
 }
 
+const template: MenuItemConstructorOptions[] = [
+  ...(process.platform === 'darwin'
+    ? [{ role: 'appMenu' } as MenuItemConstructorOptions]
+    : []),
+  {
+    label: 'Edit',
+    submenu: [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      { role: 'selectAll' },
+    ],
+  },
+  { role: 'viewMenu' },
+  { role: 'windowMenu' },
+];
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
+
+   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

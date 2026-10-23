@@ -142,135 +142,137 @@ export function InitialInfo({
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          height: 80, width: 80,
-          border: `${colourData.team1} 2px solid`,
-          borderRadius: 1,
-          backgroundColor: `color-mix(in srgb, ${colourData.team1}, black 25%)`,
-          padding: matchData.team1.picture !== '' ? 0.2 : 0,
-          mr: matchData.team1.picture !== '' ? 1 : 0,
-          transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
-        }}
-      >
+      <Box sx={{ display: 'flex' }}>
         <Box
-          component='img'
-          src={matchData.team1.picture !== '' ? matchData.team1.picture : undefined}
           sx={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-          opacity: matchData.team1.picture !== '' ? 1 : 0,
-          transition: matchData.team1.picture !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
-        }}
-        />
-      </Box>
+            height: 80, width: 80,
+            border: `${colourData.team1} 2px solid`,
+            borderRadius: 1,
+            backgroundColor: `color-mix(in srgb, ${colourData.team1}, black 25%)`,
+            padding: matchData.team1.picture !== '' ? 0.2 : 0,
+            mr: matchData.team1.picture !== '' ? 1 : 0,
+            transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
+          }}
+        >
+          <Box
+            component='img'
+            src={matchData.team1.picture !== '' ? matchData.team1.picture : undefined}
+            sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            opacity: matchData.team1.picture !== '' ? 1 : 0,
+            transition: matchData.team1.picture !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
+          }}
+          />
+        </Box>
 
-      <Button
-        onClick={async () => {
+        <Button
+          onClick={async () => {
 
-          const filePath = await window.utils.openFile();
+            const filePath = await window.utils.openFile();
 
-          if (filePath) {
+            if (filePath) {
+              setMatch((prev) => {
+                if (!prev) return prev;
+
+                const nextState = {
+                  ...prev,
+                  team1: {...prev.team1, picture: filePath}
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }
+          }}
+        >
+          Browse
+        </Button>
+
+        <Button
+          onClick={() => {
             setMatch((prev) => {
               if (!prev) return prev;
 
               const nextState = {
                 ...prev,
-                team1: {...prev.team1, picture: filePath}
+                team1: {...prev.team1, picture: ''}
               };
 
               window.stateAPI.setMatch(nextState);
               return nextState;
             });
-          }
-        }}
-      >
-        Browse
-      </Button>
+          }}
+        >
+          Clear
+        </Button>
 
-      <Button
-        onClick={() => {
-          setMatch((prev) => {
-            if (!prev) return prev;
-
-            const nextState = {
-              ...prev,
-              team1: {...prev.team1, picture: ''}
-            };
-
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-        }}
-      >
-        Clear
-      </Button>
-
-      <Box
-        sx={{
-          height: 80, width: 80,
-          border: `${colourData.team2} 2px solid`,
-          borderRadius: 1,
-          backgroundColor: `color-mix(in srgb, ${colourData.team2}, black 25%)`,
-          padding: matchData.team2.picture !== '' ? 0.2 : 0,
-          mr: matchData.team2.picture !== '' ? 1 : 0,
-          transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
-        }}
-      >
         <Box
-          component='img'
-          src={matchData.team2.picture !== '' ? matchData.team2.picture : undefined}
           sx={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-          opacity: matchData.team2.picture !== '' ? 1 : 0,
-          transition: matchData.team2.picture !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
-        }}
-        />
-      </Box>
+            height: 80, width: 80,
+            border: `${colourData.team2} 2px solid`,
+            borderRadius: 1,
+            backgroundColor: `color-mix(in srgb, ${colourData.team2}, black 25%)`,
+            padding: matchData.team2.picture !== '' ? 0.2 : 0,
+            mr: matchData.team2.picture !== '' ? 1 : 0,
+            transition: 'width 0.5s ease, padding 0.5s ease, margin 0.5s ease, border-width 0.5s ease'
+          }}
+        >
+          <Box
+            component='img'
+            src={matchData.team2.picture !== '' ? matchData.team2.picture : undefined}
+            sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            opacity: matchData.team2.picture !== '' ? 1 : 0,
+            transition: matchData.team2.picture !== '' ? 'opacity 0.3s ease 0.3s' : 'opacity 0 ease 0s',
+          }}
+          />
+        </Box>
 
-      <Button
-        onClick={async () => {
+        <Button
+          onClick={async () => {
 
-          const filePath = await window.utils.openFile();
+            const filePath = await window.utils.openFile();
 
-          if (filePath) {
+            if (filePath) {
+              setMatch((prev) => {
+                if (!prev) return prev;
+
+                const nextState = {
+                  ...prev,
+                  team2: {...prev.team2, picture: filePath}
+                };
+
+                window.stateAPI.setMatch(nextState);
+                return nextState;
+              });
+            }
+          }}
+        >
+          Browse
+        </Button>
+
+        <Button
+          onClick={() => {
             setMatch((prev) => {
               if (!prev) return prev;
 
               const nextState = {
                 ...prev,
-                team2: {...prev.team2, picture: filePath}
+                team2: {...prev.team2, picture: ''}
               };
 
               window.stateAPI.setMatch(nextState);
               return nextState;
             });
-          }
-        }}
-      >
-        Browse
-      </Button>
-
-      <Button
-        onClick={() => {
-          setMatch((prev) => {
-            if (!prev) return prev;
-
-            const nextState = {
-              ...prev,
-              team2: {...prev.team2, picture: ''}
-            };
-
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-        }}
-      >
-        Clear
-      </Button>
+          }}
+        >
+          Clear
+        </Button>
+      </Box>
       
       <br/>
       <br/>
@@ -279,11 +281,11 @@ export function InitialInfo({
         <Button
           onClick={ () => {
             setCasters((prev) => {
-              if (!prev || prev.number + 1 > 7) return prev;
+              if (!prev || prev.number + 1 > 6) return prev;
 
               const nextState = {
                 number: prev.number + 1,
-                casters: [...prev.casters, {name: `Name`, handle: `Handle`}]
+                casters: [...prev.casters, {name: `Name`, handle: `Handle`, camURL: ''}]
               };
 
               window.stateAPI.setCaster(nextState);
@@ -353,6 +355,33 @@ export function InitialInfo({
                   const updatedCasters = prev.casters.map((c, i) => {
                     if (i == index) {
                       return { ...c, handle: value }
+                    }
+                    return c
+                  })
+
+                  const nextState = {
+                    ...prev,
+                    casters: updatedCasters,
+                  }
+
+                  window.stateAPI.setCaster(nextState);
+                  return nextState;
+                });
+              }}
+            />
+
+            <UserInput 
+              width={330}
+              maxLength={300}
+              label='VDO.ninja cam URL'
+              value={caster.camURL}
+              onChange={(value) => {
+                setCasters((prev) => {
+                  if (!prev) return null;
+
+                  const updatedCasters = prev.casters.map((c, i) => {
+                    if (i == index) {
+                      return { ...c, camURL: value }
                     }
                     return c
                   })

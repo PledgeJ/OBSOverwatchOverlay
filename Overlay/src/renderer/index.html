@@ -11,7 +11,9 @@
         script-src 'self' 'unsafe-inline'; 
         style-src 'self' 'unsafe-inline'; 
         img-src 'self' data:; 
-        connect-src 'self' ws://localhost:8080 ws://localhost:* http://localhost:* ws://127.0.0.1:*;"
+        connect-src 'self' ws://localhost:8080 ws://localhost:* http://localhost:* ws://127.0.0.1:*;
+        frame-src 'self' https://vdo.ninja;
+      "
     />
   </head>
 

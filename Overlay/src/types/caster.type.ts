@@ -2,6 +2,7 @@
 export interface Caster {
     name: string;
     handle: string;
+    camURL: string;
 }
 
 export interface Casters {
