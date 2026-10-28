@@ -14,30 +14,68 @@ export function ControlTab({
   setMatch,
 }: ControlProps): React.JSX.Element {
   return (
-    <>
-      <Box>
-        <ToggleButton
-          value="check"
-          selected={matchData.mapScreen}
-          onChange={() => {
-            setMatch((prev) => {
-            if (!prev) return prev;
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5}}>
+      <ToggleButton
+        sx={{
+          color: 'white',
+          borderColor: 'white',
 
-            const nextState = {
-              ...prev,
-              mapScreen: !prev.mapScreen,
-            };
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            borderColor: 'white',
+          },
 
-            window.stateAPI.setMatch(nextState);
-            return nextState;
-          });
-          }}
-        >
-          Show maps and bans
-        </ToggleButton>
-      </Box>
+          '&.Mui-selected': {
+            color: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            borderColor: 'white',
+
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              borderColor: 'white',
+            },
+          },
+        }}
+        value="check"
+        selected={matchData.mapScreen}
+        onChange={() => {
+          setMatch((prev) => {
+          if (!prev) return prev;
+
+          const nextState = {
+            ...prev,
+            mapScreen: !prev.mapScreen,
+          };
+
+          window.stateAPI.setMatch(nextState);
+          return nextState;
+        });
+        }}
+      >
+        Show maps and bans
+      </ToggleButton>
 
       <ToggleButton
+        sx={{
+          color: 'white',
+          borderColor: 'white',
+
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            borderColor: 'white',
+          },
+
+          '&.Mui-selected': {
+            color: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            borderColor: 'white',
+
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              borderColor: 'white',
+            },
+          },
+        }}
         value="check"
         selected={matchData.listenin.team1}
         onChange={() => {
@@ -58,6 +96,26 @@ export function ControlTab({
       </ToggleButton>
 
       <ToggleButton
+        sx={{
+          color: 'white',
+          borderColor: 'white',
+
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            borderColor: 'white',
+          },
+
+          '&.Mui-selected': {
+            color: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            borderColor: 'white',
+
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              borderColor: 'white',
+            },
+          },
+        }}
         value="check"
         selected={matchData.listenin.team2}
         onChange={() => {
@@ -76,6 +134,6 @@ export function ControlTab({
       >
         {matchData.team2.name} listen in
       </ToggleButton>
-    </>
+    </Box>
   )
 }
