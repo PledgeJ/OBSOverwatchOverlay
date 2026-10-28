@@ -80,12 +80,12 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
         {matchData.mapScreen && <>
         <Box sx={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center', bottom: 20, gap: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
-            {(firstBan != -1 && ban1 != '') && <Typography sx={{bgcolor: colourData.team1, p: 1, fontSize: 20}}>{firstBan == 1 ? '1st' : firstBan == 2? '2nd' : ''}</Typography>}
+            {(firstBan != -1 && ban1 != '') && <Typography sx={{bgcolor: colourData.team1, p: 1, fontSize: 20, color: textCol}}>{firstBan == 1 ? '1st' : firstBan == 2? '2nd' : ''}</Typography>}
             <TeamPicture path={`/heroes/${ban1}.webp`} colour={colourData.team1} side={"left"} show={ban1 != ''}/>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
             <TeamPicture path={`/heroes/${ban2}.webp`} colour={colourData.team2} side={"right"} show={ban2 != ''}/>
-            {(firstBan != -1 && ban2 != '') && <Typography sx={{bgcolor: colourData.team2, p: 1, fontSize: 20 }}>{firstBan == 2 ? '1st' : '2nd'}</Typography>}
+            {(firstBan != -1 && ban2 != '') && <Typography sx={{bgcolor: colourData.team2, p: 1, fontSize: 20, color: textCol }}>{firstBan == 2 ? '1st' : '2nd'}</Typography>}
           </Box>
         </Box>
 
