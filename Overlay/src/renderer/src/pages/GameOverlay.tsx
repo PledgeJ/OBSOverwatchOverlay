@@ -11,6 +11,29 @@ import { shortenMap } from "@renderer/models/MapList";
 import { TeamPicture } from '@renderer/components/GameOverlay/TeamPicture';
 import { ListenIn } from '@renderer/components/GameOverlay/ListenIn';
 
+function getColours(colourData: Colours, winner: number): {col: string, textCol: string} {
+  let col: string;
+  let textCol: string;
+
+  switch (winner) {
+    case (1):
+      col = colourData.team1;
+      textCol = colourData.team1Text;
+      break
+    
+    case(2):
+      col = colourData.team2;
+      textCol = colourData.team2Text;
+      break
+
+    default:
+      col = '#e0e0e0';
+      textCol = '#808080';
+  }
+
+  return {col, textCol}
+}
+
 function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
   const slots: React.ReactNode[] = [];
 
@@ -18,23 +41,7 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
     const item = matchData.prevMaps?.[i];
     const winner = item?.winner ?? -1;
 
-    let col: string;
-    let textCol: string;
-    switch (winner) {
-      case (1):
-        col = colourData.team1;
-        textCol = colourData.team1Text;
-        break
-      
-      case(2):
-        col = colourData.team2;
-        textCol = colourData.team2Text;
-        break
-
-      default:
-        col = '#e0e0e0';
-        textCol = '#808080';
-    }
+    const { col, textCol } = getColours(colourData, winner);
 
     let map = '';
     if (item) { map = item.map }

@@ -8,6 +8,7 @@ import { Colours } from '@common/colours.type';
 import { Box } from '@mui/material';
 import { Cameras } from '@renderer/components/Intermission/Cameras';
 import { MatchStats } from '@renderer/components/Intermission/MatchStats';
+import { MapsAndBans } from '@renderer/components/Intermission/MapsAndBans';
 
 export default function IntermissionOverlay(): React.JSX.Element {
   const [matchData, setMatchData] = useState<Match | null>(null);
@@ -50,6 +51,8 @@ export default function IntermissionOverlay(): React.JSX.Element {
     return <h1>Loading...</h1>
   }
 
+  
+
   return (
     <>
       {/* Background */}
@@ -64,10 +67,12 @@ export default function IntermissionOverlay(): React.JSX.Element {
           )`
         }}
       >
-        <Cameras casterData={casterData} colour={colourData.matchStats} mapScreen={matchData.mapScreen} />
+        <Box sx={{ position: 'absolute', top: matchData.mapScreen ? 0 : 55 }}>
+          <Cameras casterData={casterData} colour={colourData.matchStats} mapScreen={matchData.mapScreen} />
+        </Box>
 
-        <Box>
-          
+        <Box sx={{ position: 'absolute', top: matchData.mapScreen ? 215 : 30, width: 1870, transition: 'top 0.3s ease-in-out', overflow: 'hidden'}}>
+          <MapsAndBans matchData={matchData} colourData={colourData}/>
         </Box>
         
         <Box sx={{ position: 'absolute', bottom: casterData.casters.length != 3 || matchData.mapScreen ? 25 : 100, width: '100%',

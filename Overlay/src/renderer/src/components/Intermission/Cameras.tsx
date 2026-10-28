@@ -35,11 +35,13 @@ export function Cameras({
               aspectRatio: '16/9.3', position: 'relative', transition: 'all 0.3s ease'
             }}
           >
-            <iframe
-              src={caster.camURL}
-              allow="autoplay; fullscreen; picture-in-picture"
-              style={{ width: '100%', height: '100%', border: 'none' }}
-            />
+            {caster.camURL != '' && 
+              <iframe
+                src={caster.camURL}
+                allow="autoplay; fullscreen; picture-in-picture"
+                style={{ width: '100%', height: '100%', border: 'none' }}
+              />
+            }
 
             <Box sx={{
               position: 'absolute', display: 'flex', gap: 2, bottom: 5, left: 10, p: 1, px: 3,
