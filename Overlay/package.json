@@ -1,7 +1,7 @@
 {
-  "name": "overlay",
-  "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "name": "OBSOverwatchOverlay",
+  "version": "2.0.0",
+  "description": "An overlay for OBS specific to the game Overwatch",
   "main": "./out/main/index.js",
   "author": "example.com",
   "homepage": "https://electron-vite.org",
@@ -46,7 +46,7 @@
     "@types/ws": "^8.18.1",
     "@vitejs/plugin-react": "^5.1.1",
     "electron": "^44.5.1",
-    "electron-builder": "^26.0.12",
+    "electron-builder": "^26.18.0",
     "electron-vite": "^5.0.0",
     "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.37.5",
@@ -64,5 +64,41 @@
     "esbuild@0.25.12": true,
     "esbuild@0.28.2": true,
     "fsevents@2.3.3": true
+  },
+  "build": {
+    "appId": "com.example.obs-overwatch-overlay",
+    "productName": "OBS Overwatch Overlay",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "!node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
