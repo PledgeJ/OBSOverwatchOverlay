@@ -10,9 +10,16 @@ export default defineConfig({
       alias: {
         '@shared': resolve('src/types')
       }
+    },
+    build: {
+      externalizeDeps: true
     }
   },
-  preload: {},
+  preload: {
+    build: {
+      externalizeDeps: true
+    }
+  },
   renderer: {
     resolve: {
       alias: {
