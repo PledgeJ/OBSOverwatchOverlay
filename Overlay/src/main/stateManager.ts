@@ -192,6 +192,10 @@ class StateManager {
       this.wss.close();
       this.wss = null;
     }
+    if (this.http) {
+      this.http.close();
+      this.http = null;
+    }
   }
 }
 
