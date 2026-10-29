@@ -44,3 +44,8 @@ input {
   align-items: center;
   justify-content: center;
 }
+
+input {
+  height: 60px;
+  width: 60px;
+}

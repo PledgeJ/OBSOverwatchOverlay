@@ -158,7 +158,7 @@ export default function ControlPanel(): React.JSX.Element {
 
         {/* ############################ CONTROL TAB ################################# */}
 
-        <TabPanel value={3} sx={{display: 'flex'}}>
+        <TabPanel value={3}>
           <ControlTab
             matchData={matchData}
             setMatch={setMatch}
@@ -167,7 +167,7 @@ export default function ControlPanel(): React.JSX.Element {
           
         {/* ############################ COLOURS TAB ################################# */}
 
-        <TabPanel value={4} sx={{display: 'flex'}}>
+        <TabPanel value={4}>
           <ColoursTab
             colourData={colourData}
             fetchState={fetchState}
