@@ -40,7 +40,7 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
     const item = matchData.prevMaps?.[i];
     const winner = item?.winner ?? -1;
 
-    const { col, textCol } = getColours(colourData, winner)
+    const { col } = getColours(colourData, winner)
 
     let map = ''
     let ban1 = ''

@@ -1,10 +1,10 @@
 {
-  "name": "OBSOverwatchOverlay",
+  "name": "jacobsowoverlay",
   "version": "2.0.0",
-  "description": "Jacobs Overlay",
+  "description": "OBS Overwatch Overlay for Overwatch",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "PledgeJ <https://github.com/PledgeJ>",
+  "homepage": "https://github.com/PledgeJ/OBSOverwatchOverlay",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
@@ -15,10 +15,8 @@
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
-    "build:unpack": "npm run build && electron-builder --dir",
-    "build:win": "npm run build && electron-builder --win",
-    "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "build:unpack": "npm run build && electron-builder --win --dir",
+    "build:win": "npm run build && electron-builder --win"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
@@ -58,25 +56,16 @@
     "typescript": "^5.9.3",
     "vite": "^7.2.6"
   },
-  "allowScripts": {
-    "electron@39.8.10": true,
-    "electron-winstaller@5.4.0": true,
-    "esbuild@0.25.12": true,
-    "esbuild@0.28.2": true,
-    "fsevents@2.3.3": true
-  },
   "build": {
     "asar": true,
-    "appId": "com.example.obs-overwatch-overlay",
-    "productName": "OBS Overwatch Overlay",
+    "appId": "com.pledgej.owoverlay",
+    "productName": "JacobsOWOverlay",
     "directories": {
       "output": "dist",
       "buildResources": "build"
     },
     "files": [
-      "out/**/*",
-      "package.json",
-      "!node_modules/**/*"
+      "out/**/*"
     ],
     "win": {
       "target": [
@@ -89,25 +78,12 @@
       ],
       "icon": "build/icon.ico"
     },
-    "mac": {
-      "target": [
-        "dmg"
-      ],
-      "icon": "build/icon.icns",
-      "category": "public.app-category.utilities"
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "icon": "build/icon.png"
-    },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "shortcutName": "JacobsOWOverlay"
     }
   }
 }
