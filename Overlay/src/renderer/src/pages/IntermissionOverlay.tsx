@@ -71,7 +71,7 @@ export default function IntermissionOverlay(): React.JSX.Element {
           <Cameras casterData={casterData} colour={colourData.matchStats} mapScreen={matchData.mapScreen} />
         </Box>
 
-        <Box sx={{ position: 'absolute', top: matchData.mapScreen ? 215 : 30, width: 1870, transition: 'top 0.3s ease-in-out', overflow: 'hidden'}}>
+        <Box sx={{ position: 'absolute', top: matchData.mapScreen ? 215 : 30, width: '100%', transition: 'top 0.3s ease-in-out'}}>
           <MapsAndBans matchData={matchData} colourData={colourData}/>
         </Box>
         

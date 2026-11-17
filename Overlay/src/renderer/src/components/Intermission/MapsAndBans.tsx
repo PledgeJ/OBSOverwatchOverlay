@@ -61,7 +61,7 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
     }
 
     slots.push(
-      <Box sx={{position: 'relative', width: '100%', height: matchData.mapScreen ? 630 : 0, maxWidth: 900, bgcolor: col, opacity: map ? 1 : 0.5, borderRadius: 3, border: `7px solid ${col}`,
+      <Box key={i} sx={{position: 'relative', width: '100%', height: matchData.mapScreen ? 630 : 0, maxWidth: 900, bgcolor: col, opacity: map ? 1 : 0.5, borderRadius: 3, border: `7px solid ${col}`,
         transition: 'height 0.3s ease-in-out, bgColor 0.3s ease-in-out'
       }}>
         <Box
@@ -77,35 +77,37 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
           }}
         />
 
-        {matchData.mapScreen && <>
-        <Box sx={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center', bottom: 20, gap: 3 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
-            {(firstBan != -1 && ban1 != '') && <Typography sx={{bgcolor: colourData.team1, p: 1, fontSize: 20, color: textCol}}>{firstBan == 1 ? '1st' : firstBan == 2? '2nd' : ''}</Typography>}
-            <TeamPicture path={`/heroes/${ban1}.webp`} colour={colourData.team1} side={"left"} show={ban1 != ''}/>
+        {matchData.mapScreen && 
+        <>
+          <Box sx={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center', bottom: 20, gap: 3 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
+              {(firstBan != -1 && ban1 != '') && <Typography sx={{bgcolor: colourData.team1, p: 1, fontSize: 20, color: colourData.team1Text}}>{firstBan == 1 ? '1st' : firstBan == 2? '2nd' : ''}</Typography>}
+              <TeamPicture path={`/heroes/${ban1}.webp`} colour={colourData.team1} side={"left"} show={ban1 != ''}/>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
+              <TeamPicture path={`/heroes/${ban2}.webp`} colour={colourData.team2} side={"right"} show={ban2 != ''}/>
+              {(firstBan != -1 && ban2 != '') && <Typography sx={{bgcolor: colourData.team2, p: 1, fontSize: 20, color: colourData.team2Text }}>{firstBan == 2 ? '1st' : '2nd'}</Typography>}
+            </Box>
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
-            <TeamPicture path={`/heroes/${ban2}.webp`} colour={colourData.team2} side={"right"} show={ban2 != ''}/>
-            {(firstBan != -1 && ban2 != '') && <Typography sx={{bgcolor: colourData.team2, p: 1, fontSize: 20, color: textCol }}>{firstBan == 2 ? '1st' : '2nd'}</Typography>}
-          </Box>
-        </Box>
 
-        <Box sx={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center', bottom: 270, gap: 3 }}>
-          {(winner != -1 && matchData.team1.picture && matchData.team2.picture) && <Box
-            component='img'
-            src={winner == 1 ? matchData.team1.picture : winner == 2 ? matchData.team2.picture : undefined}
-            sx={{
-              width: 130,
-              height: 130,
-              bgcolor: `color-mix(in srgb, ${col}, black 25%)`,
-              border: winner != -1 ? `4px solid ${col}` : 'transparent',
-              borderRadius: 1,
-              objectFit: 'cover',
-              opacity: winner != -1 ? 1 : 0,
-              transition: '0.5s opacity 0.5s ease-in-out'
-            }}
-          />}
-        </Box>
-        </>}
+          <Box sx={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center', bottom: 270, gap: 3 }}>
+            {(winner != -1 && matchData.team1.picture && matchData.team2.picture) && <Box
+              component='img'
+              src={winner == 1 ? matchData.team1.picture : winner == 2 ? matchData.team2.picture : undefined}
+              sx={{
+                width: 130,
+                height: 130,
+                bgcolor: `color-mix(in srgb, ${col}, black 25%)`,
+                border: winner != -1 ? `4px solid ${col}` : 'transparent',
+                borderRadius: 1,
+                objectFit: 'cover',
+                opacity: winner != -1 ? 1 : 0,
+                transition: '0.5s opacity 0.5s ease-in-out'
+              }}
+            />}
+          </Box>
+        </>
+        }
 
       </Box>
     )
@@ -121,7 +123,7 @@ export function MapsAndBans({
   const slots: React.ReactNode[] = setSlots(matchData, colourData)
 
   return(
-    <Box sx={{ display: 'flex', width: '100%', gap: 5, mx: 3, justifyContent: 'center' }}>
+    <Box sx={{ display: 'flex', mx: 3, gap: 5, justifyContent: 'center' }}>
       {slots}
     </Box>
   )
