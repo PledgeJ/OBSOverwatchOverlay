@@ -30,7 +30,6 @@ export default function ControlPanel(): React.JSX.Element {
       status: true,
       port: 0,
     },
-    isDev: false,
   }
 
   const [open, setOpen] = useState(false);
