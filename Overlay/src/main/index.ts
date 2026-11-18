@@ -84,6 +84,7 @@ app.whenReady().then(() => {
   const w = createWindow()
 
   updateServerStatus(w)
+  stateManager.serverStatus.isDev = is.dev
 
   if (stateManager.http && stateManager.wss) {
     stateManager.http.on('error', (err: NodeJS.ErrnoException) => {

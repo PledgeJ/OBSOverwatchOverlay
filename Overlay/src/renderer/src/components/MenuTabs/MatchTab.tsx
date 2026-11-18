@@ -13,6 +13,9 @@ interface MatchProps {
   fetchState: () => Promise<void>;
 }
 
+function getURL(type: 'maps' | 'heroes', x: string): string {
+  return `./${type}/${x}.webp`
+}
 
 export function MatchTab({
   matchData,
@@ -71,7 +74,7 @@ export function MatchTab({
       {matchData?.currMap.map !== '' ? (
         <Box
           component='img'
-          src={`/maps/${matchData?.currMap.map}.webp`}
+          src={getURL('maps', matchData?.currMap.map)}
           sx={{
             width: '100%',
             height: 175,
@@ -144,7 +147,7 @@ export function MatchTab({
           {matchData?.currMap.team1ban !== '' ? (
             <Box
               component='img'
-              src={`/heroes/${matchData?.currMap.team1ban}.webp`}
+              src={getURL('heroes', matchData?.currMap.team1ban)}
               sx={{
                 height: 55,
                 width: 55,
@@ -217,7 +220,7 @@ export function MatchTab({
           {matchData?.currMap.team2ban !== '' ? (
             <Box
               component='img'
-              src={`/heroes/${matchData?.currMap.team2ban}.webp`}
+              src={getURL('heroes', matchData?.currMap.team2ban)}
               sx={{
                 height: 55,
                 width: 55,

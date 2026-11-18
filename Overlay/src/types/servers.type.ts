@@ -11,4 +11,5 @@ export interface ServerStatus {
     port: number,
     error?: string, 
   },
+  isDev: boolean;
 }

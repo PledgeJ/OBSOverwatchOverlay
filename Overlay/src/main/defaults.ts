@@ -53,4 +53,5 @@ export const DEFAULT_SERVER_STATUS: ServerStatus = {
     status: true,
     port: 0,
   },
+  isDev: false,
 }

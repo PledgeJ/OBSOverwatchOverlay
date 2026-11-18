@@ -31,6 +31,8 @@ export default defineConfig({
         '@shared': resolve('src/types')
       }
     },
+    publicDir: resolve(__dirname, 'src/renderer/public'),
+    base: './',
     plugins: [react()]
   }
 })
