@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import { UserInput } from "../ControlPanel/UserInput";
+import { UserInput } from "../UserInput";
 import { Match } from "@common/match.type";
 import { Colours } from "@common/colours.type";
 import { Casters } from "@common/caster.type";

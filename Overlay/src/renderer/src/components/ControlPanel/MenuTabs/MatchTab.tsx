@@ -425,7 +425,7 @@ export function MatchTab({
               <Box sx={{display: 'flex', alignItems: 'center', gap:1.5}}>
                 <Box
                   component='img'
-                  src={`/maps/${map.map}.webp`}
+                  src={getURL('maps', map.map)}
                   sx={{
                     height: 55,
                     borderRadius: 1,
@@ -440,7 +440,7 @@ export function MatchTab({
               <Typography>Team1 ban: </Typography>
               <Box
                 component='img'
-                src={`/heroes/${map.team1ban}.webp`}
+                src={getURL('heroes', map.team1ban)}
                 sx={{
                   height: 55,
                   borderRadius: 1,
@@ -454,7 +454,7 @@ export function MatchTab({
               <Typography>Team2 ban: </Typography>
               <Box
                 component='img'
-                src={`/heroes/${map.team2ban}.webp`}
+                src={getURL('heroes', map.team2ban)}
                 sx={{
                   height: 55,
                   borderRadius: 1,
