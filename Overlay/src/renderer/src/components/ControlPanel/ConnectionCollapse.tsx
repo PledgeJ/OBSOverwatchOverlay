@@ -6,6 +6,7 @@ import React from "react";
 import { FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 
 import { ServerStatus } from "@common/servers.type";
+import { CopyButton } from "./CopyButton";
 
 interface CollapseProps {
   open: boolean
@@ -81,8 +82,16 @@ export function ConnectionCollapse({
 
           <br/>
 
-          <Typography>http://localhost:{serverStatus.http.port}/ingame</Typography>
-          <Typography>http://localhost:{serverStatus.http.port}/intermission</Typography>
+          <Box sx={{display:'flex', justifyContent: 'space-between', alignItems: 'center', w: '100%'}}>
+            <Typography>http://localhost:{serverStatus.http.port}/#/ingame</Typography>
+            <CopyButton url={`http://localhost:${serverStatus.http.port}/#/ingame`} />
+          </Box>
+
+          <Box sx={{display:'flex', justifyContent: 'space-between', alignItems: 'center', w: '100%'}}>
+            <Typography>http://localhost:{serverStatus.http.port}/#/intermission</Typography>
+            <CopyButton url={`http://localhost:${serverStatus.http.port}/#/intermission`} />
+          </Box>
+
           <br/>                  
           <Typography>• Add each link as a browser source in obs</Typography>
           <Typography>• Set height and width to 1920 x 1080</Typography>
