@@ -13,10 +13,10 @@ import TabPanel from '@mui/lab/TabPanel';
 
 import React, { useEffect, useState } from 'react';
 
-import { InitialInfo } from '../components/MenuTabs/InitialInfoTab';
-import { MatchTab } from '@renderer/components/MenuTabs/MatchTab';
-import { ControlTab } from '@renderer/components/MenuTabs/ControlTab';
-import { ColoursTab } from '@renderer/components/MenuTabs/ColoursTab';
+import { InitialInfo } from '../components/ControlPanel/MenuTabs/InitialInfoTab';
+import { MatchTab } from '@renderer/components/ControlPanel/MenuTabs/MatchTab';
+import { ControlTab } from '@renderer/components/ControlPanel/MenuTabs/ControlTab';
+import { ColoursTab } from '@renderer/components/ControlPanel/MenuTabs/ColoursTab';
 import { TopDisplay } from '@renderer/components/ControlPanel/TopDisplay';
 import { ConnectionCollapse } from '@renderer/components/ControlPanel/ConnectionCollapse';
 
