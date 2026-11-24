@@ -23,7 +23,7 @@ export const DEFAULT_MATCH_STATE: Match = {
   title: 'Title',
   prevMaps: [],
   listenin: { team1: false, team2: false },
-  obsPass: '',
+  showCam: false,
 }
 
 export const DEFAULT_COLOUR_STATE: Colours = {

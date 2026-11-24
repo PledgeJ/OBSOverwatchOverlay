@@ -25,17 +25,17 @@ export default function IntermissionOverlay(): React.JSX.Element {
       switch (payload.type) {
         case WS_Type.STATE_UPDATE:
           setMatchData(payload.data);
-          console.log('Updated match state');
+          // console.log('Updated match state');
           break;
 
         case WS_Type.CASTER_UPDATE:
           setCasterData(payload.data);
-          console.log('Updated caster state');
+          // console.log('Updated caster state');
           break;
 
         case WS_Type.COLOUR_UPDATE:
           setColourData(payload.data);
-          console.log('Updated colour state');
+          // console.log('Updated colour state');
           break;
 
         default:

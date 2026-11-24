@@ -3,7 +3,7 @@ Thoughts on overlay:
 - [ ] Need an icon for when the team doesn't have an icon
 - [x] Need to make the map pictures smaller when its 2/3 maps
 - [x] Make it full width when its FT1
-- [ ] Cameras on ingame screen
+- [x] Cameras on ingame screen
 	- [ ] Can move them around the screen
 	
 - [ ] Can move the overlay up and down
@@ -14,7 +14,8 @@ Thoughts on overlay:
 - [ ] Colour option presets
 - [x] Make things less rounded
 - [ ] Font
-- [ ] FT4 Map screen
+- [x] FT4 Map screen
 - [ ] Separate team colours from in game colours
 - [ ] Show map pool
 - [x] Make outlines thinner
+- [ ] Change colour of currently playing map on inGame

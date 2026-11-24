@@ -72,7 +72,7 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
           sx={{
             width: '100%',
             height: '100%',
-            borderRadius: 1,
+            borderRadius: 1, borderTopLeftRadius: 0, borderTopRightRadius: 0,
             objectFit: 'cover',
             opacity: !map ? 0 : !item ? 1 : 0.6,
             transition: 'opacity 0.5s ease-in-out'

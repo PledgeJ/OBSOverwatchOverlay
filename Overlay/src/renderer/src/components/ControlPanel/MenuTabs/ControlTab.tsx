@@ -134,6 +134,46 @@ export function ControlTab({
       >
         {matchData.team2.name} listen in
       </ToggleButton>
+
+      <ToggleButton
+        sx={{
+          color: 'white',
+          borderColor: 'white',
+
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            borderColor: 'white',
+          },
+
+          '&.Mui-selected': {
+            color: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            borderColor: 'white',
+
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              borderColor: 'white',
+            },
+          },
+        }}
+        value="check"
+        selected={matchData.showCam}
+        onChange={() => {
+          setMatch((prev) => {
+          if (!prev) return prev;
+
+          const nextState = {
+            ...prev,
+            showCam: !prev.showCam,
+          };
+
+          window.stateAPI.setMatch(nextState);
+          return nextState;
+        });
+        }}
+      >
+        Show caster cameras in game
+      </ToggleButton>
     </Box>
   )
 }

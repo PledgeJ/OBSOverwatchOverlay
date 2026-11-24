@@ -10,6 +10,7 @@ import { Box, Typography } from '@mui/material';
 import { shortenMap } from "@renderer/models/MapList";
 import { TeamPicture } from '@renderer/components/GameOverlay/TeamPicture';
 import { ListenIn } from '@renderer/components/GameOverlay/ListenIn';
+import { InGameCameraGrid } from '@renderer/components/GameOverlay/InGameCameraGrid';
 
 function getColours(colourData: Colours, winner: number): {col: string, textCol: string} {
   let col: string;
@@ -82,17 +83,17 @@ export default function GameOverlay(): React.JSX.Element {
       switch (payload.type) {
         case WS_Type.STATE_UPDATE:
           setMatchData(payload.data);
-          console.log('Updated match state');
+          // console.log('Updated match state');
           break;
 
         case WS_Type.CASTER_UPDATE:
           setCasterData(payload.data);
-          console.log('Updated caster state');
+          // console.log('Updated caster state');
           break;
 
         case WS_Type.COLOUR_UPDATE:
           setColourData(payload.data);
-          console.log('Updated colour state');
+          // console.log('Updated colour state');
           break;
 
         default:
@@ -248,6 +249,8 @@ export default function GameOverlay(): React.JSX.Element {
         </Box>
 
       </Box>
+
+      <InGameCameraGrid casterData={casterData} colour={colourData.matchStats} showCam={matchData.showCam} camSize={250}/>
     </>
   )
 }
