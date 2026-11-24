@@ -31,7 +31,7 @@ export function Cameras({
        {casterData.casters.map((caster, index) => (
           <Box key={index}
             sx={{ backgroundColor: colour, 
-              padding: !mapScreen ? 2.5 : 1.2, borderRadius: 3,  width: !mapScreen ? 600 + (mult[casterData.casters.length] * 100) : 305, 
+              padding: '7px', borderRadius: 3,  width: !mapScreen ? 600 + (mult[casterData.casters.length] * 100) : 305, 
               aspectRatio: '16/9.3', position: 'relative', transition: 'all 0.3s ease'
             }}
           >
@@ -39,17 +39,17 @@ export function Cameras({
               <iframe
                 src={caster.camURL}
                 allow="autoplay; fullscreen; picture-in-picture"
-                style={{ width: '100%', height: '100%', border: 'none' }}
+                style={{ width: '100%', height: '100%', border: 'none', borderRadius: 7 }}
               />
             }
 
             <Box sx={{
-              position: 'absolute', display: 'flex', gap: 2, bottom: 5, left: 10, p: 1, px: 3,
-              backgroundColor: colour, borderTopRightRadius: 10, opacity: !mapScreen ? 100 : 0,
+              position: 'absolute', display: 'flex', gap: 2, bottom: 0, left: 0, p: 1, px: 3,
+              backgroundColor: colour, borderTopRightRadius: 10, borderBottomLeftRadius: 20, opacity: !mapScreen ? 100 : 0,
               transition: 'all 0.1s ease',
             }}>
-              {caster.name != '' && <Typography sx={{ fontSize: 25 }}>{caster.name}</Typography>}
-              {caster.handle != '' && <Typography sx={{ fontSize: 25 }}>{caster.handle != '' ? '@' : ''}{caster.handle}</Typography>}
+              {caster.name != '' && <Typography sx={{ fontSize: 19 }}>{caster.name}</Typography>}
+              {caster.handle != '' && <Typography sx={{ fontSize: 19 }}>{caster.handle != '' ? '@' : ''}{caster.handle}</Typography>}
             </Box>
           </Box>
         ))}

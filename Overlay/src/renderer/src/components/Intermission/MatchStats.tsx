@@ -85,7 +85,7 @@ export function MatchStats({
             }}
           >
 
-            <Typography sx={{ml: 1.5, fontSize: 22}}>{matchData.currMap.firstban == 1 ? '1st Ban:' : '2nd Ban:'}</Typography>
+            <Typography sx={{ml: 1.5, fontSize: 19}}>{matchData.currMap.firstban == 1 ? '1st Ban:' : '2nd Ban:'}</Typography>
             <Box
               component='img'
               src={matchData.currMap.team1ban !== '' && !matchData.mapScreen ? `/heroes/${matchData.currMap.team1ban}.webp`: undefined}
@@ -144,7 +144,7 @@ export function MatchStats({
               display: 'flex', alignItems: 'center', justifyContent: 'space-between'
             }}
           >
-            <Typography sx={{ml: 1.5, fontSize: 22}}>{matchData.currMap.firstban == 2 ? '1st Ban:' : '2nd Ban:'}</Typography>
+            <Typography sx={{ml: 1.5, fontSize: 19}}>{matchData.currMap.firstban == 2 ? '1st Ban:' : '2nd Ban:'}</Typography>
             <Box
               component='img'
               src={matchData.currMap.team2ban !== '' && !matchData.mapScreen ? `/heroes/${matchData.currMap.team2ban}.webp`: undefined}

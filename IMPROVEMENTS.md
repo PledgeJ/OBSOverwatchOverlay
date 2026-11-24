@@ -12,8 +12,9 @@ Thoughts on overlay:
 
 - [ ] Make map and ban transition smoother
 - [ ] Colour option presets
-- [ ] Make things less rounded
+- [x] Make things less rounded
 - [ ] Font
 - [ ] FT4 Map screen
 - [ ] Separate team colours from in game colours
 - [ ] Show map pool
+- [x] Make outlines thinner
