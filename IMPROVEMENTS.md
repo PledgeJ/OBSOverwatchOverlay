@@ -13,7 +13,7 @@ Thoughts on overlay:
 - [ ] Make map and ban transition smoother
 - [ ] Colour option presets
 - [x] Make things less rounded
-- [ ] Font
+- [x] Font
 - [x] FT4 Map screen
 - [x] Separate team colours from in game colours
 - [ ] Show map pool

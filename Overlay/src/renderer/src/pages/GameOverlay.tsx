@@ -159,7 +159,12 @@ export default function GameOverlay(): React.JSX.Element {
                 mr: 1
               }}
             >
-              <Typography variant='h5' sx={{width: 303 + (left.ban === '' ? 63 : 0) + (left.picture === '' ? 63 : 0), color: left.colour.text, transition: 'width 0.5s ease',}}>{left.team.name}</Typography>
+              <Typography variant='h5' 
+                sx={{width: 303 + (left.ban === '' ? 63 : 0) + (left.picture === '' ? 63 : 0), 
+                color: left.colour.text, transition: 'width 0.5s ease', fontWeight: 800,
+              }}>
+                {left.team.name}
+              </Typography>
             </Box>
 
             {/* Team1 Ban */}
@@ -240,7 +245,13 @@ export default function GameOverlay(): React.JSX.Element {
                 ml: 1
               }}
             >
-              <Typography variant='h5' sx={{width: 303 + (right.ban === '' ? 63 : 0) + (right.picture === '' ? 63 : 0), color: right.colour.text, textAlign: 'right', transition: 'width 0.5s ease',}}>{right.team.name}</Typography>
+              <Typography variant='h5' 
+                sx={{
+                  width: 303 + (right.ban === '' ? 63 : 0) + (right.picture === '' ? 63 : 0), 
+                  color: right.colour.text, textAlign: 'right', transition: 'width 0.5s ease', fontWeight: 800
+              }}>
+                {right.team.name}
+              </Typography>
             </Box>
 
             {/* Team2picture */}

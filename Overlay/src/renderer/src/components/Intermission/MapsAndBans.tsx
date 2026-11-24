@@ -62,7 +62,7 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
 
     slots.push(
       <Box key={i} sx={{position: 'relative', width: '100%', height: matchData.mapScreen ? 630 : 41, maxWidth: matchData.ft != 1 ? 500 : 1400, bgcolor: col, opacity: map ? 1 : 0.5, borderRadius: 3, border: `7px solid ${col}`,
-        transition: 'height 0.3s ease-in-out, bgColor 0.3s ease-in-out', overflow: 'hidden'
+        transition: 'height 0.25s ease-in-out, bgColor 0.3s ease-in-out', overflow: 'hidden'
       }}>
         <Typography sx={{textAlign: 'center', pb: 0.7, fontSize: 19,  opacity: map || item ? 1 : 0, transition: 'opacity 0.5s ease-in-out'}}>{map}</Typography>
 

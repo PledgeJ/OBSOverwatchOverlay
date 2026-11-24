@@ -9,14 +9,7 @@ code {
   font-weight: 600;
   padding: 3px 5px;
   border-radius: 2px;
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    SF Mono,
-    Menlo,
-    Consolas,
-    Liberation Mono,
-    monospace;
+  font-family: 'Outfit', sans-serif;
   font-size: 85%;
 }
 
