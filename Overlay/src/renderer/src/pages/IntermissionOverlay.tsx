@@ -6,7 +6,7 @@ import { WS_Type } from '../../../types/enums';
 import { Casters } from '@common/caster.type';
 import { Colours } from '@common/colours.type';
 import { Box } from '@mui/material';
-import { Cameras } from '@renderer/components/Intermission/Cameras';
+import { IntermissionCameraGrid } from '@renderer/components/Intermission/IntermissionCameraGrid';
 import { MatchStats } from '@renderer/components/Intermission/MatchStats';
 import { MapsAndBans } from '@renderer/components/Intermission/MapsAndBans';
 
@@ -70,7 +70,7 @@ export default function IntermissionOverlay(): React.JSX.Element {
         }}
       >
         <Box sx={{ position: 'absolute', top: matchData.mapScreen ? 0 : 55 }}>
-          <Cameras casterData={casterData} colour={colourData.matchStats} mapScreen={matchData.mapScreen} />
+          <IntermissionCameraGrid casterData={casterData} colour={colourData.matchStats} smallCam={matchData.mapScreen} />
         </Box>
 
         <Box sx={{ position: 'absolute', top: matchData.mapScreen ? 215 : 30, width: '100%', transition: 'top 0.3s ease-in-out', overflow: 'hidden'}}>
