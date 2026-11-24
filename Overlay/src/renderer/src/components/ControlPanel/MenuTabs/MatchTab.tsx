@@ -436,7 +436,7 @@ export function MatchTab({
               </Box>
             </Box>
             
-            <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
+            {map.team1ban && <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
               <Typography>Team1 ban: </Typography>
               <Box
                 component='img'
@@ -448,9 +448,9 @@ export function MatchTab({
                   border: `${colourData.team1} 3px solid`
                 }}
               />
-            </Box>
+            </Box>}
 
-            <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
+            {map.team2ban && <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
               <Typography>Team2 ban: </Typography>
               <Box
                 component='img'
@@ -462,7 +462,7 @@ export function MatchTab({
                   border: `${colourData.team2} 3px solid`
                 }}
               />
-            </Box>
+            </Box>}
           </Box>
         ))}
       </Box>
