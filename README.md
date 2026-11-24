@@ -8,6 +8,7 @@
 - Set width and height of the sources to 1920 x 1080 respectively
 - Size to scene
 <br>
+
 - When opening back up OBS, start up the control panel, and then refresh the browser source
 
 ## Summary
@@ -39,4 +40,3 @@ In this example, I used a batch file given to me by <a href="https://github.com/
 <img src="Screenshots/initial-info-tab.png" width="700">
 <br>
 <img src="Screenshots/colour-tab.png" width="700">
-

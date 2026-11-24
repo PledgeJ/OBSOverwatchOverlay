@@ -61,9 +61,11 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
     }
 
     slots.push(
-      <Box key={i} sx={{position: 'relative', width: '100%', height: matchData.mapScreen ? 630 : 0, maxWidth: 900, bgcolor: col, opacity: map ? 1 : 0.5, borderRadius: 3, border: `7px solid ${col}`,
-        transition: 'height 0.3s ease-in-out, bgColor 0.3s ease-in-out'
+      <Box key={i} sx={{position: 'relative', width: '100%', height: matchData.mapScreen ? 630 : 41, maxWidth: matchData.ft != 1 ? 500 : 1400, bgcolor: col, opacity: map ? 1 : 0.5, borderRadius: 3, border: `7px solid ${col}`,
+        transition: 'height 0.3s ease-in-out, bgColor 0.3s ease-in-out', overflow: 'hidden'
       }}>
+        <Typography sx={{textAlign: 'center', pb: 0.7, fontSize: 19,  opacity: !map ? 0 : !item ? 1 : 0, transition: 'opacity 0.5s ease-in-out'}}>{map}</Typography>
+
         <Box
           component='img'
           src={map ? `/maps/${map}.webp` : undefined}
@@ -79,10 +81,10 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
 
         {matchData.mapScreen && 
         <>
-          <Box sx={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center', bottom: 20, gap: 3 }}>
+          <Box sx={{ position: 'absolute', width: '100%', display: 'flex', flexDirection: matchData.ft == 4 ? 'column' : 'row', justifyContent: 'center', bottom: 20, gap: 3 }}>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
-              {(firstBan != -1 && ban1 != '') && <Typography sx={{bgcolor: colourData.team1, p: 1, fontSize: 20, color: colourData.team1Text}}>{firstBan == 1 ? '1st' : firstBan == 2? '2nd' : ''}</Typography>}
-              <TeamPicture path={`/heroes/${ban1}.webp`} colour={colourData.team1} side={"left"} show={ban1 != ''}/>
+              {(firstBan != -1 && ban1 != '') && <Typography sx={{bgcolor: colourData.team1, p: 1, fontSize: 20, color: colourData.team1Text, order: matchData.ft != 4 ? 0 : 1}}>{firstBan == 1 ? '1st' : firstBan == 2? '2nd' : ''}</Typography>}
+              <TeamPicture path={`/heroes/${ban1}.webp`} colour={colourData.team1} side={matchData.ft != 4 ? "left" : 'right'} show={ban1 != ''}/>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', scale: 1.2 }}>
               <TeamPicture path={`/heroes/${ban2}.webp`} colour={colourData.team2} side={"right"} show={ban2 != ''}/>
@@ -95,8 +97,8 @@ function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
               component='img'
               src={winner == 1 ? matchData.team1.picture : winner == 2 ? matchData.team2.picture : undefined}
               sx={{
-                width: 130,
-                height: 130,
+                width: 180,
+                height: 180,
                 bgcolor: `color-mix(in srgb, ${col}, black 25%)`,
                 border: winner != -1 ? `4px solid ${col}` : 'transparent',
                 borderRadius: 1,

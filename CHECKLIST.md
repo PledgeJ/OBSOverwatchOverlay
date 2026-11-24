@@ -6,7 +6,7 @@
 
 ## Control panel checklist
 - [ ] Option to change PORT number for overlays / error handling if the port is already in use
-- [ ] Showing where the overlays are saved / how to use them / copy them (Intermission layer order goes background image, cameras, overlay)
+- [x] Showing where the overlays are saved / how to use them / copy them (Intermission layer order goes background image, cameras, overlay)
 - [x] Saving the current setup
 - [x] Reset score button
 - [x] Rollback previous button (since you have to click which team won, not change the scores individually)
@@ -36,9 +36,9 @@ KEEP IN MIND THAT THE USER IS ABLE TO SAVE A MAP THAT HAD NO BANS
 - [ ] Cameras (show and hide)
 
 ## Intermission checklist
-- [ ] Map and bans / who won each
+- [x] Map and bans / who won each
     - One full screen one, one smaller one
-- [ ] Current bans
+- [x] Current bans
 - [ ] Switching between caster view and the other screens with transition
 - [ ] Roster screen
 - [ ] A popup with a person being interviewed

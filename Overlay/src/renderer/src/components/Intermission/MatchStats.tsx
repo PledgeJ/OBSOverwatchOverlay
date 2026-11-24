@@ -21,24 +21,6 @@ export function MatchStats({
     >
       <Box
         sx={{
-          width: '100%', height: 60, zIndex: 1,
-          display: 'flex', justifyContent: 'center', alignItems: 'center',
-          transform: matchData.currMap.map !== '' && !matchData.mapScreen ? 'translateY(0)' : 'translateY(70px)', 
-          transition: 'transform 0.3s ease'
-        }}
-      >
-        <Typography 
-          sx={{ 
-            fontSize: 35, lineHeight: 1.85, backgroundColor: colourData.matchStats, width: 600, textAlign: 'center', pt: 1,
-            borderTopLeftRadius: 10, borderTopRightRadius: 10,
-         }}
-        >
-          {matchData.currMap.map}
-        </Typography>
-      </Box>
-
-      <Box
-        sx={{
           display: 'flex', justifyContent: 'space-between', gap: 5, alignItems: 'center',
           backgroundColor: colourData.matchStats, padding: 5, py: 6, borderRadius: 3, zIndex: 2,
           mx: (matchData.currMap.team1ban || matchData.currMap.team2ban) && !matchData.mapScreen ? 3 : 25,
