@@ -51,7 +51,9 @@ export default function IntermissionOverlay(): React.JSX.Element {
     return <h1>Loading...</h1>
   }
 
-  
+  let statsMargin = 30
+  if (casterData.casters.length == 3) statsMargin = 100
+  if (matchData.mapScreen) statsMargin = 30
 
   return (
     <>
@@ -75,7 +77,7 @@ export default function IntermissionOverlay(): React.JSX.Element {
           <MapsAndBans matchData={matchData} colourData={colourData}/>
         </Box>
         
-        <Box sx={{ position: 'absolute', bottom: casterData.casters.length != 3 || matchData.mapScreen ? 50 : 100, width: '100%',
+        <Box sx={{ position: 'absolute', bottom: statsMargin, width: '100%',
           transition: 'bottom 0.3s ease'
          }}>
           <MatchStats matchData={matchData} colourData={colourData} />

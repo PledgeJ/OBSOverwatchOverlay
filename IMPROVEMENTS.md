@@ -1,5 +1,5 @@
 Thoughts on overlay:
-- [ ] Handling no bans
+- [x] Handling no bans
 - [ ] Need an icon for when the team doesn't have an icon
 - [x] Need to make the map pictures smaller when its 2/3 maps
 - [x] Make it full width when its FT1
