@@ -22,7 +22,7 @@ export function Camera({
     <Box key={index}
       sx={{ backgroundColor: colour, 
         padding: '7px', borderRadius: 3,  width: width, 
-        position: 'relative', transition: 'all 0.3s ease'
+        position: 'relative', transition: 'color 0.3s ease'
       }}
     >
       {caster.url != '' ? (
@@ -44,7 +44,7 @@ export function Camera({
       <Box sx={{
         position: 'absolute', display: 'flex', gap: 2, bottom: 3, left: 5, py: 0.7, pl: 1.5, pr: 2,
         backgroundColor: colour, borderTopRightRadius: 10, borderBottomLeftRadius: 5, opacity: showText ? 100 : 0,
-        transition: 'all 0.1s ease',
+        transition: 'color 0.1s ease',
       }}>
         {caster.name != '' && <Typography sx={{ fontSize: 18 }}>{caster.name}</Typography>}
         {caster.handle != '' && <Typography sx={{ fontSize: 18 }}>{caster.handle != '' ? '@' : ''}{caster.handle}</Typography>}

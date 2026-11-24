@@ -24,9 +24,9 @@ export function IntermissionCameraGrid({
         sx={{
           width: '98vw',
           height: '80%',
-          borderRadius: 1, mx: '1vw', mt: smallCam ? 2 : (casterData.casters.length == 2 || casterData.casters.length == 3) ? 25 : 4,
+          borderRadius: 1, mx: '1vw', mt: smallCam ? 2 : (casterData.casters.length == 2 || casterData.casters.length == 3) ? 25 : 7,
           display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: !smallCam ? 4 : 1, flexWrap: 'wrap',
-          alignContent: 'flex-start', transition: 'all 0.3s ease'
+          alignContent: 'flex-start'
         }}
       >
        {casterData.casters.map((caster, index) => (
