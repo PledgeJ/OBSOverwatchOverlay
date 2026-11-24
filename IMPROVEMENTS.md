@@ -15,7 +15,7 @@ Thoughts on overlay:
 - [x] Make things less rounded
 - [ ] Font
 - [x] FT4 Map screen
-- [ ] Separate team colours from in game colours
+- [x] Separate team colours from in game colours
 - [ ] Show map pool
 - [x] Make outlines thinner
-- [ ] Change colour of currently playing map on inGame
+- [x] Change colour of currently playing map on inGame

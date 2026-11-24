@@ -35,6 +35,7 @@ export const DEFAULT_COLOUR_STATE: Colours = {
   accent: '#deb408',
   secondary: '#198a59',
   matchStats: '#0b3624',
+  inGame: {team1: '#1e95c4', team1Text: '#e0e0e0', team2: '#c56ac5', team2Text: '#e0e0e0'}
 }
 
 export const DEFAULT_CASTER_STATE: Casters = {

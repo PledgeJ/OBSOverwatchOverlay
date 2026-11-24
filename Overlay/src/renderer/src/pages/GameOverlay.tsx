@@ -28,8 +28,8 @@ function getColours(colourData: Colours, winner: number): {col: string, textCol:
       break
 
     default:
-      col = '#e0e0e0';
-      textCol = '#808080';
+      col = '#1a1a1a';
+      textCol = '#c0c0c0';
   }
 
   return {col, textCol}
@@ -112,12 +112,12 @@ export default function GameOverlay(): React.JSX.Element {
   const slots = setSlots(matchData, colourData);
 
   const left = matchData.isFlipped ? 
-  { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.team2, text: colourData.team2Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture } : 
-  { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.team1, text: colourData.team1Text}, listenin: matchData.listenin.team1, picture: matchData.team1.picture }; 
+  { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.inGame.team2, text: colourData.inGame.team2Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture } : 
+  { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.inGame.team1, text: colourData.inGame.team1Text}, listenin: matchData.listenin.team1, picture: matchData.team1.picture }; 
 
   const right = matchData.isFlipped ? 
-  { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.team1, text: colourData.team1Text}, listenin: matchData.listenin.team1, picture: matchData.team1.picture } :
-  { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.team2, text: colourData.team2Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture }; 
+  { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.inGame.team1, text: colourData.inGame.team1Text}, listenin: matchData.listenin.team1, picture: matchData.team1.picture } :
+  { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.inGame.team2, text: colourData.inGame.team2Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture }; 
 
   return (
     <>

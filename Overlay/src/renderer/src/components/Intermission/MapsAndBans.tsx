@@ -26,7 +26,7 @@ function getColours(colourData: Colours, winner: number): {col: string, textCol:
       break
 
     default:
-      col = '#000000';
+      col = '#1a1a1a';
       textCol = '#808080';
   }
 

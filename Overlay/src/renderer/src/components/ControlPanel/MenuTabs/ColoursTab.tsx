@@ -55,30 +55,6 @@ export function ColoursTab({
           </Box>
 
           <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
-            {/* Team 2 colour */}
-            <input 
-              type='color'
-              value={colourData.team2}
-              onChange={(e) => {
-                const newVal = e.target.value;
-
-                setColours((prev) => {
-                if (!prev) return null;
-
-                const nextState = {
-                  ...prev,
-                  team2: newVal,
-                };
-
-                window.stateAPI.setColour(nextState);
-                return nextState;
-              });
-              }}
-            />
-            <Typography>Team2: {colourData.team2}</Typography>
-          </Box>
-
-          <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
             {/* Team 1 text */}
             <input 
               type='color'
@@ -100,6 +76,30 @@ export function ColoursTab({
               }}
             />
             <Typography>Team1 text: {colourData.team1Text}</Typography>
+          </Box>
+
+          <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
+            {/* Team 2 colour */}
+            <input 
+              type='color'
+              value={colourData.team2}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  team2: newVal,
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+            <Typography>Team2: {colourData.team2}</Typography>
           </Box>
           
           <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
@@ -226,8 +226,109 @@ export function ColoursTab({
             />
             <Typography>Tertiary: {colourData.matchStats}</Typography>
           </Box>
+        </Box>
+
+        <Box>
+          <Typography>In Game</Typography>
+
+          <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
+            {/* In Game team 1 */}
+            <input 
+              type='color'
+              value={colourData.inGame.team1}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  inGame: {...prev.inGame, team1: newVal},
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+            <Typography>Team1: {colourData.inGame.team1}</Typography>
+          </Box>
+
+          <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
+            {/* In Game text team1 */}
+            <input 
+              type='color'
+              value={colourData.inGame.team1Text}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  inGame: {...prev.inGame, team1Text: newVal},
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+            <Typography>Team1 text: {colourData.inGame.team1Text}</Typography>
+          </Box>
+            
+          <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
+            {/* In Game team 2 */}
+            <input 
+              type='color'
+              value={colourData.inGame.team2}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  inGame: {...prev.inGame, team2: newVal},
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+            <Typography>Team2: {colourData.inGame.team2}</Typography>
+          </Box>
+
+          <Box sx={{display: 'flex', alignItems: 'center', gap:1}}>
+            {/* In Game text team2 text */}
+            <input 
+              type='color'
+              value={colourData.inGame.team1Text}
+              onChange={(e) => {
+                const newVal = e.target.value;
+
+                setColours((prev) => {
+                if (!prev) return null;
+
+                const nextState = {
+                  ...prev,
+                  inGame: {...prev.inGame, team2Text: newVal},
+                };
+
+                window.stateAPI.setColour(nextState);
+                return nextState;
+              });
+              }}
+            />
+            <Typography>Team2 text: {colourData.inGame.team2Text}</Typography>
+          </Box>
 
         </Box>
+
       </Box>
     </Box>
   )
