@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import './assets/main.css'
 
 import { StrictMode } from 'react'

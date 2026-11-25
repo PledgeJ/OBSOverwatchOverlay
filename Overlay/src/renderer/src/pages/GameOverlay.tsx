@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 
-import type { Match } from '@common/match.type';
+import type { Match, Team } from '@common/match.type';
 import type { Casters } from '@common/caster.type';
 import type { Colours } from '@common/colours.type';
 import { WS_Type } from '../../../types/enums';
@@ -12,37 +12,35 @@ import { TeamPicture } from '@renderer/components/GameOverlay/TeamPicture';
 import { ListenIn } from '@renderer/components/GameOverlay/ListenIn';
 import { InGameCameraGrid } from '@renderer/components/GameOverlay/InGameCameraGrid';
 
-function getColours(colourData: Colours, winner: number): {col: string, textCol: string} {
-  let col: string;
-  let textCol: string;
+interface sideColour {
+  team: string;
+  text: string;
+}
 
-  switch (winner) {
-    case (1):
-      col = colourData.team1;
-      textCol = colourData.team1Text;
-      break
-    
-    case(2):
-      col = colourData.team2;
-      textCol = colourData.team2Text;
-      break
+interface Side {
+  team: Team;
+  ban: string;
+  colour: sideColour;
+  listenin: boolean;
+  picture: string;
+}
 
-    default:
-      col = '#1a1a1a';
-      textCol = '#c0c0c0';
-  }
+function getColours(left: sideColour, right: sideColour, winner: number, isFlipped: boolean): {col: string, textCol: string} {
+  const winningSide = (winner === 1 !== isFlipped) ? left : right;
+  const col = winner === -1 ? '#1a1a1a' : winningSide.team;
+  const textCol = winner === -1 ? '#c0c0c0' : winningSide.text;
 
   return {col, textCol}
 }
 
-function setSlots(matchData: Match, colourData: Colours): React.ReactNode[] {
+function setSlots(matchData: Match, left: sideColour, right: sideColour, isFlipped): React.ReactNode[] {
   const slots: React.ReactNode[] = [];
 
   for (let i = 0; i < matchData.ft * 2 - 1; i++) {
     const item = matchData.prevMaps?.[i];
     const winner = item?.winner ?? -1;
 
-    const { col, textCol } = getColours(colourData, winner);
+    const { col, textCol } = getColours(left, right, winner, isFlipped);
 
     let map = '';
     if (item) { map = item.map }
@@ -109,15 +107,15 @@ export default function GameOverlay(): React.JSX.Element {
     return <h1>Loading...</h1>
   }
 
-  const slots = setSlots(matchData, colourData);
-
-  const left = matchData.isFlipped ? 
-  { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.inGame.team2, text: colourData.inGame.team2Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture } : 
+  const left: Side = matchData.isFlipped ? 
+  { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.inGame.team1, text: colourData.inGame.team1Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture } : 
   { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.inGame.team1, text: colourData.inGame.team1Text}, listenin: matchData.listenin.team1, picture: matchData.team1.picture }; 
 
-  const right = matchData.isFlipped ? 
-  { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.inGame.team1, text: colourData.inGame.team1Text}, listenin: matchData.listenin.team1, picture: matchData.team1.picture } :
+  const right: Side = matchData.isFlipped ? 
+  { team: matchData.team1, ban: matchData.currMap.team1ban, colour: {team: colourData.inGame.team2, text: colourData.inGame.team2Text}, listenin: matchData.listenin.team1, picture: matchData.team1.picture } :
   { team: matchData.team2, ban: matchData.currMap.team2ban, colour: {team: colourData.inGame.team2, text: colourData.inGame.team2Text}, listenin: matchData.listenin.team2, picture: matchData.team2.picture }; 
+
+  const slots = setSlots(matchData, left.colour, right.colour, matchData.isFlipped);
 
   return (
     <>
