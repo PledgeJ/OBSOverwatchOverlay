@@ -30,13 +30,17 @@ In this example, I used a batch file given to me by <a href="https://github.com/
 - Caster cameras, names, and handles
 - An intermission screen showing maps and bans
 
-<br>
-<img src="Screenshots/ingame.png" width="700">
-<br>
-<img src="Screenshots/intermission-caster.png" width="700">
-<br>
-<img src="Screenshots/intermission-mapandban.png" width="700">
-<br>
-<img src="Screenshots/initial-info-tab.png" width="700">
-<br>
-<img src="Screenshots/colour-tab.png" width="700">
+<img src="Screenshots/mapscreen.png" width="800">
+<img src="Screenshots/fullcam.png" width="800">
+<img src="Screenshots/ingame1.png" width="800">
+<img src="Screenshots/ingame2.png" width="800">
+
+<div>
+    <img src="Screenshots/ui1.png" width="400">
+    <img src="Screenshots/ui2.png" width="400">
+</div>
+<div>
+    <img src="Screenshots/ui3.png" width="400">
+    <img src="Screenshots/ui4.png" width="400">
+</div>
+

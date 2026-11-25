@@ -11,7 +11,7 @@ Thoughts on overlay:
 - [ ] No camera option
 
 - [ ] Make map and ban transition smoother
-- [ ] Colour option presets
+- [x] Colour option presets
 - [x] Make things less rounded
 - [x] Font
 - [x] FT4 Map screen
