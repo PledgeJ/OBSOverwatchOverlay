@@ -1,5 +1,5 @@
 # OBS Overlay for Overwatch
-#### PledgeJ | Version 2
+#### PledgeJ | Version 2.2.0
 
 ---
 
