@@ -31,10 +31,10 @@ export const DEFAULT_COLOUR_STATE: Colours = {
   team1Text: '#e0e0e0',
   team2: '#c56ac5',
   team2Text: '#e0e0e0',
-  main: '#065434',
-  accent: '#deb408',
-  secondary: '#198a59',
-  matchStats: '#0b3624',
+  main: '#253756',
+  accent: '#a4c7f4',
+  secondary: '#192943',
+  matchStats: '#152237',
   inGame: {team1: '#1e95c4', team1Text: '#e0e0e0', team2: '#c56ac5', team2Text: '#e0e0e0'}
 }
 
